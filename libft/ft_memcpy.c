@@ -6,22 +6,37 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:24:56 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/14 19:25:46 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/03/15 19:43:27 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void    *memcpy(void *restrict dst, const void *restrict src, size_t n)
+void	*ft_memcpy(void *restrict dst, const void *restrict src, size_t n)
 {
-    void *dst1;
-    void *src1;
 
-    if (*dst == *src)
-        return dst;
+	size_t i;
 
-    *dst1 = dst;
-    *src1 = src;
+	i = 0;
+	while (i != n)
+	{
+		*((unsigned char *)dst + i) = *((unsigned char *)src + i);
+		i++;
+	}
+	return dst;    
+}
 
-    return dst;    
+//TODO : study how can solve it with restrict
+#include <stdio.h>
+int main()
+{
+	char *arr = "abc";
+	char *arr2 = "aaa";
+
+	unsigned int a = 3;
+
+	char *ret = ft_memcpy(arr, arr2, a);
+
+	printf("%c", *ret);
+	return 0;
 }

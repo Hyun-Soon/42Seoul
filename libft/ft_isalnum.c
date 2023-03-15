@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:24:18 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/14 19:39:42 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/03/15 14:46:18 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@ int ft_isalnum(int c)
     return (ft_isalpha(c) || ft_isdigit(c));
 }
 
-#include <stdio.h>
-int main()
-{
-    printf("%d", ft_isalnum(3));
-    return 0;
-}
+
+// #include <stdio.h>
+// int main()
+// {
+//     printf("%d", ft_isalnum(97));
+//     return 0;
+// }

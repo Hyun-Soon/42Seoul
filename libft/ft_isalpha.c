@@ -6,11 +6,11 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:54:35 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/14 15:08:20 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/03/15 18:03:40 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int ft_isalpha(int c)
+int  ft_isalpha(int c)
 {
     if (c >= 65 && c < 65 + 26)
         return (1);
@@ -20,3 +20,14 @@ int ft_isalpha(int c)
 
     return (0);
 }
+
+
+// #include <stdio.h>
+// int main()
+// {
+//     char a = '3';
+//     printf("%d", ft_isalpha(a));
+
+
+//     return 0;
+// }

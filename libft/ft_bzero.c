@@ -6,24 +6,34 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:22:26 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/14 19:36:02 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/03/15 18:00:44 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void    bzero(void *s, size_t n)
+void	bzero(void *s, size_t n)
 {
-    int *temp;
+	int *temp;
 
-    temp = s;
-    if (n > 0)
-    {
-        while (n--)
-        {
-            *temp = 0;
-            temp++;
-        }
-    }
-    return ;
+	temp = s;
+	if (n > 0)
+	{
+		while (n--)
+		{
+			*temp = 0;
+			temp++;
+		}
+	}
+	return ;
 }
+
+
+// int main()
+// {
+//     char arr[4] = "abc\0";
+
+//     bzero(arr, 4);
+
+//     return 0;
+// }
