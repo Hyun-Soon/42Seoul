@@ -1,5 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/macos,c
-# Edit at https://www.toptal.com/developers/gitignore?templates=macos,c
+# Created by https://www.toptal.com/developers/gitignore/api/macos,windows,c,c++
+# Edit at https://www.toptal.com/developers/gitignore?templates=macos,windows,c,c++
 
 ### C ###
 # Prerequisites
@@ -55,6 +55,25 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+### C++ ###
+# Prerequisites
+
+# Compiled Object files
+*.slo
+
+# Precompiled Headers
+
+# Compiled Dynamic libraries
+
+# Fortran module files
+*.mod
+*.smod
+
+# Compiled Static libraries
+*.lai
+
+# Executables
+
 ### macOS ###
 # General
 .DS_Store
@@ -88,4 +107,30 @@ Temporary Items
 # iCloud generated files
 *.icloud
 
-# End of https://www.toptal.com/developers/gitignore/api/macos,c
+### Windows ###
+# Windows thumbnail cache files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+
+# Dump file
+*.stackdump
+
+# Folder config file
+[Dd]esktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# End of https://www.toptal.com/developers/gitignore/api/macos,windows,c,c++
