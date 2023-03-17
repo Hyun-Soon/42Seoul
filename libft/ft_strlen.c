@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:57:55 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/14 16:14:46 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/03/17 14:45:37 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-size_t	strlen(const char *s)
+#include "libft.h"
+
+size_t	ft_strlen(const char *s)
 {
     int cnt;
 
     cnt = 0;
-    while (*(s + cnt) != 0)
+    while (*(s + cnt))
         cnt++;
 
     return (cnt);
