@@ -1,18 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isprint.c                                       :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 15:45:16 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/21 15:45:05 by hyuim            ###   ########.fr       */
+/*   Created: 2023/03/22 16:17:29 by hyuim             #+#    #+#             */
+/*   Updated: 2023/03/22 17:09:50 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isprint(int c)
+#include "libft.h"
+
+void	*calloc(size_t count, size_t size)
 {
-	if (c >= 32 && c < 127)
-		return (1);
-	return (0);
+	char			*ret;
+	unsigned int	i;
+
+	i = 0;
+	ret = (char *)malloc(count * size);
+	if (ret)
+	{
+		while (i < count * size)
+		{
+			*(ret + i) = 0;
+			i++;
+		}
+	}
+	return ((void *)ret);
 }

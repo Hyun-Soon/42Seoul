@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:11:31 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/17 15:17:22 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/03/21 15:47:07 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	{
 		i++;
 	}
+	//TODO : rm comment
 	while (*(src + i) && i + 1 < dstsize) //dstsize - 1 하면 dstsize = 0일 때 언더플로우 날 수 있다.
 	{
 		*(dst + i++) = *src++;
@@ -40,12 +41,12 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	}
 }
 
-#include <stdio.h>
-int main()
-{
-	char arr1[8] = "a";
-	char arr2[6] = "";
-	printf("%zu\n", ft_strlcat(arr1, arr2, 5));
-	printf("%s\n", arr1);
-	return (0);
-}
+// #include <stdio.h>
+// int main()
+// {
+// 	char arr1[8] = "a";
+// 	char arr2[6] = "";
+// 	printf("%zu\n", ft_strlcat(arr1, arr2, 5));
+// 	printf("%s\n", arr1);
+// 	return (0);
+// }

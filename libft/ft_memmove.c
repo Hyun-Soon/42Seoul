@@ -6,20 +6,19 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:24:42 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/21 14:35:45 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/03/21 15:45:49 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void *ft_memmove(void *dst, const void *src, size_t len)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	char *dst_;
-	const char *src_;
+	char		*dst_;
+	const char	*src_;
 
 	dst_ = (char *)dst;
 	src_ = (const char *)src;
-
 	if (dst_ <= src_)
 	{
 		while (len--)

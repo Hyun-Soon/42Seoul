@@ -1,18 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isprint.c                                       :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 15:45:16 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/21 15:45:05 by hyuim            ###   ########.fr       */
+/*   Created: 2023/03/22 15:51:40 by hyuim             #+#    #+#             */
+/*   Updated: 2023/03/22 16:07:32 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isprint(int c)
+#include "libft.h"
+
+int	atoi(const char *str)
 {
-	if (c >= 32 && c < 127)
-		return (1);
-	return (0);
+	int			sign;
+	long long	ret;
+
+	ret = 0;
+	sign = 1;
+	while (*str >= 9 && *str <= 13 || *str == 32)
+	{
+		str++;
+	}
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			sign *= -1;
+		str++;
+	}
+	while (*str >= '0' && *str <= '9')
+	{
+		ret = ret * 10 + (long long)*str;
+		str++;
+	}
+	return (sign * ret);
 }

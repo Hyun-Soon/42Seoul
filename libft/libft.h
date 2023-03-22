@@ -6,25 +6,33 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:36:28 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/21 14:49:33 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/03/21 18:05:40 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
-#define LIBFT_H
-#include <stdlib.h>
+# define LIBFT_H
+# include <stdlib.h>
 
 void	ft_bzero(void *s, size_t n);
-int	ft_isalnum(int c);
-int	ft_isalpha(int c);
-int	ft_isascii(int c);
-int	ft_isdigit(int c);
-int	ft_isprint(int c);
-void *ft_memcpy(void *restrict dst, const void *restrict src, size_t n);
-void *ft_memset(void *b, int c, size_t len);
+int		ft_isalnum(int c);
+int		ft_isalpha(int c);
+int		ft_isascii(int c);
+int		ft_isdigit(int c);
+int		ft_isprint(int c);
+void	*ft_memcpy(void *restrict dst, const void *restrict src, size_t n);
+void	*ft_memset(void *b, int c, size_t len);
 size_t	ft_strlen(const char *s);
-void *ft_memmove(void *dst, const void *src, size_t len);
+void	*ft_memmove(void *dst, const void *src, size_t len);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
+int		ft_toupper(int c);
+int		ft_tolower(int c);
+char	*strchr(const char *s, int c);
+char	*ft_strrchr(const char *s, int c);
+int		strncmp(const char *s1, const char *s2, size_t n);
+void	*memchr(const void *s, int c, size_t n);
+int		memcmp(const void *s1, const void *s2, size_t n);
+//TODO :: add strnstr~
 
 #endif

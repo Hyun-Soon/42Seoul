@@ -1,45 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/21 14:37:08 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/21 15:47:19 by hyuim            ###   ########.fr       */
+/*   Created: 2023/03/21 16:11:02 by hyuim             #+#    #+#             */
+/*   Updated: 2023/03/22 15:35:38 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+int	strncmp(const char *s1, const char *s2, size_t n)
 {
-	size_t	i;
-	size_t	len;
+	int	i;
 
 	i = 0;
-	while (*(src + i) && i < dstsize)
+	while (n--)
 	{
-		*(dst + i) = *(src + i);
+		if (*(s1 + i) != *(s2 + i))
+			return (*(s1 + i) - *(s2 + i));
 		i++;
 	}
-	len = i;
-	while (i != dstsize)
-	{
-		*(dst + i++) = 0;
-	}
-	return (len);
+	return (0);
 }
-
-// #include <stdio.h>
-// int main()
-// {
-// 	char arr[5];
-// 	char src[] = "abc";
-
-// 	int ret = ft_strlcpy(arr, src, 5);
-// 	printf("%d\n", *(src + 3));
-// 	printf("%s\n", arr);
-// 	printf("%d", ret);
-// 	return 0;
-// }

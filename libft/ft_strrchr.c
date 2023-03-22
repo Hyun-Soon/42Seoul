@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isprint.c                                       :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 15:45:16 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/21 15:45:05 by hyuim            ###   ########.fr       */
+/*   Created: 2023/03/21 15:57:15 by hyuim             #+#    #+#             */
+/*   Updated: 2023/03/21 16:10:43 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isprint(int c)
+#include "libft.h"
+
+char	*ft_strrchr(const char *s, int c)
 {
-	if (c >= 32 && c < 127)
-		return (1);
-	return (0);
+	const char	*ret;
+
+	ret = NULL;
+	while (*s)
+	{
+		if (*s == c)
+			ret = s;
+		s++;
+	}
+	return (ret);
 }
