@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_isin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/21 17:04:36 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/22 18:33:02 by hyuim            ###   ########.fr       */
+/*   Created: 2023/03/24 16:32:45 by hyuim             #+#    #+#             */
+/*   Updated: 2023/03/24 16:34:53 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+int	ft_isin(char c, char *set)
 {
-	unsigned char	*temp1;
-	unsigned char	*temp2;
-
-	temp1 = (unsigned char *)s1;
-	temp2 = (unsigned char *)s2;
-	while (n--)
+	while (*set)
 	{
-		if (*temp1 != *temp2)
-			return (*temp1 - *temp2);
-		temp1++;
-		temp2++;
+		if (c == *set)
+			return (1);
+		set++;
 	}
 	return (0);
 }
-
-//DESCRIPTION : Both strings are assumed to be n bytes long.

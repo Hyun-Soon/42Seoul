@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:24:42 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/21 15:45:49 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/03/22 19:50:32 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	{
 		while (len--)
 		{
-			printf("%zu\n", len);
 			*(dst_ + len) = *(src_ + len);
 		}
 	}

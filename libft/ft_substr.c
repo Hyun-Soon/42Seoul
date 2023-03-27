@@ -1,32 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/21 17:04:36 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/22 18:33:02 by hyuim            ###   ########.fr       */
+/*   Created: 2023/03/23 16:40:25 by hyuim             #+#    #+#             */
+/*   Updated: 2023/03/24 14:04:01 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	unsigned char	*temp1;
-	unsigned char	*temp2;
+	size_t	i;
+	size_t	sub_len;
+	char	*ret;
 
-	temp1 = (unsigned char *)s1;
-	temp2 = (unsigned char *)s2;
-	while (n--)
+	i = 0;
+	sub_len = ft_strlen(s + start);
+	if (len < sub_len)
+		sub_len = len;
+	ret = (char *)malloc(sizeof(char) * (sub_len + 1));
+	if (ret)
 	{
-		if (*temp1 != *temp2)
-			return (*temp1 - *temp2);
-		temp1++;
-		temp2++;
+		while (*(s + i) && i < sub_len)
+		{
+			*(ret + i) = *(s + i);
+			i++;
+		}
 	}
-	return (0);
+	return (ret);
 }
-
-//DESCRIPTION : Both strings are assumed to be n bytes long.

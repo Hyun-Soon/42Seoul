@@ -1,38 +1,49 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/22 15:51:40 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/24 15:15:41 by hyuim            ###   ########.fr       */
+/*   Created: 2023/03/27 15:35:03 by hyuim             #+#    #+#             */
+/*   Updated: 2023/03/27 16:55:50 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+char	*ft_itoa(int n)
 {
-	int			sign;
-	long long	ret;
+	int		cnt;
+	char	*ret;
+	int		i;
+	int		temp;
 
-	ret = 0;
-	sign = 1;
-	while (*str >= 9 && (*str <= 13 || *str == 32))
+	cnt = 0;
+	i = 0;
+	temp = ft_abs(n);
+	if (n < 0)
+		cnt++;
+	while (temp > 0)
 	{
-		str++;
+		temp /= 10;
+		cnt++;
 	}
-	if (*str == '-' || *str == '+')
+	ret = (char *)malloc(sizeof(char) * (cnt + 1));
+	*(ret + cnt) = 0;
+	while (cnt--)
 	{
-		if (*str == '-')
-			sign *= -1;
-		str++;
+		*(ret + cnt) = (ft_abs(n) % 10) + '0';
+		n /= 10;
 	}
-	while (*str >= '0' && *str <= '9')
-	{
-		ret = ret * 10 + (long long)*str;
-		str++;
-	}
-	return (sign * ret);
+	if (*ret == '0')
+		*ret = '-';
+	return (ret);
 }
+
+// int main()
+// {
+// 	char *arr = ft_itoa(1200);
+// 	printf("%s", arr);
+// 	return 0;
+// }

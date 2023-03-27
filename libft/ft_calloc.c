@@ -6,13 +6,13 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 16:17:29 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/22 17:09:50 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/03/22 18:31:36 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*calloc(size_t count, size_t size)
+void	*ft_calloc(size_t count, size_t size)
 {
 	char			*ret;
 	unsigned int	i;

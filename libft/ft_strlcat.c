@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:11:31 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/21 15:47:07 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/03/24 14:04:53 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	{
 		i++;
 	}
-	//TODO : rm comment
-	while (*(src + i) && i + 1 < dstsize) //dstsize - 1 하면 dstsize = 0일 때 언더플로우 날 수 있다.
+	while (*(src + i) && i + 1 < dstsize)
 	{
 		*(dst + i++) = *src++;
 	}

@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memcmp.c                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/21 17:04:36 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/22 18:33:02 by hyuim            ###   ########.fr       */
+/*   Created: 2023/03/27 16:56:32 by hyuim             #+#    #+#             */
+/*   Updated: 2023/03/27 19:43:16 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_memcmp(const void *s1, const void *s2, size_t n)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	unsigned char	*temp1;
-	unsigned char	*temp2;
+	unsigned int	i;
+	char			*ret;
 
-	temp1 = (unsigned char *)s1;
-	temp2 = (unsigned char *)s2;
-	while (n--)
+	i = 0;
+	while (*(s + i))
+		i++;
+	ret = (char *)malloc(sizeof(char) * (i + 1));
+	*(ret + i) = 0;
+	i = 0;
+	while (*(ret + i))
 	{
-		if (*temp1 != *temp2)
-			return (*temp1 - *temp2);
-		temp1++;
-		temp2++;
+		*(ret + i) = f(i, *(s + i));
+		i++;
 	}
-	return (0);
+	return (ret);
 }
-
-//DESCRIPTION : Both strings are assumed to be n bytes long.

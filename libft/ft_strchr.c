@@ -6,13 +6,13 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 15:49:17 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/21 15:56:53 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/03/22 18:34:29 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	while (*s)
 	{

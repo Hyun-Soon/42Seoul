@@ -1,0 +1,40 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/02/02 02:39:12 by hyuim             #+#    #+#              #
+#    Updated: 2023/03/22 18:44:44 by hyuim            ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+SDIR = srcs/
+SRCS = count_char.c main.c read_info.c read_map.c
+DIRSRCS = $(addprefix $(SDIR), $(SRCS))
+OBJS = $(DIRSRCS:.c=.o)
+HDIR = includes/
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -c
+NAME = libft
+
+
+all: $(NAME)
+
+$(NAME): $(OBJS)
+	$(CC) $(OBJS) -o $(NAME)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -o $@ $< -I $(HDIR)
+
+clean:
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean
+	make
+
+.PHONY: clean fclean re

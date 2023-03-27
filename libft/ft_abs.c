@@ -6,13 +6,13 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 16:51:19 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/21 16:52:44 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/03/27 16:40:47 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-unsigned int	ft_abs(int a)
+int	ft_abs(int a)
 {
 	if (a < 0)
 		return (-a);
