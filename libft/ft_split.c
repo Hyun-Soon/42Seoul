@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 13:32:17 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/27 15:39:24 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/03/29 16:09:22 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 unsigned int	word_cnt(char *str, char c);
 int				is_sep(char c, char *charset);
-char			*split_str(char *str, int end);
-void			put_split(char **ret, char *str, char *charset, int i);
+char			*split_str(char *str, int end, char **ret, int ret_idx);
+void			put_split(char **ret, char *str, char c, int i);
 
 char	**ft_split(char *str, char c)
 {
@@ -24,28 +24,41 @@ char	**ft_split(char *str, char c)
 
 	cnt = word_cnt(str, c);
 	ret = (char **)malloc((cnt + 1) * sizeof(char *));
+	if (!ret)
+		return (NULL);
 	*(ret + cnt) = NULL;
-	put_split(ret, str, charset, 0);
+	put_split(ret, str, c, 0);
+	if (!*ret)
+		free(ret);
 	return (ret);
 }
 
-char	*split_str(char *str, int end)
+char	*split_str(char *str, int end, char **ret, int ret_idx)
 {
-	char	*ret;
+	char	*spl;
 	int		i;
 
 	i = 0;
-	ret = (char *)malloc((end + 2) * sizeof(char));
-	*(ret + (end + 1)) = 0;
+	spl = (char *)malloc((end + 2) * sizeof(char));
+	if (!spl)
+	{
+		while (ret_idx--)
+		{
+			free(*(ret + ret_idx));
+			*(ret + ret_idx) = NULL;
+		}
+		return (NULL);
+	}
+	*(spl + (end + 1)) = 0;
 	while (i <= end)
 	{
-		*(ret + i) = *(str + i);
+		*(spl + i) = *(str + i);
 		i++;
 	}
-	return (ret);
+	return (spl);
 }
 
-void	put_split(char **ret, char *str, char *charset, int i)
+void	put_split(char **ret, char *str, char c, int i)
 {
 	int	end;
 
@@ -58,10 +71,11 @@ void	put_split(char **ret, char *str, char *charset, int i)
 			continue ;
 		}
 		else if (*(str + end) != c
-			&& (*(str + end + 1) == c
-				|| *(str + end + 1) == 0))
+			&& (*(str + end + 1) == c || *(str + end + 1) == 0))
 		{
-			*(ret + i) = split_str(str, end);
+			*(ret + i) = split_str(str, end, ret, i);
+			if (*(ret + i) == NULL)
+				return ;
 			i++;
 			str = str + end + 1;
 			end = 0;

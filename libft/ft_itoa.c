@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:35:03 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/27 16:55:50 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/03/29 16:17:44 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,16 @@ char	*ft_itoa(int n)
 	return (ret);
 }
 
+// #include <stdio.h>
 // int main()
 // {
 // 	char *arr = ft_itoa(1200);
-// 	printf("%s", arr);
+// 	char *arr2 = ft_itoa(LONG_MAX);
+// 	char *arr3 = itoa(1200);
+// 	char *arr4 = itoa(LONG_MAX);
+// 	printf("%s\n", arr);
+// 	printf("%s\n", arr2);
+// 	printf("%s\n", arr3);
+// 	printf("%s\n", arr4);
 // 	return 0;
 // }
