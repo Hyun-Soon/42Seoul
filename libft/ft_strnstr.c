@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 17:17:39 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/22 18:33:21 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/03/31 15:07:18 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,12 @@
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
 	unsigned int	i;
-	unsigned int	j;
 	unsigned int	limit;
 	unsigned int	needle_len;
 	unsigned int	flag;
 
 	if (!*needle)
-		return (haystack);
+		return ((char *)haystack);
 	i = 0;
 	flag = 0;
 	needle_len = ft_strlen(needle);
@@ -30,8 +29,8 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	{
 		if (*(haystack + i) == *(needle + i))
 		{
-			if (strncmp(haystack + i, needle, needle_len) == 0)
-				return (haystack + i);
+			if (ft_strncmp(haystack + i, needle, needle_len) == 0)
+				return ((char *)haystack + i);
 		}
 		i++;
 	}
