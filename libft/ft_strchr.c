@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 15:49:17 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/22 18:34:29 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/03/31 13:58:22 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ char	*ft_strchr(const char *s, int c)
 	while (*s)
 	{
 		if (*s == c)
-			return (s);
+			return ((char *)s);
 		s++;
 	}
-	return (s);
+	return ((char *)s);
 }
