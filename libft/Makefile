@@ -57,6 +57,7 @@ ft_lstiter_bonus.c \
 ft_lstmap_bonus.c
 
 OBJS = $(SRCS:.c=.o)
+BNS_OBJS = $(BNS:.c=.o)
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -c
 NAME = libft.a
@@ -70,11 +71,15 @@ $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) $< -o $@
 
 clean :
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(BNS_OBJS)
 
 fclean : clean
 	rm -f $(NAME)
 
 re : fclean all
+
+bonus : $(BNS_OBJS)
+	ar -rc $(NAME) $^
+	touch $@
 
 .PHONY : clean fclean re

@@ -16,11 +16,9 @@ char	*ft_itoa(int n)
 {
 	int		cnt;
 	char	*ret;
-	int		i;
 	int		temp;
 
 	cnt = 0;
-	i = 0;
 	temp = ft_abs(n);
 	if (n < 0)
 		cnt++;

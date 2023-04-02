@@ -16,10 +16,3 @@ int	ft_isalnum(int c)
 {
 	return (ft_isalpha(c) || ft_isdigit(c));
 }
-
-// #include <stdio.h>
-// int main()
-// {
-//     printf("%d", ft_isalnum(97));
-//     return 0;
-// }

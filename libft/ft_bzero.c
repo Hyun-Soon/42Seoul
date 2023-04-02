@@ -14,25 +14,13 @@
 
 void	bzero(void *s, size_t n)
 {
-	int	*temp;
+	unsigned int	*temp;
 
-	temp = s;
-	if (n > 0)
-	{
-		while (n--)
-		{
-			*temp = 0;
-			temp++;
-		}
+	temp = (unsigned int *)s;
+	while (n--)
+	{	
+		*temp = 0;
+		temp++;
 	}
 	return ;
 }
-
-// int main()
-// {
-//     char arr[4] = "abc\0";
-
-//     bzero(arr, 4);
-
-//     return 0;
-// }
