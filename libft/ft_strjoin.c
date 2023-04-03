@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 14:59:34 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/24 15:06:23 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/04/03 16:12:09 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	i = 0;
 	j = 0;
-	len = ft_strlen(s1) + ft_strlen(s1);
+	len = ft_strlen(s1) + ft_strlen(s2);
 	ret = (char *)malloc(sizeof(char) * (len + 1));
 	if (ret)
 	{

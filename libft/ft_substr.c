@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 16:40:25 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/24 14:04:01 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/04/03 16:05:47 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,26 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	i;
-	size_t	sub_len;
-	char	*ret;
+	unsigned int	i;
+	char			*ret;
 
-	i = 0;
-	sub_len = ft_strlen(s + start);
-	if (len < sub_len)
-		sub_len = len;
-	ret = (char *)malloc(sizeof(char) * (sub_len + 1));
-	if (ret)
+	if (ft_strlen(s) < start)
 	{
-		while (*(s + i) && i < sub_len)
-		{
-			*(ret + i) = *(s + i);
-			i++;
-		}
+		ret = (char *)malloc(sizeof(char) * 1);
+		*ret = '\0';
+		return (ret);
+	}
+	if (ft_strlen(s + start) < len)
+		len = ft_strlen(s + start);
+	i = 0;
+	ret = (char *)malloc(sizeof(char) * (len + 1));
+	if (!ret)
+		return (NULL);
+	*(ret + len) = '\0';
+	while (*(s + start + i) && i < len)
+	{
+		*(ret + i) = *(s + start + i);
+		i++;
 	}
 	return (ret);
 }

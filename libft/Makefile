@@ -6,7 +6,7 @@
 #    By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 14:53:08 by hyuim             #+#    #+#              #
-#    Updated: 2023/03/31 13:52:00 by hyuim            ###   ########.fr        #
+#    Updated: 2023/04/03 14:51:16 by hyuim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,8 @@ ft_isprint.c \
 ft_strlen.c \
 ft_memset.c \
 ft_bzero.c \
+ft_abs.c \
+ft_isin.c \
 ft_memcpy.c \
 ft_memmove.c \
 ft_strlcpy.c \

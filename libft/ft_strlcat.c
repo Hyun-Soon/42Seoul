@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:11:31 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/24 14:04:53 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/04/03 13:49:32 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 	{
 		i++;
 	}
-	while (*(src + i) && i + 1 < dstsize)
+	while (*src && i + 1 < dstsize)
 	{
 		*(dst + i++) = *src++;
 	}

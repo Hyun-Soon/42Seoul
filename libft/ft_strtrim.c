@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 16:17:09 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/27 13:27:49 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/04/03 16:16:48 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	find_end(char const *s1, char const *set);
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*ret;
-	int		i;
 	int		start;
 	int		end;
 
@@ -26,23 +25,11 @@ char	*ft_strtrim(char const *s1, char const *set)
 	end = find_end(s1, set);
 	if (start > end)
 	{
-		ret = (char *)malloc(sizeof(char));
-		if (!ret)
-			*ret = '\0';
+		ret = (char *)malloc(sizeof(char) * 1);
+		*ret = '\0';
 		return (ret);
 	}
-	ret = (char *)malloc(sizeof(char) * (start - end + 2));
-	if (!ret)
-	{
-		i = 0;
-		while (start <= end)
-		{
-			*(ret + i) = *(s1 + start);
-			start++;
-			i++;
-		}
-		*(ret + i) = '\0';
-	}
+	ret = ft_substr(s1, start, end - start + 1);
 	return (ret);
 }
 

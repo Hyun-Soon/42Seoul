@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 13:32:17 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/29 16:09:22 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/04/03 20:45:48 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,13 @@ char	**ft_split(char *str, char c)
 		return (NULL);
 	*(ret + cnt) = NULL;
 	put_split(ret, str, c, 0);
+	if (cnt == 0)
+		return (ret);
 	if (!*ret)
+	{
 		free(ret);
+		return (0);
+	}
 	return (ret);
 }
 
