@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 16:22:26 by hyuim             #+#    #+#             */
-/*   Updated: 2023/04/03 13:25:17 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/04/04 15:54:32 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	unsigned int	*temp;
+	unsigned char	*temp;
 
-	temp = (unsigned int *)s;
+	temp = (unsigned char *)s;
 	while (n--)
 	{
 		*temp = 0;

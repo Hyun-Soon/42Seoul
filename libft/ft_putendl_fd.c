@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 12:26:05 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/28 12:27:26 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/04/04 13:46:59 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,6 @@
 
 void	ft_putendl_fd(char *s, int fd)
 {
-	write(fd, s, ft_strlen(s) + 1);
+	write(fd, s, ft_strlen(s));
+	write(fd, "\n", 1);
 }
