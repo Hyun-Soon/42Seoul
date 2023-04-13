@@ -6,14 +6,15 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 16:17:09 by hyuim             #+#    #+#             */
-/*   Updated: 2023/04/03 16:16:48 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/04/06 15:13:56 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	find_start(char const *s1, char const *set);
-int	find_end(char const *s1, char const *set);
+static int	find_start(char const *s1, char const *set);
+static int	find_end(char const *s1, char const *set);
+static int	ft_isin(char c, char *set);
 
 char	*ft_strtrim(char const *s1, char const *set)
 {
@@ -26,6 +27,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	if (start > end)
 	{
 		ret = (char *)malloc(sizeof(char) * 1);
+		if (!ret)
+			return (NULL);
 		*ret = '\0';
 		return (ret);
 	}
@@ -33,7 +36,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 	return (ret);
 }
 
-int	find_start(char const *s1, char const *set)
+static int	find_start(char const *s1, char const *set)
 {
 	int	i;
 
@@ -47,7 +50,7 @@ int	find_start(char const *s1, char const *set)
 	return (i);
 }
 
-int	find_end(char const *s1, char const *set)
+static int	find_end(char const *s1, char const *set)
 {
 	int	i;
 
@@ -59,4 +62,15 @@ int	find_end(char const *s1, char const *set)
 		i--;
 	}
 	return (i);
+}
+
+static int	ft_isin(char c, char *set)
+{
+	while (*set)
+	{
+		if (c == *set)
+			return (1);
+		set++;
+	}
+	return (0);
 }

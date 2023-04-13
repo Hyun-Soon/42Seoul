@@ -6,15 +6,15 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 15:35:03 by hyuim             #+#    #+#             */
-/*   Updated: 2023/04/04 13:37:45 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/04/06 15:08:35 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		get_digits(int n);
-void	put_int_min(char *ret);
-void	put_n(int digits, int n, int sign, char *ret);
+static int	get_digits(int n);
+static void	put_n(int digits, int n, int sign, char *ret);
+static int	ft_abs(int a);
 
 char	*ft_itoa(int n)
 {
@@ -42,7 +42,7 @@ char	*ft_itoa(int n)
 	return (ret);
 }
 
-void	put_n(int digits, int n, int sign, char *ret)
+static void	put_n(int digits, int n, int sign, char *ret)
 {
 	while (digits-- && n)
 	{
@@ -51,7 +51,7 @@ void	put_n(int digits, int n, int sign, char *ret)
 	}
 }
 
-int	get_digits(int n)
+static int	get_digits(int n)
 {
 	int	temp;
 	int	cnt;
@@ -68,4 +68,12 @@ int	get_digits(int n)
 	if (n <= 0)
 		cnt++;
 	return (cnt);
+}
+
+static int	ft_abs(int a)
+{
+	if (a < 0)
+		return (-a);
+	else
+		return (a);
 }

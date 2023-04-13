@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:45:47 by hyuim             #+#    #+#             */
-/*   Updated: 2023/04/11 13:16:23 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/04/12 13:46:12 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,37 @@
 int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
+	size_t	bytes;
 
 	va_start(ap, format);
-	read_format(format, ap);
+	bytes = read_format(format, ap);
+	va_end(ap);
+	return (bytes);
 }
 
 // #include <stdio.h>
+// #include <limits.h>
 // int main()
 // {
-// 	char *arr = "123";
-// 	ft_printf("%p\n", arr);
-// 	printf("%p\n", arr);
+// 	int a, b;
+// 	a = printf("%s\n", (char *)NULL);
+// 	b = ft_printf("%s\n", (char *)NULL);
+// 	printf("printf : %d, ft_printf : %d\n\n", a, b);
 // 	return 0;
-//}
+// }
+
+	// printf("%lu\n", (long)INT_MAX);
+	// printf("%ld\n", (long)INT_MIN);
+	// printf("%lu\n", (long)INT_MIN);
+	// printf("->> %lu\n", (long)(INT_MIN));
+	// printf("%lu\n", (long)1);
+	// printf("%lu\n", (unsigned long)1);
+	// printf("%ld\n", (long)(-1));
+	// printf("%ld\n", (unsigned long)(-1));
+	// printf("%lu\n", ULONG_MAX);
+	// printf("%lu\n", LONG_MIN);
+	// printf("size of int : %lu\n", sizeof(int));
+	// printf("size of long : %lu\n", sizeof(long));
 /*
 1. format읽기
 2. '%' 구분하기

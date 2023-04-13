@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:54:35 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/21 15:44:14 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/04/06 15:07:02 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,3 @@ int	ft_isalpha(int c)
 		return (1);
 	return (0);
 }
-
-// #include <stdio.h>
-// int main()
-// {
-//     char a = '3';
-//     printf("%d", ft_isalpha(a));
-//     return 0;
-// }

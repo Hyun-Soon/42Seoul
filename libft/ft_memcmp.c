@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 17:04:36 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/22 18:33:02 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/04/06 15:10:38 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,3 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 	}
 	return (0);
 }
-
-//DESCRIPTION : Both strings are assumed to be n bytes long.

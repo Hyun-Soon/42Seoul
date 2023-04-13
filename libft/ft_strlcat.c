@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:11:31 by hyuim             #+#    #+#             */
-/*   Updated: 2023/04/03 13:49:32 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/04/06 15:12:49 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,3 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 		return (len_src + dstsize);
 	}
 }
-
-// #include <stdio.h>
-// int main()
-// {
-// 	char arr1[8] = "a";
-// 	char arr2[6] = "";
-// 	printf("%zu\n", ft_strlcat(arr1, arr2, 5));
-// 	printf("%s\n", arr1);
-// 	return (0);
-// }

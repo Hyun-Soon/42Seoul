@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 16:40:25 by hyuim             #+#    #+#             */
-/*   Updated: 2023/04/03 16:05:47 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/04/05 13:26:15 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (ft_strlen(s) < start)
 	{
 		ret = (char *)malloc(sizeof(char) * 1);
+		if (!ret)
+			return (NULL);
 		*ret = '\0';
 		return (ret);
 	}

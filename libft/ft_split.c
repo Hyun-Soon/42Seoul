@@ -6,28 +6,27 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 13:32:17 by hyuim             #+#    #+#             */
-/*   Updated: 2023/04/03 21:18:35 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/04/06 15:25:06 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-unsigned int	word_cnt(char *str, char c);
-int				is_sep(char c, char *charset);
-char			*split_str(char *str, int end, char **ret, int ret_idx);
-void			put_split(char **ret, char *str, char c, int i);
+static unsigned int	word_cnt(char *s, char c);
+static char			*split_str(char *s, int end, char **ret, int ret_idx);
+static void			put_split(char **ret, char *s, char c, int i);
 
-char	**ft_split(char *str, char c)
+char	**ft_split(char *s, char c)
 {
 	int		cnt;
 	char	**ret;
 
-	cnt = word_cnt(str, c);
+	cnt = word_cnt(s, c);
 	ret = (char **)malloc((cnt + 1) * sizeof(char *));
 	if (!ret)
 		return (NULL);
 	*(ret + cnt) = NULL;
-	put_split(ret, str, c, 0);
+	put_split(ret, s, c, 0);
 	if (cnt == 0)
 		return (ret);
 	if (!*ret)
@@ -38,7 +37,7 @@ char	**ft_split(char *str, char c)
 	return (ret);
 }
 
-char	*split_str(char *str, int end, char **ret, int ret_idx)
+static char	*split_str(char *s, int end, char **ret, int ret_idx)
 {
 	char	*spl;
 	int		i;
@@ -57,32 +56,32 @@ char	*split_str(char *str, int end, char **ret, int ret_idx)
 	*(spl + (end + 1)) = 0;
 	while (i <= end)
 	{
-		*(spl + i) = *(str + i);
+		*(spl + i) = *(s + i);
 		i++;
 	}
 	return (spl);
 }
 
-void	put_split(char **ret, char *str, char c, int i)
+static void	put_split(char **ret, char *s, char c, int i)
 {
 	int	end;
 
 	end = 0;
-	while (*str)
+	while (*s)
 	{
-		if (*str == c && end == 0)
+		if (*s == c && end == 0)
 		{
-			str++;
+			s++;
 			continue ;
 		}
-		else if (*(str + end) != c
-			&& (*(str + end + 1) == c || *(str + end + 1) == 0))
+		else if (*(s + end) != c
+			&& (*(s + end + 1) == c || *(s + end + 1) == 0))
 		{
-			*(ret + i) = split_str(str, end, ret, i);
+			*(ret + i) = split_str(s, end, ret, i);
 			if (*(ret + i) == NULL)
 				return ;
 			i++;
-			str = str + end + 1;
+			s = s + end + 1;
 			end = 0;
 			continue ;
 		}
@@ -90,28 +89,17 @@ void	put_split(char **ret, char *str, char c, int i)
 	}
 }
 
-unsigned int	word_cnt(char *str, char c)
+static unsigned int	word_cnt(char *s, char c)
 {
 	unsigned int	cnt;
 
 	cnt = 0;
-	while (*str)
+	while (*s)
 	{
-		if (*str != c
-			&& (*(str + 1) == c || *(str + 1) == 0))
+		if (*s != c
+			&& (*(s + 1) == c || *(s + 1) == 0))
 			cnt++;
-		str++;
+		s++;
 	}
 	return (cnt);
-}
-
-int	is_sep(char c, char *charset)
-{
-	while (*charset)
-	{
-		if (c == *charset)
-			return (1);
-		charset++;
-	}
-	return (0);
 }
