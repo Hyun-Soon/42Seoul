@@ -6,14 +6,54 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:08:25 by hyuim             #+#    #+#             */
-/*   Updated: 2023/04/12 18:09:11 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/04/27 21:35:32 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "get_next_line.h"
+
 char	*get_next_line(int fd)
 {
+	int			read_size;
+	char		buf[BUFFER_SIZE + 1];
+	static char	*backup;
 
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
+	// TODO :: buf 초기화
+	// TODO :: backup에 \n 있으면 read 건너뛰고 출력하기
+	read_size = read(fd, buf, BUFFER_SIZE);
+	if (read_size <= 0)
+		return (NULL);
+	buf[read_size] = 0;
+	while (read_size > 0)
+	{
+		backup = gnl_strcat(backup, buf, read_size);
+		if (!backup)
+			return (NULL);
+		if (find_nl(backup) >= 0)
+			break ;
+		read_size = read(fd, buf, BUFFER_SIZE);
+	}
+	if (read_size == -1)
+		return (NULL);
+	if (read_size == 0)
+		return (backup);
+	return (backup_slice(&backup, find_nl(backup)));
 }
+
+#include <stdio.h>
+int main()
+{
+	int fd;
+	fd = open("./abc", O_RDONLY);
+	printf("%s", get_next_line(fd));
+	return 0;
+}
+
+/*
+버버퍼퍼에  \n이 남아있는 경우를 생각해라!!!!!
+*/
 
 /*
 --------------------Mandatory-------------------
