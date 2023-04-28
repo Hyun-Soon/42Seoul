@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 16:08:25 by hyuim             #+#    #+#             */
-/*   Updated: 2023/04/27 21:35:32 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/04/28 20:29:34 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*get_next_line(int fd)
 	// TODO :: buf 초기화
 	// TODO :: backup에 \n 있으면 read 건너뛰고 출력하기
 	read_size = read(fd, buf, BUFFER_SIZE);
-	if (read_size <= 0)
+	if (read_size < 0) // <<<<- 여여기기서  <= 를 <로 바꿨더니 에러 긴메시지 엄청 뜸.
 		return (NULL);
 	buf[read_size] = 0;
 	while (read_size > 0)
@@ -42,14 +42,15 @@ char	*get_next_line(int fd)
 	return (backup_slice(&backup, find_nl(backup)));
 }
 
-#include <stdio.h>
-int main()
-{
-	int fd;
-	fd = open("./abc", O_RDONLY);
-	printf("%s", get_next_line(fd));
-	return 0;
-}
+// #include <stdio.h>
+// int main()
+// {
+// 	int fd;
+// 	fd = open("./nl", O_RDONLY);
+// 	printf("%s", get_next_line(fd));
+// 	printf("%s", get_next_line(fd));
+// 	return 0;
+// }
 
 /*
 버버퍼퍼에  \n이 남아있는 경우를 생각해라!!!!!

@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:14:24 by hyuim             #+#    #+#             */
-/*   Updated: 2023/04/27 21:08:30 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/04/28 20:17:06 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*backup_slice(char **backup, int pos)
 	char	*new_backup;
 	char	*ret;
 
-	ret = (char *)malloc(sizeof(char) * (pos - 1));
+	ret = (char *)malloc(sizeof(char) * pos);
 	if (!ret)
 		return (NULL);
 	i = -1;
