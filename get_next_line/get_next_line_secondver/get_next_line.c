@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 20:20:58 by hyuim             #+#    #+#             */
-/*   Updated: 2023/05/01 21:20:44 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/05/01 22:18:22 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,8 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (0);
 	read_size = read(fd, buf, BUFFER_SIZE);
-	if (read_size == -1)
-		return (NULL);
-	buf[read_size] = 0;
+	if (read_size > 0)
+		buf[read_size] = 0;
 	while (read_size >= 0)
 	{
 		if (read_size)
@@ -34,10 +33,26 @@ char	*get_next_line(int fd)
 		if (find_nl(backup) >= 0)
 			return (backup_slice2(&backup, find_nl(backup), -1)); //bakcup에서 \n까지 자르고 나머지 backup에 업데이트 해주기
 		read_size = read(fd, buf, BUFFER_SIZE);
-		if (read_size == -1)
-			return (NULL);
-		buf[read_size] = 0;
+		if (read_size != -1)
+			buf[read_size] = 0;
 	}
+	return (init_backup(&backup));
+}
+
+char	*init_backup(char **backup)
+{
+	int	len;
+	int	i;
+
+	len = gnl_strlen(*backup);
+	i = 0;
+	while (i < len)
+	{
+		*(*backup + i) = 0;
+		i++;
+	}
+	free(*backup);
+	*backup = NULL;
 	return (NULL);
 }
 
@@ -58,7 +73,7 @@ int	gnl_strlen(char *str)
 // 	int fd;
 
 
-// 	fd = open("./files/multiple_nlx5", O_RDONLY);
+// 	fd = open("./files/test.txt", O_RDONLY);
 // 	printf("%s", get_next_line(fd));
 // 	printf("%s", get_next_line(fd));
 // 	printf("%s", get_next_line(fd));

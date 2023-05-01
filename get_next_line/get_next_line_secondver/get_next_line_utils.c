@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 21:41:25 by hyuim             #+#    #+#             */
-/*   Updated: 2023/05/01 21:13:07 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/05/01 22:16:09 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*backup_slice2(char **backup, int nl_idx, int i)
 	char	*new_backup;
 	char	*ret;
 
-	if (!*backup)
+	if (!*backup || !backup)
 		return (NULL); //파일 끝에서 실행했을 때를 위해
 	ret = (char *)malloc(sizeof(char) * (nl_idx + 2));
 	if (!ret)

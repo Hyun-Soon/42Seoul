@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 17:35:13 by hyuim             #+#    #+#             */
-/*   Updated: 2023/05/01 15:40:25 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/05/01 21:36:13 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ char	*backup_slice2(char **backup, int pos, int i);
 int		find_nl(char *backup);
 char	*gnl_strcat(char *backup, char *buf, int bytes);
 int		gnl_strlen(char *str);
+char	*init_backup(char **backup);
 
 #endif
