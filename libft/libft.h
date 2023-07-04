@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:36:28 by hyuim             #+#    #+#             */
-/*   Updated: 2023/04/05 13:39:36 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/06/29 21:03:18 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <unistd.h>
+# include <stdarg.h>
+# include "ft_printf.h"
 
 void	ft_bzero(void *s, size_t n);
 int		ft_isalnum(int c);
@@ -67,5 +69,23 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+int		ft_printf(const char *format, ...);
+int		is_percent(char c);
+int		is_back_slash(char c);
+int		print_conversion(char c, va_list ap, size_t *bytes);
+int		print_c(va_list ap, size_t *bytes);
+int		print_s(va_list ap, size_t *bytes);
+int		print_p(va_list ap, size_t *bytes);
+char	*ltoa_base(int base, unsigned long n);
+int		print_d(va_list ap, size_t *bytes);
+int		print_u(va_list ap, size_t *bytes);
+int		print_x(va_list ap, size_t *bytes);
+int		print_large_x(va_list ap, size_t *bytes);
+int		print_percent(size_t *bytes);
+int		read_format(const char *format, va_list ap);
+size_t	ft_strlen(const char *s);
+void	ft_error(const char *err_msg, int fd);
+double	fractol_atodb(const char *str);
+int		ft_strcmp(const char *str1, const char *str2);
 
 #endif

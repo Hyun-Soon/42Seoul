@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+         #
+#    By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 14:53:08 by hyuim             #+#    #+#              #
-#    Updated: 2023/04/06 16:18:13 by hyuim            ###   ########.fr        #
+#    Updated: 2023/06/28 23:00:14 by hyuim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,9 +44,7 @@ ft_putchar_fd.c \
 ft_putstr_fd.c \
 ft_putendl_fd.c \
 ft_putnbr_fd.c \
-
-
-BNS =ft_lstnew_bonus.c \
+ft_lstnew_bonus.c \
 ft_lstadd_front_bonus.c \
 ft_lstsize_bonus.c \
 ft_lstlast_bonus.c \
@@ -54,10 +52,11 @@ ft_lstadd_back_bonus.c \
 ft_lstdelone_bonus.c \
 ft_lstclear_bonus.c \
 ft_lstiter_bonus.c \
-ft_lstmap_bonus.c
+ft_lstmap_bonus.c \
+fractol_atodb.c \
+ft_strcmp.c
 
 OBJS = $(SRCS:.c=.o)
-BNS_OBJS = $(BNS:.c=.o)
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -c
 NAME = libft.a
@@ -71,15 +70,11 @@ $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) $< -o $@
 
 clean :
-	rm -f $(OBJS) $(BNS_OBJS)
+	rm -f $(OBJS)
 
 fclean : clean
 	rm -f $(NAME)
 
 re : fclean all
-
-bonus : $(BNS_OBJS)
-	ar -rc $(NAME) $^
-	touch $@
 
 .PHONY : clean fclean re
