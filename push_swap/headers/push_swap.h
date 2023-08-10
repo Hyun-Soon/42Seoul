@@ -2,8 +2,8 @@
 # define PUSH_SWAP_H
 
 # define ERROR "Error\n"
-# define ASCEND 9999
-# define DESCEND -9999
+# define ASCEND 1
+# define DESCEND -1
 # define SIZEONE 8888
 
 #include <stdio.h>//////////////////

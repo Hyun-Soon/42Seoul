@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:09:17 by hyuim             #+#    #+#             */
-/*   Updated: 2023/07/20 21:59:29 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/08/10 20:14:46 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,54 @@ int main(int argc, char **argv)
 {
 	int		*inp_list;
 	int		inp_list_size;
+	int		sorted_order[2188];
 
-	atexit(check);
+	//atexit(check);
 	inp_list_size = 0;
 	inp_list = parse_input(argc, argv, &inp_list_size);
 	// system("leaks --list a.out");
 	if (inp_list_size <= 1)
 		exit(0);
-	for (int i = 0; i < inp_list_size; i++)
-		printf("%d\n", inp_list[i]);
+	// for (int i = 0; i < inp_list_size; i++)
+	// 	printf("%d\n", inp_list[i]);
+	// printf("\n");
+
+	t_stacks	stks;
+	make_stacks(&stks, inp_list_size, inp_list);
+	t_dll	*temp_a = stks.stk_a;
+	while (temp_a->next != stks.stk_a)
+	{
+		printf("%d\n", temp_a->value);
+		temp_a = temp_a->next;
+	}
+	printf("%d\n", temp_a->value);
+
+
+	t_dll	*temp_cnk_a = stks.chunk_stk_a;
+	while (temp_cnk_a->next != stks.chunk_stk_a)
+	{
+		printf("cnk : %d\n", temp_cnk_a->chunk_size);
+		printf("cnk : %d\n", temp_cnk_a->type);
+		temp_cnk_a = temp_cnk_a->next;
+	}
+	printf("cnk : %d\n", temp_cnk_a->chunk_size);
+	printf("cnk : %d\n", temp_cnk_a->type);
+	printf("\n");
+
+	printf("initial chunk size : %d\n", stks.initial_chunk_stk_size);
+	printf("\n");
+
+	int	first_b_num = get_triangle_nums(stks.initial_chunk_stk_size);
+	printf("%d\n", first_b_num);
+
+	int	exp = 0;
+	int	offset = ft_pow(3, exp);
+	sorted_order[1] = 1;
+	while (1 + offset <= first_b_num)
+	{
+		offset = 
+	}
+
 	exit(0);
 }
 	// for (int i = 0; i < inp_list_size; i++)
@@ -234,13 +273,12 @@ int	get_triangle_nums(int total_size)
 {
 	int	n;
 
-	if (total_size <= 5)
+	if (total_size <= 3)
 		return (total_size);
 	n = 3;
 	while (total_size > n)
 		n *= 9;
 	return (n / 9);
-	//근데 inp_list len이 5이하일 때도 해줘야 할듯?
 }
 
 int	check_des_asc(int *idx, int inp_num, int *inp_list, int *chunk_size)
@@ -292,7 +330,7 @@ void	append_node(t_dll **head, int chunk_size)
 	t_dll	*temp;
 	t_dll	*new_node;
 
-	if (!*head)
+	if (!(*head))
 	{
 		first_node(head, chunk_size);
 		return ;
