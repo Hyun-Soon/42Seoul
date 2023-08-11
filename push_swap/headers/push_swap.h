@@ -12,36 +12,42 @@
 typedef struct	s_dll
 {
 	int				value;
-	int				chunk_size;
-	int				type;
 	struct s_dll	*next;
 	struct s_dll	*prev;
 }				t_dll;
 
+typedef struct	s_chunk_dll
+{
+	int					chunk_size;
+	int					type;
+	struct s_chunk_dll	*next;
+	struct s_chunk_dll	*prev;
+}				t_chunk_dll;
+
 typedef struct	s_stacks
 {
-	t_dll	*stk_a;
-	t_dll	*stk_b;
-	t_dll	*chunk_stk_a;
-	t_dll	*chunk_stk_b;
-	int		initial_chunk_stk_size;
-	t_list	*command;
+	t_dll		*stk_a;
+	t_dll		*stk_b;
+	t_chunk_dll	*chunk_stk_a;
+	t_chunk_dll	*chunk_stk_b;
+	int			initial_chunk_stk_size;
+	t_list		*cmd_list;
 }				t_stacks;
 
-void	check_dup(int **arr, int inp, int arr_idx);
-int		*parse_input(int argc, char **argv, int *ret_size);
-void	free_split_ret(char **split_ret);
-int		ft_ps_atoi(const char *str, int *atoi_flag);
-t_dll	*make_nodes(int val);
-void	make_stacks(t_stacks *stacks, int inp_num, int *inp_list);
-void	make_stack_b(t_dll **stk_b, int inp_num);
-t_dll	*make_stack_a(int *inp_list, int inp_num);
-t_dll	*make_chunk_stack_a(int inp_num, int *inp_list, t_stacks *stacks);
-t_dll	*make_chunk_stack_b(int size);
-void	append_node(t_dll **head, int chunk_size);
-int		check_des_asc(int *idx, int inp_num, int *inp_list, int *chunk_size);
-void	merge(int argc, int *inp_list);
-int		get_triangle_nums(int total_size);
-
+void		check_dup(int **arr, int inp, int arr_idx);
+int			*parse_input(int argc, char **argv, int *ret_size);
+void		free_split_ret(char **split_ret);
+int			ft_ps_atoi(const char *str, int *atoi_flag);
+t_dll		*make_nodes(int val);
+void		make_stacks(t_stacks *stacks, int inp_num, int *inp_list);
+void		make_stack_b(t_dll **stk_b, int inp_num);
+t_dll		*make_stack_a(int *inp_list, int inp_num);
+t_chunk_dll	*make_chunk_stack_a(int inp_num, int *inp_list, t_stacks *stacks);
+t_chunk_dll	*make_chunk_stack_b(int size);
+void		append_node(t_chunk_dll **head, int chunk_size);
+int			check_des_asc(int *idx, int inp_num, int *inp_list, int *chunk_size);
+void		merge(int argc, int *inp_list);
+int			get_triangle_nums(int total_size);
+int			ft_pow(int base, int exponent);
 
 #endif

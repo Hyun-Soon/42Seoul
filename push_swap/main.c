@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:09:17 by hyuim             #+#    #+#             */
-/*   Updated: 2023/08/10 20:14:46 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/08/11 20:29:41 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,15 @@ int main(int argc, char **argv)
 	printf("%d\n", temp_a->value);
 
 
-	t_dll	*temp_cnk_a = stks.chunk_stk_a;
+	t_chunk_dll	*temp_cnk_a = stks.chunk_stk_a;
 	while (temp_cnk_a->next != stks.chunk_stk_a)
 	{
-		printf("cnk : %d\n", temp_cnk_a->chunk_size);
-		printf("cnk : %d\n", temp_cnk_a->type);
+		printf("cnk size : %d\n", temp_cnk_a->chunk_size);
+		printf("cnk type : %d\n", temp_cnk_a->type);
 		temp_cnk_a = temp_cnk_a->next;
 	}
-	printf("cnk : %d\n", temp_cnk_a->chunk_size);
-	printf("cnk : %d\n", temp_cnk_a->type);
+	printf("cnk size : %d\n", temp_cnk_a->chunk_size);
+	printf("cnk type : %d\n", temp_cnk_a->type);
 	printf("\n");
 
 	printf("initial chunk size : %d\n", stks.initial_chunk_stk_size);
@@ -62,173 +62,72 @@ int main(int argc, char **argv)
 
 	int	first_b_num = get_triangle_nums(stks.initial_chunk_stk_size);
 	printf("%d\n", first_b_num);
+	printf("\n");
 
+	//*****************b에  정정렬렬할  모모양  알알아아내내기기*************************
 	int	exp = 0;
 	int	offset = ft_pow(3, exp);
 	sorted_order[1] = 1;
-	while (1 + offset <= first_b_num)
+	while (1 + offset < first_b_num)
 	{
-		offset = 
+		int	idx = -1;
+		while (offset - ++idx >= 1)
+		{
+			sorted_order[1 + offset + idx] = -sorted_order[offset - idx];
+			sorted_order[1 + 2 * offset + idx] = -sorted_order[offset - idx];
+		}
+		exp++;
+		offset = ft_pow(3, exp);
 	}
 
+
+	for (int i = 1; i <= first_b_num; i++)
+		printf("%d\n", sorted_order[i]);
+
+	////////////////////////////////////////////////////////////////////////
 	exit(0);
 }
-	// for (int i = 0; i < inp_list_size; i++)
-	// {
-	// 	printf("%d\n", inp_list[i]);
-	// }
-	// if (argc - 1 <= 5)
-	// 	exception(argc - 1, inp_list);
-	// merge(argc, inp_list);
 
-	
-
-
-	// printf("%d\n", inp_list[0]);
-	// printf("%d\n", inp_list[1]);
-	// printf("%d\n", inp_list[2]);
-
-	// printf("stk_a[-1] : %d\n", stk_a->prev->value);
-	// printf("stk_a[0] : %d\n", stk_a->value);
-	// printf("stk_a[1] : %d\n", stk_a->next->value);
-	// printf("stk_a[2] : %d\n", stk_a->next->next->value);
-
-	//printf("%d, %d\n", chunk_stk->prev->type, chunk_stk->prev->chunk_size);
-	// printf("%d, %d\n", chunk_stk->type, chunk_stk->chunk_size);
-	// printf("%d, %d\n", chunk_stk->next->type, chunk_stk->next->chunk_size);
-	// printf("%d, %d\n", chunk_stk->next->next->type, chunk_stk->next->next->chunk_size);
-
-////////////////////////////////////////////////////
-	// int i = 0;
-	// t_dll *temp = chunk_stk;
-	// while (temp->next != chunk_stk)
-	// {
-	// 	printf("%d\n", temp->chunk_size);
-	// 	temp = temp->next;
-	// 	i++;
-	// }
-	// printf("%d\n", temp->chunk_size);
-	// return (0);
-/////////////////////////////////////////////////////
-
-// void	sort_2args(int *inp_list)
+// void	swap(t_dll **stk, t_list **cmd_list, char *cmd)
 // {
-// 	if (inp_list[0] > inp_list[1])
-// 		ft_printf("sa\n");
-// 	exit(0);
-// }
-
-// void	sort_3args(int *inp_list)
-// {
-// 	if (inp_list[0] < inp_list[1] && inp_list[1] > inp_list[2])
-// 		ft_printf("ra\nsa\nrra\n");
-// 	else if (inp_list[0] > inp_list[1] && inp_list[0] < inp_list[2])
-// 		ft_printf("sa\n");
-// 	else if (inp_list[0] > inp_list[2] && inp_list[0] < inp_list[1])
-// 		ft_printf("ra\nra\n");
-// 	else if (inp_list[0] > inp_list[2] && inp_list[2] > inp_list[1])
-// 		ft_printf("ra\n");
-// 	else if (inp_list[0] > inp_list[1] && inp_list[1] > inp_list[2])
-// 		ft_printf("sa\nrra\n");
-// }
-
-// void	sort(int inp_num, int *sorted)
-// {
-// 	int	i;
-// 	int	j;
-// 	int	temp;
-
-// 	i = -1;
-// 	while (++i < 2)
+// 	if (*stk && (*stk)->next != *stk)
 // 	{
-// 		j = inp_num;
-// 		while (--j > i)
-// 		{
-// 			if (sorted[j] < sorted[j - 1])
-// 			{
-// 				temp = sorted[j];
-// 				sorted[j] = sorted[j - 1];
-// 				sorted[j - 1] = temp;
-// 			}
-// 		}
+		
 // 	}
 // }
 
-// void	sort_5args(int inp_num, int *inp_list)
-// {
-// 	int	*sorted;
-// 	int	iter;
-// 	int	flag;
-// 	int	idx;
-// 	int	idx2;
-// 	int	idx3;
-// 	int	temp;
-// 	int	*new;
+t_dll	*pop(t_dll **stk)
+{
+	t_dll	*temp;
+	if (!*stk)
+		return (NULL);
+	if ((*stk)->next == *stk && (*stk)->prev == *stk)
+	{
+		temp = *stk;
+		*stk = NULL;
+		return (temp);
+	}
+	temp = *stk;
+	(*stk)->prev->next = (*stk)->next;
+	(*stk)->next->prev = (*stk)->prev;
+	temp->next = temp;
+	temp->prev = temp;
+	return (temp);
+}
 
-// 	sorted = (int *)malloc(sizeof(int) * (inp_num));
-// 	ft_memcpy(sorted, inp_list, inp_num * 4);
-// 	sort(inp_num, sorted);
-// 	flag = inp_num - 3;
-// 	idx = 0;
-// 	if (flag == 1)
-// 	{
-// 		while (inp_list[idx] != sorted[0])
-// 		{
-// 			idx++;
-// 			ft_printf("ra\n");
-// 		}
-// 		ft_printf("pb\n");
-// 		new = malloc
-// 	}
-	
-// 	if (flag == 2)
-// 	{
-// 			while (inp_list[idx] != sorted[0] && inp_list[idx] != sorted[1])
-// 			{
-// 				idx++;
-// 				ft_printf("ra\n");
-// 			}
-// 			temp = inp_list[idx];
-// 			ft_printf("pb\n");
-// 			idx++;
-// 			ft_printf("ra\n");
-// 			while (inp_list[idx] != sorted[0] && inp_list[idx] != sorted[1])
-// 			{
-// 				idx++;
-// 				ft_printf("ra\n");
-// 			}
-// 			ft_printf("pb\n");
-// 			if (inp_list[idx] < temp)
-// 				ft_printf("sb\n");
-// 			new = (int *)malloc(sizeof(int) * 3);
-// 			idx2 = 0;
-// 			idx3 = 0;
-// 			while (idx2 < inp_num)
-// 			{
-// 				if (inp_list[idx2] != inp_list[idx] && inp_list[idx2] != temp)
-// 				{
-// 					new[idx3] = inp_list[idx2];
-// 					idx3++;
-// 				}
-// 				idx2++;
-// 			}
-// 			sort_3args(new);
-
-// 	}
-
-	
-// }
-
-// void	exception(int inp_num, int *inp_list)
-// {
-// 	if (inp_num == 2)
-// 		sort_2args(inp_list);
-// 	else if (inp_num == 3)
-// 		sort_3args(inp_list);
-// 	else
-// 		sort_5args(inp_num, inp_list);
-// 	exit(0);
-// }
+void	push(t_dll *node, t_dll **stk)
+{
+	if (!*stk)
+	{
+		*stk = node;
+		return;
+	}
+	node->next = *stk;
+	node->prev = (*stk)->prev;
+	(*stk)->prev->next = node;
+	(*stk)->prev = node;
+	*stk = node;
+}
 
 void	merge(int argc, int *inp_list)
 {
@@ -246,7 +145,7 @@ void	make_stacks(t_stacks *stacks, int inp_num, int *inp_list)
 	stacks->stk_b = NULL;
 	stacks->chunk_stk_a = make_chunk_stack_a(inp_num, inp_list, stacks);
 	stacks->chunk_stk_b = NULL;
-	stacks->command = NULL;
+	stacks->cmd_list = NULL;
 
 ////////////////////***************TEST*********************////////////////////////
 	// t_dll *temp = stacks->stk_a;
@@ -308,9 +207,9 @@ int	check_des_asc(int *idx, int inp_num, int *inp_list, int *chunk_size)
 	return (1);
 }
 
-void	first_node(t_dll **head, int chunk_size)
+void	first_node(t_chunk_dll **head, int chunk_size)
 {
-	*head = (t_dll *)malloc(sizeof(t_dll));
+	*head = (t_chunk_dll *)malloc(sizeof(t_chunk_dll));
 	if (!*head)
 		ft_error(ERROR, 2);
 	(*head)->next = *head;
@@ -325,10 +224,10 @@ void	first_node(t_dll **head, int chunk_size)
 	(*head)->type = DESCEND;
 }
 
-void	append_node(t_dll **head, int chunk_size)
+void	append_node(t_chunk_dll **head, int chunk_size)
 {
-	t_dll	*temp;
-	t_dll	*new_node;
+	t_chunk_dll	*temp;
+	t_chunk_dll	*new_node;
 
 	if (!(*head))
 	{
@@ -338,7 +237,7 @@ void	append_node(t_dll **head, int chunk_size)
 	temp = *head;
 	while (temp->next && temp->next != *head)
 		temp = temp->next;
-	new_node = (t_dll *)malloc(sizeof(t_dll));
+	new_node = (t_chunk_dll *)malloc(sizeof(t_chunk_dll));
 	if (!new_node)
 		ft_error(ERROR, 2);
 	temp->next = new_node;
@@ -355,9 +254,9 @@ void	append_node(t_dll **head, int chunk_size)
 }
 
 
-t_dll	*make_chunk_stack_a(int inp_num, int *inp_list, t_stacks *stacks)
+t_chunk_dll	*make_chunk_stack_a(int inp_num, int *inp_list, t_stacks *stacks)
 {
-	t_dll	*head;
+	t_chunk_dll	*head;
 	int		idx;
 	int		chunk_size;
 	int		stk_size;
