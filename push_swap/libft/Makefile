@@ -6,7 +6,7 @@
 #    By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 14:53:08 by hyuim             #+#    #+#              #
-#    Updated: 2023/08/11 15:25:55 by hyuim            ###   ########.fr        #
+#    Updated: 2023/08/14 20:55:39 by hyuim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,7 +52,6 @@ ft_lstadd_back_bonus.c \
 ft_lstdelone_bonus.c \
 ft_lstclear_bonus.c \
 ft_lstiter_bonus.c \
-ft_lstmap_bonus.c \
 fractol_atodb.c \
 ft_strcmp.c \
 ft_error.c \

@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:09:17 by hyuim             #+#    #+#             */
-/*   Updated: 2023/08/11 20:29:41 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/08/14 21:51:11 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int main(int argc, char **argv)
 	printf("\n");
 
 	int	first_b_num = get_triangle_nums(stks.initial_chunk_stk_size);
-	printf("%d\n", first_b_num);
+	printf("first_b_num : %d\n", first_b_num);
 	printf("\n");
 
 	//*****************b에  정정렬렬할  모모양  알알아아내내기기*************************
@@ -115,7 +115,40 @@ t_dll	*pop(t_dll **stk)
 	return (temp);
 }
 
+t_chunk_dll	*cpop(t_chunk_dll **stk)
+{
+	t_chunk_dll	*temp;
+	if (!*stk)
+		return (NULL);
+	if ((*stk)->next == *stk && (*stk)->prev == *stk)
+	{
+		temp = *stk;
+		*stk = NULL;
+		return (temp);
+	}
+	temp = *stk;
+	(*stk)->prev->next = (*stk)->next;
+	(*stk)->next->prev = (*stk)->prev;
+	temp->next = temp;
+	temp->prev = temp;
+	return (temp);
+}
+
 void	push(t_dll *node, t_dll **stk)
+{
+	if (!*stk)
+	{
+		*stk = node;
+		return;
+	}
+	node->next = *stk;
+	node->prev = (*stk)->prev;
+	(*stk)->prev->next = node;
+	(*stk)->prev = node;
+	*stk = node;
+}
+
+void	cpush(t_chunk_dll *node, t_chunk_dll **stk)
 {
 	if (!*stk)
 	{

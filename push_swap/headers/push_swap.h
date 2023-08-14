@@ -4,7 +4,27 @@
 # define ERROR "Error\n"
 # define ASCEND 1
 # define DESCEND -1
-# define SIZEONE 8888
+# define SA 1
+# define SB 2
+# define SS 3
+# define PA -50
+# define PB 50
+# define RA 30
+# define RB 40
+# define RR 70
+# define RRA -30
+# define RRB -40
+# define RRR -70
+
+# define CSA 9999
+# define CSB 9998
+# define CPA 9997
+# define CPB 9996
+# define CRA 9995
+# define CRB 9994
+# define CRRA 9993
+# define CRRB 9992
+
 
 #include <stdio.h>//////////////////
 #include "../libft/libft.h"
@@ -49,5 +69,18 @@ int			check_des_asc(int *idx, int inp_num, int *inp_list, int *chunk_size);
 void		merge(int argc, int *inp_list);
 int			get_triangle_nums(int total_size);
 int			ft_pow(int base, int exponent);
+t_dll		*pop(t_dll **stk);
+t_chunk_dll	*cpop(t_chunk_dll **stk);
+void		push(t_dll *node, t_dll **stk);
+void		cpush(t_chunk_dll *node, t_chunk_dll **stk);
+void 		ft_swap(t_stacks *stacks, int cmd);
+void		ft_chunk_swap(t_stacks *stacks, int cmd);
+void		ft_push(t_stacks *stacks, int cmd);
+void		ft_chunk_push(t_stacks *stacks, int cmd);
+void		ft_rotate(t_stacks *stacks, int cmd);
+void		ft_chunk_rotate(t_stacks *stacks, int cmd);
+
+
+
 
 #endif
