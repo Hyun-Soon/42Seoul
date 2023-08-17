@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:36:28 by hyuim             #+#    #+#             */
-/*   Updated: 2023/08/14 20:52:47 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/08/16 21:58:13 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,39 @@
 # include <limits.h>
 # include <unistd.h>
 # include <stdarg.h>
+//# include "../headers/push_swap.h" //////////ㅇㅣㄱ 지지우우면  실실행행은  됌됌
+
+typedef struct s_list
+{
+	int				content;
+	struct s_list	*next;
+	struct s_list	*prev;
+}					t_list;
+
+typedef struct	s_dll
+{
+	int				value;
+	struct s_dll	*next;
+	struct s_dll	*prev;
+}				t_dll;
+
+typedef struct	s_chunk_dll
+{
+	int					chunk_size;
+	int					type;
+	struct s_chunk_dll	*next;
+	struct s_chunk_dll	*prev;
+}				t_chunk_dll;
+
+typedef struct	s_stacks
+{
+	t_dll		*stk_a;
+	t_dll		*stk_b;
+	t_chunk_dll	*chunk_stk_a;
+	t_chunk_dll	*chunk_stk_b;
+	int			initial_chunk_stk_size;
+	t_list		*cmd_list;
+}				t_stacks;
 
 void	ft_bzero(void *s, size_t n);
 int		ft_isalnum(int c);
@@ -54,20 +87,15 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 
-typedef struct s_list
-{
-	int				*content;
-	struct s_list	*next;
-}					t_list;
 
 t_list	*ft_lstnew(int content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
-void	ft_lstadd_back(t_list **lst, t_list *new);
-void	ft_lstdelone(t_list *lst, void (*del)(void *));
-void	ft_lstclear(t_list **lst, void (*del)(void *));
-void	ft_lstiter(t_list *lst, void (*f)(void *));
+void	ft_lstadd_back(t_stacks *stks, t_list *new);
+void	ft_lstdelone(t_list *lst, void (*del)(int));
+void	ft_lstclear(t_list **lst, void (*del)(int));
+void	ft_lstiter(t_list *lst, void (*f)(int));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_printf(const char *format, ...);
 int		is_percent(char c);

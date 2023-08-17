@@ -6,16 +6,17 @@
 #    By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/05 15:14:10 by hyuim             #+#    #+#              #
-#    Updated: 2023/07/20 21:56:44 by hyuim            ###   ########.fr        #
+#    Updated: 2023/08/16 17:19:44 by hyuim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	main.c \
 		parse.c \
+		commands.c
 
 OBJS = $(SRCS:.c=.o)
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -c -g
+CFLAGS = -Wall -Wextra -Werror -c -g3
 HEADER = ./headers
 NAME = a.out
 LIBFT = ft

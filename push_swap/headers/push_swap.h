@@ -29,30 +29,6 @@
 #include <stdio.h>//////////////////
 #include "../libft/libft.h"
 
-typedef struct	s_dll
-{
-	int				value;
-	struct s_dll	*next;
-	struct s_dll	*prev;
-}				t_dll;
-
-typedef struct	s_chunk_dll
-{
-	int					chunk_size;
-	int					type;
-	struct s_chunk_dll	*next;
-	struct s_chunk_dll	*prev;
-}				t_chunk_dll;
-
-typedef struct	s_stacks
-{
-	t_dll		*stk_a;
-	t_dll		*stk_b;
-	t_chunk_dll	*chunk_stk_a;
-	t_chunk_dll	*chunk_stk_b;
-	int			initial_chunk_stk_size;
-	t_list		*cmd_list;
-}				t_stacks;
 
 void		check_dup(int **arr, int inp, int arr_idx);
 int			*parse_input(int argc, char **argv, int *ret_size);
@@ -79,6 +55,9 @@ void		ft_push(t_stacks *stacks, int cmd);
 void		ft_chunk_push(t_stacks *stacks, int cmd);
 void		ft_rotate(t_stacks *stacks, int cmd);
 void		ft_chunk_rotate(t_stacks *stacks, int cmd);
+
+void	print_stcks(t_stacks stks); /////////////////////////////
+void	print_chunk_stcks(t_stacks stks); //////////////////
 
 
 

@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:09:17 by hyuim             #+#    #+#             */
-/*   Updated: 2023/08/14 21:51:11 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/08/17 20:02:50 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,18 @@ int main(int argc, char **argv)
 	// system("leaks --list a.out");
 	if (inp_list_size <= 1)
 		exit(0);
-	// for (int i = 0; i < inp_list_size; i++)
-	// 	printf("%d\n", inp_list[i]);
-	// printf("\n");
 
 	t_stacks	stks;
 	make_stacks(&stks, inp_list_size, inp_list);
 	t_dll	*temp_a = stks.stk_a;
+
+
 	while (temp_a->next != stks.stk_a)
 	{
-		printf("%d\n", temp_a->value);
+		printf("stk_a : %d\n", temp_a->value);
 		temp_a = temp_a->next;
 	}
-	printf("%d\n", temp_a->value);
+	printf("stk_a : %d\n", temp_a->value);
 
 
 	t_chunk_dll	*temp_cnk_a = stks.chunk_stk_a;
@@ -68,7 +67,7 @@ int main(int argc, char **argv)
 	int	exp = 0;
 	int	offset = ft_pow(3, exp);
 	sorted_order[1] = 1;
-	while (1 + offset < first_b_num)
+	while (offset < first_b_num)
 	{
 		int	idx = -1;
 		while (offset - ++idx >= 1)
@@ -82,19 +81,107 @@ int main(int argc, char **argv)
 
 
 	for (int i = 1; i <= first_b_num; i++)
-		printf("%d\n", sorted_order[i]);
+		printf("sorted order : %d\n", sorted_order[i]);
+	printf("\n");
 
 	////////////////////////////////////////////////////////////////////////
+	// swap
+	// ft_swap(&stks, SA);
+	// temp_a = stks.stk_a;
+
+	// while (temp_a->next != stks.stk_a)
+	// {
+	// 	printf("swap : %d\n", temp_a->value);
+	// 	temp_a = temp_a->next;
+	// }
+	// printf("swap : %d\n", temp_a->value);
+	// printf("%d\n", stks.cmd_list->content);
+	// 	printf("\n");
+
+	//push
+	// ft_push(&stks, PB);
+	// ft_push(&stks, PB);
+	// print_stcks(stks);
+	
+	// ft_push(&stks, PA);
+	// print_stcks(stks);
+
+	//rotate
+	// ft_rotate(&stks, RB);
+	// print_stcks(stks);
+	// ft_rotate(&stks, RRB);
+	// print_stcks(stks);
+
+	ft_chunk_push(&stks, CPB);
+	print_chunk_stcks(stks);
+	
 	exit(0);
 }
+void	print_chunk_stcks(t_stacks stks)
+{
+	t_chunk_dll	*temp_a;
+	t_chunk_dll	*temp_b;
+	temp_b = stks.chunk_stk_b;
+	temp_a = stks.chunk_stk_a;
 
-// void	swap(t_dll **stk, t_list **cmd_list, char *cmd)
-// {
-// 	if (*stk && (*stk)->next != *stk)
-// 	{
-		
-// 	}
-// }
+	while (temp_a && temp_a->next != stks.chunk_stk_a)
+	{
+		printf("chunk a size : %d, type : %d\n", temp_a->chunk_size, temp_a->type);
+		temp_a = temp_a->next;
+	}
+	if (temp_a)
+		printf("last chunk a size : %d, type : %d\n", temp_a->chunk_size, temp_a->type);
+
+	while (temp_b && temp_b->next != stks.chunk_stk_b)
+	{
+		printf("chunk b size : %d, type : %d\n", temp_b->chunk_size, temp_b->type);
+		temp_b = temp_b->next;
+	}
+	if (temp_b)
+		printf("last chunk b size : %d, type : %d\n", temp_b->chunk_size, temp_b->type);
+
+	printf("--------------------------\n\n");
+
+}
+
+void	print_stcks(t_stacks stks)
+{
+	t_dll	*temp_a;
+	t_dll	*temp_b;
+	t_list	*temp_cmd;
+	temp_b = stks.stk_b;
+	temp_a = stks.stk_a;
+	temp_cmd = stks.cmd_list;
+
+	while (temp_a && temp_a->next != stks.stk_a)
+	{
+		printf("a: %d\n", temp_a->value);
+		temp_a = temp_a->next;
+	}
+	if (temp_a)
+		printf("a last : %d\n", temp_a->value);
+
+	while (temp_b && temp_b->next != stks.stk_b)
+	{
+		printf("b: %d\n", temp_b->value);
+		temp_b = temp_b->next;
+	}
+	if (temp_b)
+		printf("b last: %d\n", temp_b->value);
+
+	while (temp_cmd && temp_cmd->content)
+	{
+		printf("cmd : %d\n", temp_cmd->content);
+		temp_cmd = temp_cmd->next;
+	}
+	printf("--------------------------\n\n");
+
+}
+
+int	is_sorted()
+{
+	return 0;
+}
 
 t_dll	*pop(t_dll **stk)
 {
@@ -108,8 +195,9 @@ t_dll	*pop(t_dll **stk)
 		return (temp);
 	}
 	temp = *stk;
-	(*stk)->prev->next = (*stk)->next;
-	(*stk)->next->prev = (*stk)->prev;
+	*stk = (*stk)->next;
+	(*stk)->prev = (*stk)->prev->prev;
+	(*stk)->prev->next = (*stk);
 	temp->next = temp;
 	temp->prev = temp;
 	return (temp);
@@ -127,8 +215,9 @@ t_chunk_dll	*cpop(t_chunk_dll **stk)
 		return (temp);
 	}
 	temp = *stk;
-	(*stk)->prev->next = (*stk)->next;
-	(*stk)->next->prev = (*stk)->prev;
+	*stk = (*stk)->next;
+	(*stk)->prev = (*stk)->prev->prev;
+	(*stk)->prev->next = (*stk);
 	temp->next = temp;
 	temp->prev = temp;
 	return (temp);
@@ -276,6 +365,7 @@ void	append_node(t_chunk_dll **head, int chunk_size)
 	temp->next = new_node;
 	new_node->prev = temp;
 	new_node->next = *head;
+	(*head)->prev = new_node;
 	if (chunk_size >= 0)
 	{
 		new_node->chunk_size = chunk_size;
@@ -313,7 +403,7 @@ t_dll	*make_stack_a(int *inp_list, int inp_num)
 	t_dll	*temp;
 	t_dll	*head;
 	
-	head= (t_dll *)malloc(sizeof(t_dll));
+	head = (t_dll *)malloc(sizeof(t_dll));
 	if (!head)
 		ft_error(ERROR, 2);
 	idx = -1;

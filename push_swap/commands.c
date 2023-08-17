@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 20:48:30 by hyuim             #+#    #+#             */
-/*   Updated: 2023/08/14 20:45:31 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/08/17 20:07:48 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void ft_swap(t_stacks *stacks, int cmd)
 		stacks->stk_b->value = stacks->stk_b->next->value;
 		stacks->stk_b->next->value = temp;
 	}
-	ft_lstadd_back(&(stacks->cmd_list), ft_lstnew(cmd));
+	ft_lstadd_back(stacks, ft_lstnew(cmd));
 }
 
 void	ft_chunk_swap(t_stacks *stacks, int cmd)
@@ -62,14 +62,14 @@ void	ft_push(t_stacks *stacks, int cmd)
 	if (cmd == PA)
 	{
 		temp = pop(&(stacks->stk_b));
-		push(temp, &(stacks->chunk_stk_a));
+		push(temp, &(stacks->stk_a));
 	}
 	else if (cmd == PB)
 	{
 		temp = pop(&(stacks->stk_a));
-		push(temp, &(stacks->chunk_stk_b));
+		push(temp, &(stacks->stk_b));
 	}
-	ft_lstadd_back(&(stacks->cmd_list), ft_lstnew(cmd));
+	ft_lstadd_back(stacks, ft_lstnew(cmd));
 }
 
 void	ft_chunk_push(t_stacks *stacks, int cmd)
@@ -79,11 +79,13 @@ void	ft_chunk_push(t_stacks *stacks, int cmd)
 	if (cmd == CPA)
 	{
 		temp = cpop(&(stacks->chunk_stk_b));
+		temp->type *= -1;
 		cpush(temp, &(stacks->chunk_stk_a));
 	}
 	else if (cmd == CPB)
 	{
 		temp = cpop(&(stacks->chunk_stk_a));
+		temp->type *= -1;
 		cpush(temp, &(stacks->chunk_stk_b));
 	}
 }
@@ -98,7 +100,7 @@ void	ft_rotate(t_stacks *stacks, int cmd)
 		stacks->stk_a = stacks->stk_a->prev;
 	else if (cmd == RRB)
 		stacks->stk_b = stacks->stk_b->prev;
-	ft_lstadd_back(&(stacks->cmd_list), ft_lstnew(cmd));
+	ft_lstadd_back(stacks, ft_lstnew(cmd));
 }
 
 void	ft_chunk_rotate(t_stacks *stacks, int cmd)

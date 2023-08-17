@@ -3,29 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd_back_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:09:01 by hyuim             #+#    #+#             */
-/*   Updated: 2023/04/04 14:37:40 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/08/16 19:14:35 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **lst, t_list *new)
+
+void	ft_lstadd_back(t_stacks *stks, t_list *new)
 {
 	t_list	*temp;
 
-	if (!*lst)
+	if (!(stks->cmd_list))
 	{
-		*lst = new;
+		stks->cmd_list = new;
 		return ;
 	}
-	temp = *lst;
+	temp = stks->cmd_list;
 	while (temp->next)
 	{
 		temp = temp->next;
 	}
 	temp->next = new;
+	new->prev = temp;
 	return ;
 }
