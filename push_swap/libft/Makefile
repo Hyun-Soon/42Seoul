@@ -6,7 +6,7 @@
 #    By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 14:53:08 by hyuim             #+#    #+#              #
-#    Updated: 2023/08/14 20:55:39 by hyuim            ###   ########.fr        #
+#    Updated: 2023/09/04 15:07:25 by hyuim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,12 @@ fractol_atodb.c \
 ft_strcmp.c \
 ft_error.c \
 ft_realloc.c \
-ft_pow.c
+ft_pow.c \
+ft_printf.c \
+ft_read_format.c \
+ft_print_conversions1.c \
+ft_print_conversions2.c \
+ft_check_char.c
 
 OBJS = $(SRCS:.c=.o)
 CC = gcc

@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:36:28 by hyuim             #+#    #+#             */
-/*   Updated: 2023/08/16 21:58:13 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/04 15:09:37 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ void	ft_lstdelone(t_list *lst, void (*del)(int));
 void	ft_lstclear(t_list **lst, void (*del)(int));
 void	ft_lstiter(t_list *lst, void (*f)(int));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
-int		ft_printf(const char *format, ...);
 int		is_percent(char c);
 int		is_back_slash(char c);
 int		print_conversion(char c, va_list ap, size_t *bytes);
@@ -116,5 +115,7 @@ void	ft_error(const char *err_msg, int fd);
 double	fractol_atodb(const char *str);
 int		ft_strcmp(const char *str1, const char *str2);
 void	*ft_realloc(int org_size, void *org_ptr, int new_size);
+int		ft_printf(const char *format, ...);
+int		read_format(const char *format, va_list ap);
 
 #endif

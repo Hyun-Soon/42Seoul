@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 20:48:30 by hyuim             #+#    #+#             */
-/*   Updated: 2023/08/17 20:07:48 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/04 20:17:12 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,20 +72,22 @@ void	ft_push(t_stacks *stacks, int cmd)
 	ft_lstadd_back(stacks, ft_lstnew(cmd));
 }
 
-void	ft_chunk_push(t_stacks *stacks, int cmd)
+void	ft_chunk_push(t_stacks *stacks, int cmd, int reverse_flag)
 {
 	t_chunk_dll	*temp;
 
 	if (cmd == CPA)
 	{
 		temp = cpop(&(stacks->chunk_stk_b));
-		temp->type *= -1;
+		if (reverse_flag)
+			temp->type *= -1;
 		cpush(temp, &(stacks->chunk_stk_a));
 	}
 	else if (cmd == CPB)
 	{
 		temp = cpop(&(stacks->chunk_stk_a));
-		temp->type *= -1;
+		if (reverse_flag)
+			temp->type *= -1;
 		cpush(temp, &(stacks->chunk_stk_b));
 	}
 }

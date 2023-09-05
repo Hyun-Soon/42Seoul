@@ -52,9 +52,23 @@ void		cpush(t_chunk_dll *node, t_chunk_dll **stk);
 void 		ft_swap(t_stacks *stacks, int cmd);
 void		ft_chunk_swap(t_stacks *stacks, int cmd);
 void		ft_push(t_stacks *stacks, int cmd);
-void		ft_chunk_push(t_stacks *stacks, int cmd);
+void		ft_chunk_push(t_stacks *stacks, int cmd, int reverse_flag);
 void		ft_rotate(t_stacks *stacks, int cmd);
 void		ft_chunk_rotate(t_stacks *stacks, int cmd);
+void		hard_sort(int *inp_list, int inp_list_size, t_stacks *stks, t_dll *stk);
+void		sort_2args(t_dll *stk);
+void		sort_3args(t_dll *stk);
+void		sort_4args(int *inp_list, int inp_list_size, t_stacks *stks);
+void		sort_5args(int *inp_list, int inp_list_size, t_stacks *stks);
+void		sort_ascend(int *inp_list, int inp_list_size, int *arr);
+void		first_move_to_b(t_stacks *stks, int first_b_num, int *sorted_order);
+void		set_chunk_node(t_chunk_dll *new_node, int chunk_size);
+void		insert_remainder(t_stacks *stks);
+int			count_remainder(t_stacks *stks);
+
+
+
+
 
 void	print_stcks(t_stacks stks); /////////////////////////////
 void	print_chunk_stcks(t_stacks stks); //////////////////

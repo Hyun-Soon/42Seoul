@@ -9,7 +9,7 @@
 			"request": "launch",
 			"name": "Debug",
 			"program": "a.out",
-			"args": ["1 2 3 9 8 7"],
+			"args": ["10 11 12 13 7 8 9 5 6 4"],
 			"cwd": "${workspaceFolder}"
 		}
 	]

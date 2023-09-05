@@ -6,13 +6,17 @@
 #    By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/05 15:14:10 by hyuim             #+#    #+#              #
-#    Updated: 2023/08/16 17:19:44 by hyuim            ###   ########.fr        #
+#    Updated: 2023/09/04 21:00:32 by hyuim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS =	main.c \
 		parse.c \
-		commands.c
+		commands.c \
+		hard_sort.c \
+		init1.c \
+		init2.c \
+		stk_commands.c \
 
 OBJS = $(SRCS:.c=.o)
 CC = cc

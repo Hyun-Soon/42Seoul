@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_char.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 14:27:58 by hyuim             #+#    #+#             */
-/*   Updated: 2023/06/01 14:51:50 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/04 15:07:04 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	is_percent(char c)
 {
