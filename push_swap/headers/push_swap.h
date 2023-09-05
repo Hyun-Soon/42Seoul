@@ -65,6 +65,7 @@ void		first_move_to_b(t_stacks *stks, int first_b_num, int *sorted_order);
 void		set_chunk_node(t_chunk_dll *new_node, int chunk_size);
 void		insert_remainder(t_stacks *stks);
 int			count_remainder(t_stacks *stks);
+void		pb_remainder(t_stacks *stks);
 
 
 
