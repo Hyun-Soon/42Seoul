@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:09:17 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/06 22:21:11 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/06 22:24:29 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	merge_to_a(t_stacks *stks, int size, int type)
 {
 	int	div_size[3];
 
-	if (size == 1 || is_sorted(stks, size, type)) ///
+	if (size == 1 || is_sorted(stks->stk_a, size, type)) ///
 		return ;
 	if (size == 2)
 	{
@@ -68,7 +68,7 @@ void	merge_to_b(t_stacks *stks, int size, int type)
 {
 	int	div_size[3];
 
-	if (size == 1 || is_sorted(stks, size, type))
+	if (size == 1 || is_sorted(stks->stk_a, size, type))
 		return ;
 	if (size == 2)
 	{
