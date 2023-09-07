@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:36:28 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/04 15:09:37 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/07 17:12:58 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <limits.h>
 # include <unistd.h>
 # include <stdarg.h>
-//# include "../headers/push_swap.h" //////////ㅇㅣㄱ 지지우우면  실실행행은  됌됌
 
 typedef struct s_list
 {
@@ -33,21 +32,10 @@ typedef struct	s_dll
 	struct s_dll	*prev;
 }				t_dll;
 
-typedef struct	s_chunk_dll
-{
-	int					chunk_size;
-	int					type;
-	struct s_chunk_dll	*next;
-	struct s_chunk_dll	*prev;
-}				t_chunk_dll;
-
 typedef struct	s_stacks
 {
 	t_dll		*stk_a;
 	t_dll		*stk_b;
-	t_chunk_dll	*chunk_stk_a;
-	t_chunk_dll	*chunk_stk_b;
-	int			initial_chunk_stk_size;
 	t_list		*cmd_list;
 }				t_stacks;
 

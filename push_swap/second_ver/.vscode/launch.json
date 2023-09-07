@@ -1,0 +1,16 @@
+{
+	// IntelliSense를 사용하여 가능한 특성에 대해 알아보세요.
+	// 기존 특성에 대한 설명을 보려면 가리킵니다.
+	// 자세한 내용을 보려면 https://go.microsoft.com/fwlink/?linkid=830387을(를) 방문하세요.
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "lldb",
+			"request": "launch",
+			"name": "Debug",
+			"program": "a.out",
+			"args": ["41 2 35 6 28 32 13 9 42 22 45 5 8 37 44 11 18 29 3 7 36 10 39 26 19 30 50 49 31 46 15 16 25 20 12 38 27 33 1 24 21 48 40 47 17 14 43 34 23 4"],
+			"cwd": "${workspaceFolder}"
+		}
+	]
+}

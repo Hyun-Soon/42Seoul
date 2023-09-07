@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:09:17 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/06 22:24:29 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/07 22:33:23 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,37 @@ int main(int argc, char **argv)
 	inp_list_size = 0;
 	inp_list = parse_input(argc, argv, &inp_list_size);
 	make_stacks(&stks, inp_list_size, inp_list);
-	if (inp_list_size <= 1 || (stks.initial_chunk_stk_size == 1 && stks.chunk_stk_a->type == ASCEND))
+	if (inp_list_size <= 1)
 		exit(0);
 	if (inp_list_size <= 5)
 		hard_sort(inp_list, inp_list_size, &stks, stks.stk_a);
-
+	if (is_sorted(stks.stk_a, inp_list_size, ASCEND))
+		exit(0);
+	//go(&stks, inp_list_size, ASCEND);
 	merge_to_a(&stks, inp_list_size, ASCEND);
-
-	print_stcks(stks);
-	print_chunk_stcks(stks);
+	
+	print_result(&stks);
 	exit(0);
 }
+
+// void	go(t_stacks *stks, int size, int type)
+// {
+// 	int	div_size[3];
+
+// 	div_size[0] = size / 3;
+// 	div_size[1] = size / 3 + size % 3;
+// 	div_size[2] = size / 3;
+// 	merge_to_b(stks, div_size[0], type); //3
+// 	merge_to_b(stks, div_size[1], -type); //4
+// 	merge_to_a(stks, div_size[2], type); //3
+// 	finally_merge_to_a(stks, div_size, type);
+// }
 
 void	merge_to_a(t_stacks *stks, int size, int type)
 {
 	int	div_size[3];
 
-	if (size == 1 || is_sorted(stks->stk_a, size, type)) ///
+	if (is_sorted(stks->stk_a, size, type)) ///
 		return ;
 	if (size == 2)
 	{
@@ -55,10 +69,10 @@ void	merge_to_a(t_stacks *stks, int size, int type)
 	div_size[1] = size / 3 + size % 3;
 	div_size[2] = size / 3;
 
-	merge_to_b(stks, div_size[0], -type);
+	merge_to_b(stks, div_size[0], type);
 	move_chunk_to_b_bottom(stks, div_size[0]);
-	merge_to_b(stks, div_size[1], type);
-	move_chunk_to_b_top(stks, div_size[1]);
+	merge_to_b(stks, div_size[1], -type);
+	//move_chunk_to_b_top(stks, div_size[1]);
 	merge_to_a(stks, div_size[2], type);
 	move_chunk_to_a_bottom(stks, div_size[2]);
 	finally_merge_to_a(stks, div_size, type);
@@ -68,23 +82,29 @@ void	merge_to_b(t_stacks *stks, int size, int type)
 {
 	int	div_size[3];
 
-	if (size == 1 || is_sorted(stks->stk_a, size, type))
-		return ;
+	if (size == 1 || is_sorted(stks->stk_a, size, -type)) // -typeㅇ어야 하하나나?
+	{
+		while (size--)
+			ft_push(stks, PB);
+		return ; ////
+	}
 	if (size == 2)
 	{
 		ft_swap(stks, SA);
+		while (size--)
+			ft_push(stks, PB);
 		return ;
 	}
 	div_size[0] = size / 3;
 	div_size[1] = size / 3 + size % 3;
 	div_size[2] = size / 3;
 
-	merge_to_a(stks, div_size[0], -type);
-	move_chunk_to_a_bottom(stks, div_size[0]);
-	merge_to_a(stks, div_size[1], type);
-	move_chunk_to_a_top(stks, div_size[1]);
 	merge_to_b(stks, div_size[2], type);
 	move_chunk_to_b_bottom(stks, div_size[2]);
+	merge_to_a(stks, div_size[0], type);
+	move_chunk_to_a_bottom(stks, div_size[0]);
+	merge_to_a(stks, div_size[1], -type);
+	//move_chunk_to_a_top(stks, div_size[1]);
 	finally_merge_to_b(stks, div_size, type);
 }
 
@@ -100,17 +120,32 @@ void	finally_merge_to_b(t_stacks *stks, int *size, int type)
 	while (total_size--)
 	{
 		if (!size[0])
-			a_bottom_value = -2200000000;
+		{
+			if (type == ASCEND)
+				a_bottom_value = -2200000000;
+			else
+				a_bottom_value = 2200000000;
+		}
 		else
 			a_bottom_value = stks->stk_a->prev->value;
 		if (!size[1])
-			a_top_value = -2200000000;
+		{
+			if (type == ASCEND)
+				a_top_value = -2200000000;
+			else
+				a_top_value = 2200000000;
+		}
 		else
 			a_top_value = stks->stk_a->value;
 		if (!size[2])
-			b_bottom_value = -2200000000;
+		{
+			if (type == ASCEND)
+				b_bottom_value = -2200000000;
+			else
+				b_bottom_value = 2200000000;
+		}
 		else
-			b_bottom_value = stks->stk_b->value;
+			b_bottom_value = stks->stk_b->prev->value;
 		
 		if (type == ASCEND)
 		{
@@ -127,7 +162,8 @@ void	finally_merge_to_b(t_stacks *stks, int *size, int type)
 			}
 			else
 			{
-				ft_rotate(stks, RRB);
+				if (stks->stk_b->value != b_bottom_value)
+					ft_rotate(stks, RRB);
 				size[2]--;
 			}
 		}
@@ -146,7 +182,8 @@ void	finally_merge_to_b(t_stacks *stks, int *size, int type)
 			}
 			else
 			{
-				ft_rotate(stks, RRB);
+				if (stks->stk_b->value != b_bottom_value)
+					ft_rotate(stks, RRB);
 				size[2]--;
 			}
 		}
@@ -165,17 +202,32 @@ void	finally_merge_to_a(t_stacks *stks, int *size, int type)
 	while (total_size--)
 	{
 		if (!size[0])
-			b_bottom_value = -2200000000;
+		{
+			if (type == ASCEND)
+				b_bottom_value = -2200000000;
+			else
+				b_bottom_value = 2200000000;
+		}
 		else
 			b_bottom_value = stks->stk_b->prev->value;
 		if (!size[1])
-			b_top_value = -2200000000;
+		{
+			if (type == ASCEND)
+				b_top_value = -2200000000;
+			else
+				b_top_value = 2200000000;
+		}
 		else
 			b_top_value = stks->stk_b->value;
 		if (!size[2])
-			a_bottom_value = -2200000000;
+		{
+			if (type == ASCEND)
+				a_bottom_value = -2200000000;
+			else
+				a_bottom_value = 2200000000;
+		}
 		else
-			a_bottom_value = stks->stk_a->value;
+			a_bottom_value = stks->stk_a->prev->value;
 		
 		if (type == ASCEND)
 		{
@@ -220,58 +272,76 @@ void	finally_merge_to_a(t_stacks *stks, int *size, int type)
 
 void	move_chunk_to_a_bottom(t_stacks *stks, int size)
 {
+	t_dll	*temp;
 	int	rotate;
 	int	idx;
 
-	rotate = 1;
+	rotate = 0;
 	idx = -1;
-	if (!stks->stk_a)
-		rotate = 0;
-	while (++idx < size)
-		ft_push(stks, PA);
+	if (stks->stk_a)
+	{
+		temp = stks->stk_a;
+		while (++idx < size - 1)
+			temp = temp->next;
+		if (temp->next != stks->stk_a)
+			rotate = 1;
+		idx = -1;
+	}
+	// if (!stks->stk_a)
+	// 	rotate = 0;
 	if (rotate)
 	{
-		idx = -1;
 		while (++idx < size)
 			ft_rotate(stks, RA);
 	}
 }
 
-void	move_chunk_to_a_top(t_stacks *stks, int size)
-{
-	while (size--)
-		ft_push(stks, PA);
-}
+// void	move_chunk_to_a_top(t_stacks *stks, int size)
+// {
+// 	while (stks->stk_b && size--)
+// 		ft_push(stks, PA);
+// }
 
 void	move_chunk_to_b_bottom(t_stacks *stks, int size)
 {
+	t_dll	*temp;
 	int	rotate;
 	int	idx;
 
-	rotate = 1;
+	rotate = 0;
 	idx = -1;
-	if (!stks->stk_b)
-		rotate = 0;
-	while (++idx < size)
-		ft_push(stks, PB);
+	if (stks->stk_b)
+	{
+		temp = stks->stk_b;
+		while (++idx < size - 1)
+			temp = temp->next;
+		if (temp->next != stks->stk_b)
+			rotate = 1;
+		idx = -1;
+	}
+	// if (!stks->stk_b)
+	// 	rotate = 0;
+	// while (stks->stk_a && ++idx < size)
+	// 	ft_push(stks, PB);// finally b merge 했으면 이게 필요가 없지!!!!!!!!!
 	if (rotate)
 	{
-		idx = -1;
 		while (++idx < size)
 			ft_rotate(stks, RB);
 	}
 }
 
-void	move_chunk_to_b_top(t_stacks *stks, int size)
-{
-	while (size--)
-		ft_push(stks, PB);
-}
+// void	move_chunk_to_b_top(t_stacks *stks, int size) // finally b merge 했으면 넌 아예 필요가 없다
+// {
+// 	while (stks->stk_a && size--)
+// 		ft_push(stks, PB);
+// }
 
 int	is_sorted(t_dll *stk, int size, int type)
 {
 	t_dll	*temp;
 
+	if (!stk)
+		return (0); // 왜 이 케이스가 생기지?
 	temp = stk;
 	if (type == ASCEND)
 	{
@@ -310,70 +380,40 @@ int	get_stack_size(t_dll *stk)
 	return (size);
 }
 
-
-void	print_chunk_stcks(t_stacks stks)
+void	print_result(t_stacks *stks)
 {
-	t_chunk_dll	*temp_a;
-	t_chunk_dll	*temp_b;
-	temp_b = stks.chunk_stk_b;
-	temp_a = stks.chunk_stk_a;
-		printf("---------------print_chunk_stcks-----------\n\n");
+	t_list *temp;
 
-	while (temp_a && temp_a->next != stks.chunk_stk_a)
+	temp = stks->cmd_list;
+	while (temp && temp->content)
 	{
-		printf("chunk a size : %d, type : %d\n", temp_a->chunk_size, temp_a->type);
-		temp_a = temp_a->next;
+		print_content(temp);
+		temp = temp->next;
 	}
-	if (temp_a)
-		printf("last chunk a size : %d, type : %d\n", temp_a->chunk_size, temp_a->type);
-
-	while (temp_b && temp_b->next != stks.chunk_stk_b)
-	{
-		printf("chunk b size : %d, type : %d\n", temp_b->chunk_size, temp_b->type);
-		temp_b = temp_b->next;
-	}
-	if (temp_b)
-		printf("last chunk b size : %d, type : %d\n", temp_b->chunk_size, temp_b->type);
-
-	printf("-------------------------------------------\n\n");
-
 }
 
-void	print_stcks(t_stacks stks)
+void	print_content(t_list *temp)
 {
-	t_dll	*temp_a;
-	t_dll	*temp_b;
-	t_list	*temp_cmd;
-	temp_b = stks.stk_b;
-	temp_a = stks.stk_a;
-	temp_cmd = stks.cmd_list;
-
-	printf("-----------------print_stcks--------------\n\n");
-	printf("-----a-----\n");
-	while (temp_a && temp_a->next != stks.stk_a)
-	{
-		printf("a: %d\n", temp_a->value);
-		temp_a = temp_a->next;
-	}
-	if (temp_a)
-		printf("a last : %d\n", temp_a->value);
-	printf("-----------\n\n");
-
-	printf("-----b-----\n");
-	while (temp_b && temp_b->next != stks.stk_b)
-	{
-		printf("b: %d\n", temp_b->value);
-		temp_b = temp_b->next;
-	}
-	if (temp_b)
-		printf("b last: %d\n", temp_b->value);
-	printf("-----------\n");
-
-	while (temp_cmd && temp_cmd->content)
-	{
-		printf("cmd : %d\n", temp_cmd->content);
-		temp_cmd = temp_cmd->next;
-	}
-	printf("------------------------------------------\n\n");
-
+	if (temp->content == SA)
+		ft_printf("sa\n");
+	else if (temp->content == SB)
+		ft_printf("sb\n");
+	else if (temp->content == SS)
+		ft_printf("ss\n");
+	else if (temp->content == PA)
+		ft_printf("pa\n");
+	else if (temp->content == PB)
+		ft_printf("pb\n");
+	else if (temp->content == RA)
+		ft_printf("ra\n");
+	else if (temp->content == RB)
+		ft_printf("rb\n");
+	else if (temp->content == RR)
+		ft_printf("rr\n");
+	else if (temp->content == RRA)
+		ft_printf("rra\n");
+	else if (temp->content == RRB)
+		ft_printf("rrb\n");
+	else if (temp->content == RRR)
+		ft_printf("rrr\n");
 }
