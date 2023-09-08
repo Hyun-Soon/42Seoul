@@ -48,8 +48,25 @@ void	move_chunk_to_a_top(t_stacks *stks, int size);
 void	move_chunk_to_b_bottom(t_stacks *stks, int size);
 void	move_chunk_to_b_top(t_stacks *stks, int size);
 int		is_sorted(t_dll *stk, int size, int type);
-void	go(t_stacks *stks, int size, int type);
 void	print_content(t_list *temp);
 void	print_result(t_stacks *stks);
+void	optimize_cmds(t_stacks *stks, int *flag);
+void	merge_cmd(t_list *cmd_node, int cmd, int *flag);
+
+
+long long	update_a_bottom_value(t_stacks *stks, int chunk_size, int type);
+long long	update_b_top_value(t_stacks *stks, int chunk_size, int type);
+long long	update_b_bottom_value(t_stacks *stks, int chunk_size, int type);
+long long	out_of_comparison(int type);
+void		chunks_to_a(t_stacks *stks, long long *values, int *size, int type);
+void		chunks_to_a_descend(t_stacks *stks, long long *values, int *size);
+void		chunks_to_a_ascend(t_stacks *stks, long long *values, int *size);
+long long	update_a_bottom_value(t_stacks *stks, int chunk_size, int type);
+long long	update_b_bottom_value(t_stacks *stks, int chunk_size, int type);
+long long	out_of_comparison(int type);
+void		chunks_to_b(t_stacks *stks, long long *values, int *size, int type);
+void		chunks_to_b_ascend(t_stacks *stks, long long *values, int *size);
+void		chunks_to_b_descend(t_stacks *stks, long long *values, int *size);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:09:17 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/07 22:33:23 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/08 16:20:46 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int main(int argc, char **argv)
 {
 	int		*inp_list;
 	int		inp_list_size;
+	int			opt_flag;
 	t_stacks	stks;
 
 	inp_list_size = 0;
@@ -34,25 +35,14 @@ int main(int argc, char **argv)
 		hard_sort(inp_list, inp_list_size, &stks, stks.stk_a);
 	if (is_sorted(stks.stk_a, inp_list_size, ASCEND))
 		exit(0);
-	//go(&stks, inp_list_size, ASCEND);
 	merge_to_a(&stks, inp_list_size, ASCEND);
 	
+	opt_flag = 1;
+	while (stks.cmd_list && opt_flag == 1)
+		optimize_cmds(&stks, &opt_flag);
 	print_result(&stks);
 	exit(0);
 }
-
-// void	go(t_stacks *stks, int size, int type)
-// {
-// 	int	div_size[3];
-
-// 	div_size[0] = size / 3;
-// 	div_size[1] = size / 3 + size % 3;
-// 	div_size[2] = size / 3;
-// 	merge_to_b(stks, div_size[0], type); //3
-// 	merge_to_b(stks, div_size[1], -type); //4
-// 	merge_to_a(stks, div_size[2], type); //3
-// 	finally_merge_to_a(stks, div_size, type);
-// }
 
 void	merge_to_a(t_stacks *stks, int size, int type)
 {
@@ -72,7 +62,6 @@ void	merge_to_a(t_stacks *stks, int size, int type)
 	merge_to_b(stks, div_size[0], type);
 	move_chunk_to_b_bottom(stks, div_size[0]);
 	merge_to_b(stks, div_size[1], -type);
-	//move_chunk_to_b_top(stks, div_size[1]);
 	merge_to_a(stks, div_size[2], type);
 	move_chunk_to_a_bottom(stks, div_size[2]);
 	finally_merge_to_a(stks, div_size, type);
@@ -86,7 +75,7 @@ void	merge_to_b(t_stacks *stks, int size, int type)
 	{
 		while (size--)
 			ft_push(stks, PB);
-		return ; ////
+		return ;
 	}
 	if (size == 2)
 	{
@@ -98,27 +87,57 @@ void	merge_to_b(t_stacks *stks, int size, int type)
 	div_size[0] = size / 3;
 	div_size[1] = size / 3 + size % 3;
 	div_size[2] = size / 3;
-
+ 
 	merge_to_b(stks, div_size[2], type);
 	move_chunk_to_b_bottom(stks, div_size[2]);
 	merge_to_a(stks, div_size[0], type);
 	move_chunk_to_a_bottom(stks, div_size[0]);
 	merge_to_a(stks, div_size[1], -type);
-	//move_chunk_to_a_top(stks, div_size[1]);
 	finally_merge_to_b(stks, div_size, type);
 }
 
-void	finally_merge_to_b(t_stacks *stks, int *size, int type)
+void	finally_merge_to_a(t_stacks *stks, int *size, int type)
 {
-	//[0]a_bottom, [1]a_top, [2]b_bottom
+	//[0]b_bottom, [1]b_top, [2]a_bottom
 	int			total_size;
-	long long	a_bottom_value;
-	long long	a_top_value;
-	long long	b_bottom_value;
+	long long	values[3];
 
 	total_size = size[0] + size[1] + size[2];
 	while (total_size--)
 	{
+		values[0] = update_b_bottom_value(stks, size[0], type);
+		values[1] = update_b_top_value(stks, size[1], type);
+		values[2] = update_a_bottom_value(stks, size[2], type);
+		chunks_to_a(stks, values, size, type);
+	}
+}
+long long	update_a_top_value(t_stacks *stks, int chunk_size, int type)
+{
+	if (!chunk_size)
+		return (out_of_comparison(type));
+	else
+		return (stks->stk_a->value);
+}
+
+void	finally_merge_to_b(t_stacks *stks, int *size, int type)
+{
+	//[0]a_bottom [1]a_top [2]b_bottom
+	int			total_size;
+	// long long	values[3];
+	
+	total_size = size[0] + size[1] + size[2];
+	while (total_size--)
+	{
+		// values[0] = update_a_bottom_value(stks, size[2], type);
+		// values[1] = update_a_top_value(stks, size[1], type);
+		// values[2] = update_b_bottom_value(stks, size[0], type);
+
+		long long a_bottom_value;
+		long long a_top_value;
+		long long b_bottom_value;
+		// a_bottom_value = values[0];
+		// a_top_value = values[1];
+		// b_bottom_value = values[2];
 		if (!size[0])
 		{
 			if (type == ASCEND)
@@ -190,85 +209,86 @@ void	finally_merge_to_b(t_stacks *stks, int *size, int type)
 	}
 }
 
-void	finally_merge_to_a(t_stacks *stks, int *size, int type)
+long long	out_of_comparison(int type)
 {
-	//[0]b_bottom, [1]b_top, [2]a_bottom
-	int			total_size;
-	long long	b_bottom_value;
-	long long	b_top_value;
-	long long	a_bottom_value;
+	if (type == ASCEND)
+		return (-2200000000);
+	else
+		return (2200000000);
+}
 
-	total_size = size[0] + size[1] + size[2];
-	while (total_size--)
+long long	update_b_bottom_value(t_stacks *stks, int chunk_size, int type)
+{
+	if (!chunk_size)
+		return (out_of_comparison(type));
+	else
+		return (stks->stk_b->prev->value);
+}
+
+long long	update_b_top_value(t_stacks *stks, int chunk_size, int type)
+{
+	if (!chunk_size)
+		return (out_of_comparison(type));
+	else
+		return (stks->stk_b->value);
+}
+
+long long	update_a_bottom_value(t_stacks *stks, int chunk_size, int type)
+{
+	if (!chunk_size)
+		return (out_of_comparison(type));
+	else
+		return (stks->stk_a->prev->value);
+}
+
+void	chunks_to_a_ascend(t_stacks *stks, long long *values, int *size)
+{
+	if (values[0] > values[1] && values[0] > values[2])
 	{
-		if (!size[0])
-		{
-			if (type == ASCEND)
-				b_bottom_value = -2200000000;
-			else
-				b_bottom_value = 2200000000;
-		}
-		else
-			b_bottom_value = stks->stk_b->prev->value;
-		if (!size[1])
-		{
-			if (type == ASCEND)
-				b_top_value = -2200000000;
-			else
-				b_top_value = 2200000000;
-		}
-		else
-			b_top_value = stks->stk_b->value;
-		if (!size[2])
-		{
-			if (type == ASCEND)
-				a_bottom_value = -2200000000;
-			else
-				a_bottom_value = 2200000000;
-		}
-		else
-			a_bottom_value = stks->stk_a->prev->value;
-		
-		if (type == ASCEND)
-		{
-			if (b_bottom_value > b_top_value && b_bottom_value > a_bottom_value)
-			{
-				ft_rotate(stks, RRB);
-				ft_push(stks, PA);
-				size[0]--;
-			}
-			else if (b_top_value > b_bottom_value && b_top_value > a_bottom_value)
-			{
-				ft_push(stks, PA);
-				size[1]--;
-			}
-			else
-			{
-				ft_rotate(stks, RRA);
-				size[2]--;
-			}
-		}
-		else
-		{
-			if (b_bottom_value < b_top_value && b_bottom_value < a_bottom_value)
-			{
-				ft_rotate(stks, RRB);
-				ft_push(stks, PA);
-				size[0]--;
-			}
-			else if (b_top_value < b_bottom_value && b_top_value < a_bottom_value)
-			{
-				ft_push(stks, PA);
-				size[1]--;
-			}
-			else
-			{
-				ft_rotate(stks, RRA);
-				size[2]--;
-			}
-		}
+		ft_rotate(stks, RRB);
+		ft_push(stks, PA);
+		size[0]--;
+	}
+	else if (values[1] > values[0] && values[1] > values[2])
+	{
+		ft_push(stks, PA);
+		size[1]--;
+	}
+	else
+	{
+		ft_rotate(stks, RRA);
+		size[2]--;
 	}
 }
+
+void	chunks_to_a_descend(t_stacks *stks, long long *values, int *size)
+{
+	if (values[0] < values[1] && values[0] < values[2])
+	{
+		ft_rotate(stks, RRB);
+		ft_push(stks, PA);
+		size[0]--;
+	}
+	else if (values[1] < values[0] && values[1] < values[2])
+	{
+		ft_push(stks, PA);
+		size[1]--;
+	}
+	else
+	{
+		ft_rotate(stks, RRA);
+		size[2]--;
+	}
+}
+
+void	chunks_to_a(t_stacks *stks, long long *values, int *size, int type)
+{
+	if (type == ASCEND)
+		chunks_to_a_ascend(stks, values, size);
+	else
+		chunks_to_a_descend(stks, values, size);
+}
+
 
 void	move_chunk_to_a_bottom(t_stacks *stks, int size)
 {
@@ -287,8 +307,6 @@ void	move_chunk_to_a_bottom(t_stacks *stks, int size)
 			rotate = 1;
 		idx = -1;
 	}
-	// if (!stks->stk_a)
-	// 	rotate = 0;
 	if (rotate)
 	{
 		while (++idx < size)
@@ -296,11 +314,7 @@ void	move_chunk_to_a_bottom(t_stacks *stks, int size)
 	}
 }
 
-// void	move_chunk_to_a_top(t_stacks *stks, int size)
-// {
-// 	while (stks->stk_b && size--)
-// 		ft_push(stks, PA);
-// }
+
 
 void	move_chunk_to_b_bottom(t_stacks *stks, int size)
 {
@@ -319,10 +333,6 @@ void	move_chunk_to_b_bottom(t_stacks *stks, int size)
 			rotate = 1;
 		idx = -1;
 	}
-	// if (!stks->stk_b)
-	// 	rotate = 0;
-	// while (stks->stk_a && ++idx < size)
-	// 	ft_push(stks, PB);// finally b merge 했으면 이게 필요가 없지!!!!!!!!!
 	if (rotate)
 	{
 		while (++idx < size)
@@ -330,18 +340,12 @@ void	move_chunk_to_b_bottom(t_stacks *stks, int size)
 	}
 }
 
-// void	move_chunk_to_b_top(t_stacks *stks, int size) // finally b merge 했으면 넌 아예 필요가 없다
-// {
-// 	while (stks->stk_a && size--)
-// 		ft_push(stks, PB);
-// }
-
 int	is_sorted(t_dll *stk, int size, int type)
 {
 	t_dll	*temp;
 
 	if (!stk)
-		return (0); // 왜 이 케이스가 생기지?
+		return (0);
 	temp = stk;
 	if (type == ASCEND)
 	{
@@ -362,22 +366,6 @@ int	is_sorted(t_dll *stk, int size, int type)
 		}
 	}
 	return (1);
-}
-
-
-int	get_stack_size(t_dll *stk)
-{
-	int		size;
-	t_dll	*temp;
-
-	if (stk == NULL)
-		return (-1);
-	size = 0;
-	temp = stk;
-	while (temp->next != stk)
-		size++;
-	size++;
-	return (size);
 }
 
 void	print_result(t_stacks *stks)
@@ -416,4 +404,47 @@ void	print_content(t_list *temp)
 		ft_printf("rrb\n");
 	else if (temp->content == RRR)
 		ft_printf("rrr\n");
+}
+void	optimize_cmds(t_stacks *stks, int *flag)
+{
+	t_list	*temp;
+	int		cmds_sum;
+	
+	temp = stks->cmd_list;
+	*flag = 0;
+	while (temp->next)
+	{
+		cmds_sum = temp->content + temp->next->content;
+		if (cmds_sum == 0)
+		{
+			ft_lstdelone(temp->next);
+			ft_lstdelone(temp);
+			*flag = 1;
+			return ;
+		}
+		else if (cmds_sum == SS || cmds_sum == RR || cmds_sum == RRR)
+		{
+			merge_cmd(temp, cmds_sum, flag);
+			return ;
+		}
+		temp = temp->next;
+	}
+}
+
+void	merge_cmd(t_list *cmd_node, int cmd, int *flag)
+{
+	t_list	*new_cmd;
+	t_list	*temp_prev;
+	t_list	*temp_next;
+
+	temp_prev = cmd_node->prev;
+	temp_next = cmd_node->next->next;
+	ft_lstdelone(cmd_node->next);
+	ft_lstdelone(cmd_node);
+	new_cmd = ft_lstnew(cmd);
+	temp_prev->next = new_cmd;
+	new_cmd->prev = temp_prev;
+	new_cmd->next = temp_next;
+	temp_next->prev = new_cmd;
+	*flag = 1;
 }
