@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_read_format.c                                   :+:      :+:    :+:   */
+/*   read_format.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:37:33 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/04 15:11:49 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/04/11 13:57:39 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
 int	read_format(const char *format, va_list ap)
 {
@@ -31,9 +31,19 @@ int	read_format(const char *format, va_list ap)
 			i++;
 			continue ;
 		}
-		if (!print_conversion(*(format + i + 1), ap, &bytes))
+		if (!print_conversion(*(format + i + 1), &ap, &bytes))
 			return (-1);
 		i += 2;
 	}
 	return (bytes);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	int	cnt;
+
+	cnt = 0;
+	while (*(s + cnt))
+		cnt++;
+	return (cnt);
 }

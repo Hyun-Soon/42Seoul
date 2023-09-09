@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 12:58:13 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/04 15:44:42 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/06 14:22:54 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	sort_2args(t_dll *stk)
 void	sort_3args(t_dll *stk)
 {
 	if (stk->value < stk->next->value && stk->value < stk->next->next->value && stk->next->value > stk->next->next->value)
-		ft_printf("%s\n%s\n%s\n", "ra", "sa", "rra");
+		ft_printf("%s\n%s\n", "rra", "sa");
 	else if (stk->value > stk->next->value && stk->next->value < stk->next->next->value && stk->value < stk->next->next->value)
 		ft_printf("%s\n", "sa");
 	else if (stk->value < stk->next->value && stk->next->value > stk->next->next->value && stk->value > stk->next->next->value)

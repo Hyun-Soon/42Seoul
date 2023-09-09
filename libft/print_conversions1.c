@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print_conversions1.c                            :+:      :+:    :+:   */
+/*   print_conversions1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:09:11 by hyuim             #+#    #+#             */
-/*   Updated: 2023/06/01 14:51:25 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/04/12 13:49:22 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-int	print_conversion(char c, va_list ap, size_t *bytes)
+int	print_conversion(char c, va_list *ap, size_t *bytes)
 {
 	if (c == 'c')
 		return (print_c(ap, bytes));
@@ -34,23 +34,23 @@ int	print_conversion(char c, va_list ap, size_t *bytes)
 		return (0);
 }
 
-int	print_c(va_list ap, size_t *bytes)
+int	print_c(va_list *ap, size_t *bytes)
 {
 	char	c;
 
-	c = va_arg(ap, int);
+	c = va_arg(*ap, int);
 	if (write(1, &c, 1) == -1)
 		return (0);
 	(*bytes)++;
 	return (1);
 }
 
-int	print_s(va_list ap, size_t *bytes)
+int	print_s(va_list *ap, size_t *bytes)
 {
 	const char	*str;
 	size_t		len;
 
-	str = va_arg(ap, const char *);
+	str = va_arg(*ap, const char *);
 	if (!str)
 	{
 		if (write(1, "(null)", 6) == -1)
@@ -65,12 +65,12 @@ int	print_s(va_list ap, size_t *bytes)
 	return (1);
 }
 
-int	print_p(va_list ap, size_t *bytes)
+int	print_p(va_list *ap, size_t *bytes)
 {
 	unsigned long	addr;
 	char			*ret;
 
-	addr = va_arg(ap, unsigned long);
+	addr = va_arg(*ap, unsigned long);
 	ret = ltoa_base(16, addr);
 	if (!ret)
 		return (0);

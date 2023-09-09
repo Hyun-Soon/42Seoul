@@ -12,12 +12,12 @@
 
 #include "libft.h"
 
-int	print_d(va_list ap, size_t *bytes)
+int	print_d(va_list *ap, size_t *bytes)
 {
 	int		n;
 	char	*ret;
 
-	n = va_arg(ap, int);
+	n = va_arg(*ap, int);
 	if (n < 0)
 	{
 		n *= -1;
@@ -40,12 +40,12 @@ int	print_d(va_list ap, size_t *bytes)
 	return (1);
 }
 
-int	print_u(va_list ap, size_t *bytes)
+int	print_u(va_list *ap, size_t *bytes)
 {
 	int		n;
 	char	*ret;
 
-	n = va_arg(ap, int);
+	n = va_arg(*ap, int);
 	ret = ltoa_base(10, (unsigned int)n);
 	if (!ret)
 		return (0);
@@ -61,12 +61,12 @@ int	print_u(va_list ap, size_t *bytes)
 	return (1);
 }
 
-int	print_x(va_list ap, size_t *bytes)
+int	print_x(va_list *ap, size_t *bytes)
 {
 	int		n;
 	char	*ret;
 
-	n = va_arg(ap, int);
+	n = va_arg(*ap, int);
 	ret = ltoa_base(16, (unsigned int)n);
 	if (!ret)
 		return (0);
@@ -82,13 +82,13 @@ int	print_x(va_list ap, size_t *bytes)
 	return (1);
 }
 
-int	print_large_x(va_list ap, size_t *bytes)
+int	print_large_x(va_list *ap, size_t *bytes)
 {
 	int		n;
 	int		i;
 	char	*ret;
 
-	n = va_arg(ap, int);
+	n = va_arg(*ap, int);
 	ret = ltoa_base(16, (unsigned int)n);
 	if (!ret)
 		return (0);

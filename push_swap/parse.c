@@ -12,22 +12,25 @@
 
 #include "push_swap.h"
 
-void	check_dup(int **arr, int inp, int arr_idx)
+void	check_dup(int *arr, int inp, int arr_idx)
 {
 	int	idx;
 
 	if (arr_idx == 0)
 	{
-		**arr = inp;
+		*arr = inp;
 		return ;
 	}
 	idx = -1;
 	while (++idx < arr_idx)
 	{
-		if (*(*arr + idx) == inp)
+		if (*(arr + idx) == inp)
+		{
+			free(arr);
 			ft_error(ERROR, 2);
+		}
 	}
-	*(*arr + arr_idx) = inp;
+	*(arr + arr_idx) = inp;
 	return ;
 }
 
@@ -52,7 +55,7 @@ int	*parse_input(int argc, char **argv, int *ret_size)
 		{
 			inp = ft_ps_atoi(split_ret[split_idx], &atoi_flag);
 			ret = ft_realloc(*ret_size  * sizeof(int), ret, (*ret_size + 1) * sizeof(int));
-			ret[*ret_size] = inp;
+			check_dup(ret, inp, *ret_size);
 			*ret_size += 1;
 		}
 		free_split_ret(split_ret);

@@ -23,6 +23,13 @@ int	ft_printf(const char *format, ...)
 	return (bytes);
 }
 
+// int main()
+// {
+
+// 	ft_printf("%s\n%s\n%s", "ab", "cd", "ef");
+// 	return (0);
+// }
+
 // #include <stdio.h>
 // #include <limits.h>
 // int main()

@@ -31,7 +31,7 @@ int	read_format(const char *format, va_list ap)
 			i++;
 			continue ;
 		}
-		if (!print_conversion(*(format + i + 1), ap, &bytes))
+		if (!print_conversion(*(format + i + 1), &ap, &bytes))
 			return (-1);
 		i += 2;
 	}

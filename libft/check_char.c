@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
+/*   check_char.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/28 12:15:37 by hyuim             #+#    #+#             */
-/*   Updated: 2023/03/28 12:22:11 by hyuim            ###   ########.fr       */
+/*   Created: 2023/04/06 14:27:58 by hyuim             #+#    #+#             */
+/*   Updated: 2023/04/10 19:43:24 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_putchar_fd(char c, int fd)
+int	is_percent(char c)
 {
-	write(fd, &c, 1);
+	if (c == '%')
+		return (1);
+	return (0);
+}
+
+int	is_back_slash(char c)
+{
+	if (c == '\\')
+		return (1);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:36:28 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/04 15:09:37 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/08 11:36:33 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <limits.h>
 # include <unistd.h>
 # include <stdarg.h>
-//# include "../headers/push_swap.h" //////////ㅇㅣㄱ 지지우우면  실실행행은  됌됌
 
 typedef struct s_list
 {
@@ -33,21 +32,10 @@ typedef struct	s_dll
 	struct s_dll	*prev;
 }				t_dll;
 
-typedef struct	s_chunk_dll
-{
-	int					chunk_size;
-	int					type;
-	struct s_chunk_dll	*next;
-	struct s_chunk_dll	*prev;
-}				t_chunk_dll;
-
 typedef struct	s_stacks
 {
 	t_dll		*stk_a;
 	t_dll		*stk_b;
-	t_chunk_dll	*chunk_stk_a;
-	t_chunk_dll	*chunk_stk_b;
-	int			initial_chunk_stk_size;
 	t_list		*cmd_list;
 }				t_stacks;
 
@@ -93,21 +81,21 @@ void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);
 t_list	*ft_lstlast(t_list *lst);
 void	ft_lstadd_back(t_stacks *stks, t_list *new);
-void	ft_lstdelone(t_list *lst, void (*del)(int));
-void	ft_lstclear(t_list **lst, void (*del)(int));
+void	ft_lstdelone(t_list *lst);
+void	ft_lstclear(t_list *lst);
 void	ft_lstiter(t_list *lst, void (*f)(int));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		is_percent(char c);
 int		is_back_slash(char c);
-int		print_conversion(char c, va_list ap, size_t *bytes);
-int		print_c(va_list ap, size_t *bytes);
-int		print_s(va_list ap, size_t *bytes);
-int		print_p(va_list ap, size_t *bytes);
+int		print_conversion(char c, va_list *ap, size_t *bytes);
+int		print_c(va_list *ap, size_t *bytes);
+int		print_s(va_list *ap, size_t *bytes);
+int		print_p(va_list *ap, size_t *bytes);
 char	*ltoa_base(int base, unsigned long n);
-int		print_d(va_list ap, size_t *bytes);
-int		print_u(va_list ap, size_t *bytes);
-int		print_x(va_list ap, size_t *bytes);
-int		print_large_x(va_list ap, size_t *bytes);
+int		print_d(va_list *ap, size_t *bytes);
+int		print_u(va_list *ap, size_t *bytes);
+int		print_x(va_list *ap, size_t *bytes);
+int		print_large_x(va_list *ap, size_t *bytes);
 int		print_percent(size_t *bytes);
 int		read_format(const char *format, va_list ap);
 size_t	ft_strlen(const char *s);
