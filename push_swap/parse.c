@@ -34,17 +34,16 @@ void	check_dup(int *arr, int inp, int arr_idx)
 	return ;
 }
 
-int	*parse_input(int argc, char **argv, int *ret_size)
+void	parse_input(int argc, char **argv, int *ret_size, int **ret)
 {
 	int		temp_idx;
 	char	**split_ret;
 	int		split_idx;
 	int		inp;
-	int		*ret;
 
 	temp_idx = 0;
 	split_ret = NULL;
-	ret = NULL;
+	*ret = NULL;
 	while (++temp_idx < argc)
 	{
 		split_idx = -1;
@@ -52,13 +51,12 @@ int	*parse_input(int argc, char **argv, int *ret_size)
 		while (split_ret[++split_idx])
 		{
 			inp = ft_ps_atoi(split_ret[split_idx]);
-			ret = ft_realloc(*ret_size  * sizeof(int), ret, (*ret_size + 1) * sizeof(int));
-			check_dup(ret, inp, *ret_size);
+			*ret = ft_realloc(*ret_size  * sizeof(int), *ret, (*ret_size + 1) * sizeof(int));
+			check_dup(*ret, inp, *ret_size);
 			*ret_size += 1;
 		}
 		free_split_ret(split_ret);
 	}
-	return (ret);
 }
 
 int	ft_ps_atoi(const char *str)

@@ -21,7 +21,7 @@ OBJS = $(SRCS:.c=.o)
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -c -g3
 HEADER = ./headers
-NAME = a.out
+NAME = push_swap
 LIBFT = ft
 
 all : $(NAME)

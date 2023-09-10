@@ -27,7 +27,7 @@ int main(int argc, char **argv)
 
 	// atexit(check);
 	inp_list_size = 0;
-	inp_list = parse_input(argc, argv, &inp_list_size);
+	parse_input(argc, argv, &inp_list_size, &inp_list);
 	make_stacks(&stks, inp_list_size, inp_list);
 	if (inp_list_size <= 1)
 		exit(0);
