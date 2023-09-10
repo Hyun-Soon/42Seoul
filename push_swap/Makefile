@@ -14,8 +14,7 @@ SRCS =	main.c \
 		parse.c \
 		commands.c \
 		hard_sort.c \
-		init1.c \
-		init2.c \
+		init.c \
 		stk_commands.c \
 
 OBJS = $(SRCS:.c=.o)

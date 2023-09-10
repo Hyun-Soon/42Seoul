@@ -40,11 +40,9 @@ int	*parse_input(int argc, char **argv, int *ret_size)
 	char	**split_ret;
 	int		split_idx;
 	int		inp;
-	int		atoi_flag;
 	int		*ret;
 
 	temp_idx = 0;
-	atoi_flag = 0;
 	split_ret = NULL;
 	ret = NULL;
 	while (++temp_idx < argc)
@@ -53,7 +51,7 @@ int	*parse_input(int argc, char **argv, int *ret_size)
 		split_ret = ft_split(argv[temp_idx], ' ');
 		while (split_ret[++split_idx])
 		{
-			inp = ft_ps_atoi(split_ret[split_idx], &atoi_flag);
+			inp = ft_ps_atoi(split_ret[split_idx]);
 			ret = ft_realloc(*ret_size  * sizeof(int), ret, (*ret_size + 1) * sizeof(int));
 			check_dup(ret, inp, *ret_size);
 			*ret_size += 1;
@@ -63,7 +61,7 @@ int	*parse_input(int argc, char **argv, int *ret_size)
 	return (ret);
 }
 
-int	ft_ps_atoi(const char *str, int *atoi_flag)
+int	ft_ps_atoi(const char *str)
 {
 	int		sign;
 	long	ret;
@@ -71,7 +69,7 @@ int	ft_ps_atoi(const char *str, int *atoi_flag)
 	ret = 0;
 	sign = 1;
 	if (*str == 0)
-		*atoi_flag = -1;
+		ft_error(ERROR, 1);
 	if (*str == '-' || *str == '+')
 	{
 		if (*str == '-')
@@ -81,13 +79,13 @@ int	ft_ps_atoi(const char *str, int *atoi_flag)
 	while (*str)
 	{
 		if (*str < '0' || *str > '9')
-			*atoi_flag = -1;
+			ft_error(ERROR, 1);
 		ret = ret * 10 + (long)(*str - '0');
 		str++;
 	}
 	ret = sign * ret;
 	if (ret < -2147483648 || ret > 2147483647)
-		*atoi_flag = -1;
+		ft_error(ERROR, 1);
 	return (ret);
 }
 

@@ -13,22 +13,21 @@
 
 #include "push_swap.h"
 
-void	check(void)
+void	check()
 {
 	system("leaks --quiet a.out");
 }
 
 int main(int argc, char **argv)
 {
-	int		*inp_list;
 	int		inp_list_size;
+	int		*inp_list;
 	int			opt_flag;
 	t_stacks	stks;
 
 	// atexit(check);
 	inp_list_size = 0;
 	inp_list = parse_input(argc, argv, &inp_list_size);
-	// check();
 	make_stacks(&stks, inp_list_size, inp_list);
 	if (inp_list_size <= 1)
 		exit(0);
@@ -43,7 +42,8 @@ int main(int argc, char **argv)
 		optimize_cmds(&stks, &opt_flag);
 	print_result(&stks);
 	clear_stacks(&stks, inp_list);
-	exit(0);
+	
+	return (0);
 }
 
 void	ft_stackclear(t_dll *stk)

@@ -17,7 +17,9 @@ t_dll	*make_stack_a(int *inp_list, int inp_num)
 	int		idx;
 	t_dll	*temp;
 	t_dll	*head;
-	
+
+	if (!inp_num)
+		exit(0);
 	head = (t_dll *)malloc(sizeof(t_dll));
 	if (!head)
 		ft_error(ERROR, 2);
@@ -34,4 +36,11 @@ t_dll	*make_stack_a(int *inp_list, int inp_num)
 	temp->next = head;
 	head->prev = temp;
 	return (head);
+}
+
+void	make_stacks(t_stacks *stacks, int inp_num, int *inp_list)
+{
+	stacks->stk_a = make_stack_a(inp_list, inp_num);
+	stacks->stk_b = NULL;
+	stacks->cmd_list = NULL;
 }

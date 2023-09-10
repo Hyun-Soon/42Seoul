@@ -24,7 +24,7 @@
 void		check_dup(int *arr, int inp, int arr_idx);
 int			*parse_input(int argc, char **argv, int *ret_size);
 void		free_split_ret(char **split_ret);
-int			ft_ps_atoi(const char *str, int *atoi_flag);
+int			ft_ps_atoi(const char *str);
 void		make_stacks(t_stacks *stacks, int inp_num, int *inp_list);
 t_dll		*make_stack_a(int *inp_list, int inp_num);
 t_dll		*pop(t_dll **stk);
