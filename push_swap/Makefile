@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+         #
+#    By: soon <soon@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/05 15:14:10 by hyuim             #+#    #+#              #
-#    Updated: 2023/09/04 21:00:32 by hyuim            ###   ########.fr        #
+#    Updated: 2023/09/10 19:20:37 by soon             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,12 @@ SRCS =	main.c \
 		hard_sort.c \
 		init.c \
 		stk_commands.c \
+		print_result.c \
+		clear_stacks.c \
+		merge_to_a.c \
+		merge_to_b.c \
+		move_chunks.c \
+		update_values.c \
 
 OBJS = $(SRCS:.c=.o)
 CC = cc
