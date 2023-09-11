@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:36:28 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/08 11:36:33 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/11 13:48:26 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ typedef struct s_list
 	struct s_list	*prev;
 }					t_list;
 
-typedef struct	s_dll
+typedef struct s_dll
 {
 	int				value;
 	struct s_dll	*next;
 	struct s_dll	*prev;
 }				t_dll;
 
-typedef struct	s_stacks
+typedef struct s_stacks
 {
 	t_dll		*stk_a;
 	t_dll		*stk_b;
@@ -74,8 +74,6 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
-
-
 t_list	*ft_lstnew(int content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);
@@ -87,15 +85,15 @@ void	ft_lstiter(t_list *lst, void (*f)(int));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		is_percent(char c);
 int		is_back_slash(char c);
-int		print_conversion(char c, va_list *ap, size_t *bytes);
-int		print_c(va_list *ap, size_t *bytes);
-int		print_s(va_list *ap, size_t *bytes);
-int		print_p(va_list *ap, size_t *bytes);
+int		print_conversion(char c, va_list ap, size_t *bytes);
+int		print_c(va_list ap, size_t *bytes);
+int		print_s(va_list ap, size_t *bytes);
+int		print_p(va_list ap, size_t *bytes);
 char	*ltoa_base(int base, unsigned long n);
-int		print_d(va_list *ap, size_t *bytes);
-int		print_u(va_list *ap, size_t *bytes);
-int		print_x(va_list *ap, size_t *bytes);
-int		print_large_x(va_list *ap, size_t *bytes);
+int		print_d(va_list ap, size_t *bytes);
+int		print_u(va_list ap, size_t *bytes);
+int		print_x(va_list ap, size_t *bytes);
+int		print_large_x(va_list ap, size_t *bytes);
 int		print_percent(size_t *bytes);
 int		read_format(const char *format, va_list ap);
 size_t	ft_strlen(const char *s);

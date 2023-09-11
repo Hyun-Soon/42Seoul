@@ -6,22 +6,22 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 12:58:13 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/06 14:22:54 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/11 13:33:29 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	hard_sort(int *inp_list, int inp_list_size, t_stacks *stks, t_dll *stk)
+void	hard_sort(int *inp_list, int inp_size, t_stacks *stks, t_dll *stk)
 {
-	if (inp_list_size <= 2)
+	if (inp_size <= 2)
 		sort_2args(stk);
-	else if (inp_list_size <= 3)
+	else if (inp_size <= 3)
 		sort_3args(stk);
-	else if (inp_list_size <= 4)
-		sort_4args(inp_list, inp_list_size, stks);
+	else if (inp_size <= 4)
+		sort_4args(inp_list, inp_size, stks);
 	else
-		sort_5args(inp_list, inp_list_size, stks);
+		sort_5args(inp_list, inp_size, stks);
 	exit(0);
 }
 
@@ -33,15 +33,24 @@ void	sort_2args(t_dll *stk)
 
 void	sort_3args(t_dll *stk)
 {
-	if (stk->value < stk->next->value && stk->value < stk->next->next->value && stk->next->value > stk->next->next->value)
+	if (stk->value < stk->next->value
+		&& stk->value < stk->next->next->value
+		&& stk->next->value > stk->next->next->value)
 		ft_printf("%s\n%s\n", "rra", "sa");
-	else if (stk->value > stk->next->value && stk->next->value < stk->next->next->value && stk->value < stk->next->next->value)
+	else if (stk->value > stk->next->value
+		&& stk->next->value < stk->next->next->value
+		&& stk->value < stk->next->next->value)
 		ft_printf("%s\n", "sa");
-	else if (stk->value < stk->next->value && stk->next->value > stk->next->next->value && stk->value > stk->next->next->value)
+	else if (stk->value < stk->next->value
+		&& stk->next->value > stk->next->next->value
+		&& stk->value > stk->next->next->value)
 		ft_printf("%s\n", "rra");
-	else if (stk->value > stk->next->value && stk->value > stk->next->next->value && stk->next->value < stk->next->next->value)
+	else if (stk->value > stk->next->value
+		&& stk->value > stk->next->next->value
+		&& stk->next->value < stk->next->next->value)
 		ft_printf("%s\n", "ra");
-	else if (stk->value > stk->next->value && stk->next->value > stk->next->next->value)
+	else if (stk->value > stk->next->value
+		&& stk->next->value > stk->next->next->value)
 		ft_printf("%s\n%s\n", "sa", "rra");
 }
 
@@ -86,29 +95,4 @@ void	sort_5args(int *inp_list, int inp_list_size, t_stacks *stks)
 	if (stks->stk_b->value < stks->stk_b->next->value)
 		ft_printf("sb\n");
 	ft_printf("pa\npa\n");
-}
-
-void	sort_ascend(int *inp_list, int inp_list_size, int *arr)
-{
-	int			idx;
-	int			idx2;
-	int			temp;
-
-	idx = -1;
-	while (++idx < inp_list_size)
-		arr[idx] = inp_list[idx];
-	idx = -1;
-	while (++idx < inp_list_size)
-	{
-		idx2 = -1;
-		while (++idx2 < inp_list_size - 1 - idx)
-		{
-			if (arr[idx2] > arr[idx2 + 1])
-			{
-				temp = arr[idx2];
-				arr[idx2] = arr[idx2 + 1];
-				arr[idx2 + 1] = temp;
-			}
-		}
-	}
 }

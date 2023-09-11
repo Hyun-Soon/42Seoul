@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   merge_to_a.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soon <soon@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 19:08:08 by soon              #+#    #+#             */
-/*   Updated: 2023/09/10 19:10:10 by soon             ###   ########.fr       */
+/*   Updated: 2023/09/11 13:39:22 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	merge_to_a(t_stacks *stks, int size, int type)
 	div_size[0] = size / 3;
 	div_size[1] = size / 3 + size % 3;
 	div_size[2] = size / 3;
-
 	merge_to_b(stks, div_size[0], type);
 	move_chunk_to_b_bottom(stks, div_size[0]);
 	merge_to_b(stks, div_size[1], -type);
@@ -37,7 +36,6 @@ void	merge_to_a(t_stacks *stks, int size, int type)
 
 void	finally_merge_to_a(t_stacks *stks, int *size, int type)
 {
-	//[0]b_bottom, [1]b_top, [2]a_bottom
 	int			total_size;
 	long long	values[3];
 

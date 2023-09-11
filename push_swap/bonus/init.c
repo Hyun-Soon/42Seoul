@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init1.c                                            :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 20:48:44 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/07 17:16:39 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/11 13:40:41 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_dll	*make_stack_a(int *inp_list, int inp_num)
 	idx = -1;
 	head->value = inp_list[++idx];
 	temp = head;
-	while(++idx < inp_num)
+	while (++idx < inp_num)
 	{
 		temp->next = (t_dll *)malloc(sizeof(t_dll));
 		temp->next->prev = temp;

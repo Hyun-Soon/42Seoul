@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 15:45:47 by hyuim             #+#    #+#             */
-/*   Updated: 2023/06/01 14:51:10 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/11 13:07:17 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ int	ft_printf(const char *format, ...)
 	va_end(ap);
 	return (bytes);
 }
+
+// int main()
+// {
+// 	ft_printf("%d\n%d\n", 3, 5);
+// 	return 0;
+// }
 
 // #include <stdio.h>
 // #include <limits.h>

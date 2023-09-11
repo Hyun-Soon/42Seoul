@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 20:59:58 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/07 17:17:09 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/11 13:51:00 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 t_dll	*pop(t_dll **stk)
 {
 	t_dll	*temp;
+
 	if (!*stk)
 		return (NULL);
 	if ((*stk)->next == *stk && (*stk)->prev == *stk)
@@ -37,7 +38,7 @@ void	push(t_dll *node, t_dll **stk)
 	if (!*stk)
 	{
 		*stk = node;
-		return;
+		return ;
 	}
 	node->next = *stk;
 	node->prev = (*stk)->prev;

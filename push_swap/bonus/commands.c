@@ -6,13 +6,13 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/11 20:48:30 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/07 19:48:16 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/11 13:26:01 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void ft_swap(t_stacks *stacks, int cmd)
+void	ft_swap(t_stacks *stacks, int cmd)
 {
 	int	temp;
 

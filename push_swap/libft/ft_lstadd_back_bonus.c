@@ -6,12 +6,11 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 16:09:01 by hyuim             #+#    #+#             */
-/*   Updated: 2023/08/16 19:14:35 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/11 13:50:02 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
 
 void	ft_lstadd_back(t_stacks *stks, t_list *new)
 {

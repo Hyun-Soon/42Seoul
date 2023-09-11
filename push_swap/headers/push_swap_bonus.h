@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   push_swap_bonus.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/11 13:47:07 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/11 13:47:08 by hyuim            ###   ########.fr       */
+/*   Created: 2023/09/11 15:51:33 by hyuim             #+#    #+#             */
+/*   Updated: 2023/09/11 16:39:41 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#ifndef PUSH_SWAP_BONUS_H
+# define PUSH_SWAP_BONUS_H
 
 # define ERROR "Error\n"
 # define ASCEND 1
@@ -74,5 +74,11 @@ void		chunks_to_b_ascend(t_stacks *stks, long long *values, int *size);
 void		chunks_to_b_descend(t_stacks *stks, long long *values, int *size);
 void		clear_stacks(t_stacks *stks, int *inp_list);
 void		ft_stackclear(t_dll *stk);
+void		print_sort_result(t_stacks *stks, int inp_list_size);
+void		exec_cmd(t_stacks *stks, char *cmd);
+void		exec_cmd_swap(t_stacks *stks, char *cmd);
+void		exec_cmd_push(t_stacks *stks, char *cmd);
+void		exec_cmd_rotate(t_stacks *stks, char *cmd);
+void		exec_cmd_reverse_rotate(t_stacks *stks, char *cmd);
 
 #endif

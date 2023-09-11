@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_result.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soon <soon@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 19:06:17 by soon              #+#    #+#             */
-/*   Updated: 2023/09/10 19:06:58 by soon             ###   ########.fr       */
+/*   Updated: 2023/09/11 13:43:43 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_result(t_stacks *stks)
 {
-	t_list *temp;
+	t_list	*temp;
 
 	temp = stks->cmd_list;
 	while (temp && temp->content)
@@ -49,11 +49,12 @@ void	print_content(t_list *temp)
 	else if (temp->content == RRR)
 		ft_printf("rrr\n");
 }
+
 void	optimize_cmds(t_stacks *stks, int *flag)
 {
 	t_list	*temp;
 	int		cmds_sum;
-	
+
 	temp = stks->cmd_list;
 	*flag = 0;
 	while (temp->next)

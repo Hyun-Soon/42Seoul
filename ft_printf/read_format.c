@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_format.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:37:33 by hyuim             #+#    #+#             */
-/*   Updated: 2023/04/11 13:57:39 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/11 17:46:40 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	read_format(const char *format, va_list ap)
 			i++;
 			continue ;
 		}
-		if (!print_conversion(*(format + i + 1), &ap, &bytes))
+		if (!print_conversion(*(format + i + 1), ap, &bytes))
 			return (-1);
 		i += 2;
 	}

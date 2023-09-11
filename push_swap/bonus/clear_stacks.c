@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clear_stacks.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soon <soon@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 19:19:15 by soon              #+#    #+#             */
-/*   Updated: 2023/09/10 19:19:44 by soon             ###   ########.fr       */
+/*   Updated: 2023/09/11 13:20:34 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,17 @@
 
 void	ft_stackclear(t_dll *stk)
 {
-	t_dll	*temp;
+	t_dll	*temp1;
+	t_dll	*temp2;
 
-	while (stk)
+	temp1 = stk;
+	while (temp1->next != stk)
 	{
-		temp = stk->next;
-		free(stk);
-		stk = temp;
+		temp2 = temp1->next;
+		free(temp1);
+		temp1 = temp2;
 	}
+	free(temp1);
 	return ;
 }
 

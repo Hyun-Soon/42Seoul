@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 20:07:23 by hyuim             #+#    #+#             */
-/*   Updated: 2023/07/20 21:58:35 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/11 13:51:47 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	parse_input(int argc, char **argv, int *ret_size, int **ret)
 		while (split_ret[++split_idx])
 		{
 			inp = ft_ps_atoi(split_ret[split_idx]);
-			*ret = ft_realloc(*ret_size  * sizeof(int), *ret, (*ret_size + 1) * sizeof(int));
+			*ret = ft_realloc(*ret_size * sizeof(int),
+					*ret, (*ret_size + 1) * sizeof(int));
 			check_dup(*ret, inp, *ret_size);
 			*ret_size += 1;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_chunks.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: soon <soon@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 19:16:10 by soon              #+#    #+#             */
-/*   Updated: 2023/09/10 19:18:37 by soon             ###   ########.fr       */
+/*   Updated: 2023/09/11 13:51:22 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 void	move_chunk_to_a_bottom(t_stacks *stks, int size)
 {
 	t_dll	*temp;
-	int	rotate;
-	int	idx;
+	int		rotate;
+	int		idx;
 
 	rotate = 0;
 	idx = -1;
@@ -39,8 +39,8 @@ void	move_chunk_to_a_bottom(t_stacks *stks, int size)
 void	move_chunk_to_b_bottom(t_stacks *stks, int size)
 {
 	t_dll	*temp;
-	int	rotate;
-	int	idx;
+	int		rotate;
+	int		idx;
 
 	rotate = 0;
 	idx = -1;
