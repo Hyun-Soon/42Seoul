@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 16:04:21 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/11 13:49:05 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/11 21:12:45 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	*ft_realloc(int org_size, void *org_ptr, int new_size)
 	if (!org_size)
 		free(org_ptr);
 	ret = malloc(new_size);
+	if (!ret)
+		ft_error(ERROR, 1);
 	ft_memcpy(ret, org_ptr, org_size);
 	free(org_ptr);
 	return (ret);

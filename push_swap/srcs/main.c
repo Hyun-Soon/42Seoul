@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 15:09:17 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/11 17:24:39 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/11 21:11:29 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ int	main(int argc, char **argv)
 	make_stacks(&stks, inp_list_size, inp_list);
 	if (inp_list_size <= 1)
 		exit(0);
-	if (inp_list_size <= 5)
-		hard_sort(inp_list, inp_list_size, &stks, stks.stk_a);
 	if (is_sorted(stks.stk_a, inp_list_size, ASCEND))
 		exit(0);
+	if (inp_list_size <= 5)
+		hard_sort(inp_list, inp_list_size, &stks, stks.stk_a);
 	merge_to_a(&stks, inp_list_size, ASCEND);
 	opt_flag = 1;
 	while (stks.cmd_list && opt_flag == 1)
