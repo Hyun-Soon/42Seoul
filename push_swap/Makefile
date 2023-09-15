@@ -6,7 +6,7 @@
 #    By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/05 15:14:10 by hyuim             #+#    #+#              #
-#    Updated: 2023/09/11 17:38:02 by hyuim            ###   ########.fr        #
+#    Updated: 2023/09/14 14:44:26 by hyuim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ OBJS = $(SRCS:.c=.o)
 PREFIX = ./srcs/
 SRCS = $(addprefix $(PREFIX), $(SRCS_NAME))
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -c -g3
+CFLAGS = -Wall -Wextra -Werror -c
 HEADER = ./headers
 NAME = push_swap
 BONUS = checker
@@ -52,7 +52,7 @@ bonus : $(BONUS)
 
 $(NAME) : $(OBJS)
 	cd libft; make; cd ..
-	$(CC) $(OBJS) -Llibft -l$(LIBFT) -o $(NAME) -I $(HEADER) #-g -fsanitize=address
+	$(CC) $(OBJS) -Llibft -l$(LIBFT) -o $(NAME) -I $(HEADER)
 
 %.o : %.c
 	$(CC) $(CFLAGS) $< -o $@ -I $(HEADER)

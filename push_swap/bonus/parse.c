@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 20:07:23 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/11 13:51:47 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/15 16:47:07 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ int	ft_ps_atoi(const char *str)
 			ft_error(ERROR, 1);
 		ret = ret * 10 + (long)(*str - '0');
 		str++;
+		if (ret < -2147483648 || ret > 2147483647)
+			ft_error(ERROR, 1);
 	}
 	ret = sign * ret;
-	if (ret < -2147483648 || ret > 2147483647)
-		ft_error(ERROR, 1);
 	return (ret);
 }
 
