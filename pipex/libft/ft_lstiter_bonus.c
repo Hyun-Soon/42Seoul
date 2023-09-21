@@ -1,19 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   ft_lstiter_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 18:32:57 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/21 15:25:00 by hyuim            ###   ########.fr       */
+/*   Created: 2023/03/29 14:48:57 by hyuim             #+#    #+#             */
+/*   Updated: 2023/03/29 14:59:15 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_error(int exit_code)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	perror("Error ");
-	exit(exit_code);
+	while (lst)
+	{
+		f(lst->content);
+		lst = lst->next;
+	}
+	return ;
 }

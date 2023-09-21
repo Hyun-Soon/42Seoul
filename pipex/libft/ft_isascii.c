@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 18:32:57 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/21 15:25:00 by hyuim            ###   ########.fr       */
+/*   Created: 2023/03/14 15:41:06 by hyuim             #+#    #+#             */
+/*   Updated: 2023/03/21 15:44:28 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_error(int exit_code)
+int	ft_isascii(int c)
 {
-	perror("Error ");
-	exit(exit_code);
+	if (c >= 0 && c <= 127)
+		return (1);
+	return (0);
 }

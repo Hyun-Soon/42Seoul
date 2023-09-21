@@ -6,14 +6,14 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 18:32:57 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/21 15:25:00 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/21 18:58:39 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_error(int exit_code)
+void	ft_error(const char *err_msg, int exit_code)
 {
-	perror("Error ");
+	perror(err_msg);
 	exit(exit_code);
 }

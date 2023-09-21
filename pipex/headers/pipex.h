@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 18:32:57 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/21 15:25:00 by hyuim            ###   ########.fr       */
+/*   Created: 2023/09/12 12:28:39 by hyuim             #+#    #+#             */
+/*   Updated: 2023/09/21 19:00:42 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PIPEX_H
+# define PIPEX_H
 
-void	ft_error(int exit_code)
-{
-	perror("Error ");
-	exit(exit_code);
-}
+# include <unistd.h>
+# include <fcntl.h>
+# include <sys/wait.h>
+# include <stdio.h>
+# include "../libft/libft.h"
+
+
+
+#endif

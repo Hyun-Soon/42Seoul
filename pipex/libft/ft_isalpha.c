@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 18:32:57 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/21 15:25:00 by hyuim            ###   ########.fr       */
+/*   Created: 2023/03/14 14:54:35 by hyuim             #+#    #+#             */
+/*   Updated: 2023/04/06 15:07:02 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_error(int exit_code)
+int	ft_isalpha(int c)
 {
-	perror("Error ");
-	exit(exit_code);
+	if (c >= 65 && c < 65 + 26)
+		return (1);
+	if (c >= 97 && c < 97 + 26)
+		return (1);
+	return (0);
 }

@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 18:32:57 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/21 15:25:00 by hyuim            ###   ########.fr       */
+/*   Created: 2023/03/29 12:35:52 by hyuim             #+#    #+#             */
+/*   Updated: 2023/03/29 14:41:56 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_error(int exit_code)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	perror("Error ");
-	exit(exit_code);
+	t_list	*temp;
+
+	while (*lst)
+	{
+		del((*lst)->content);
+		temp = (*lst)->next;
+		free(*lst);
+		*lst = temp;
+	}
+	return ;
 }

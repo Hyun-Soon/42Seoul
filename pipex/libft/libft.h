@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:36:28 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/21 15:26:01 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/21 18:58:49 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdarg.h>
 # include <stdio.h>
 # include "ft_printf.h"
+# include "get_next_line_bonus.h"
 
 void	ft_bzero(void *s, size_t n);
 int		ft_isalnum(int c);
@@ -85,7 +86,7 @@ int		print_large_x(va_list ap, size_t *bytes);
 int		print_percent(size_t *bytes);
 int		read_format(const char *format, va_list ap);
 size_t	ft_strlen(const char *s);
-void	ft_error(int exit_code);
+void	ft_error(const char *err_msg, int exit_code)
 double	fractol_atodb(const char *str);
 int		ft_strcmp(const char *str1, const char *str2);
 

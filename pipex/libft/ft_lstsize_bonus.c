@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 18:32:57 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/21 15:25:00 by hyuim            ###   ########.fr       */
+/*   Created: 2023/03/28 15:53:37 by hyuim             #+#    #+#             */
+/*   Updated: 2023/04/04 14:23:46 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_error(int exit_code)
+int	ft_lstsize(t_list *lst)
 {
-	perror("Error ");
-	exit(exit_code);
+	int	cnt;
+
+	if (lst == NULL)
+		return (0);
+	cnt = 1;
+	while (lst->next)
+	{
+		cnt++;
+		lst = lst->next;
+	}
+	return (cnt);
 }

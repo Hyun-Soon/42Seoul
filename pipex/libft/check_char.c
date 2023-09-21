@@ -1,19 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error.c                                         :+:      :+:    :+:   */
+/*   check_char.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hyuim <hyuim@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 18:32:57 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/21 15:25:00 by hyuim            ###   ########.fr       */
+/*   Created: 2023/04/06 14:27:58 by hyuim             #+#    #+#             */
+/*   Updated: 2023/04/10 19:43:24 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_error(int exit_code)
+int	is_percent(char c)
 {
-	perror("Error ");
-	exit(exit_code);
+	if (c == '%')
+		return (1);
+	return (0);
+}
+
+int	is_back_slash(char c)
+{
+	if (c == '\\')
+		return (1);
+	return (0);
 }

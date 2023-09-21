@@ -1,0 +1,10 @@
+{
+	"files.associations": {
+		"ios": "cpp",
+		"signal.h": "c",
+		"cdefs.h": "c",
+		"errno.h": "c",
+		"__config": "c",
+		"locale": "c"
+	}
+}
