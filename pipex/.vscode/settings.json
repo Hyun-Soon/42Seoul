@@ -5,6 +5,7 @@
 		"cdefs.h": "c",
 		"errno.h": "c",
 		"__config": "c",
-		"locale": "c"
+		"locale": "c",
+		"get_next_line_bonus.h": "c"
 	}
 }

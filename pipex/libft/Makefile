@@ -6,7 +6,7 @@
 #    By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 14:53:08 by hyuim             #+#    #+#              #
-#    Updated: 2023/06/28 23:00:14 by hyuim            ###   ########.fr        #
+#    Updated: 2023/09/22 11:49:32 by hyuim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,11 +54,16 @@ ft_lstclear_bonus.c \
 ft_lstiter_bonus.c \
 ft_lstmap_bonus.c \
 fractol_atodb.c \
-ft_strcmp.c
+ft_strcmp.c \
+ft_error.c \
+ft_realloc.c \
+get_next_line_bonus.c \
+get_next_line_utils_bonus.c
+
 
 OBJS = $(SRCS:.c=.o)
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -c
+CFLAGS = -Wall -Wextra -Werror -c -g3
 NAME = libft.a
 
 all : $(NAME)

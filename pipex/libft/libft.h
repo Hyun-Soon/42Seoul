@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:36:28 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/21 18:58:49 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/22 11:31:05 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,20 +74,21 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_printf(const char *format, ...);
 int		is_percent(char c);
 int		is_back_slash(char c);
-int		print_conversion(char c, va_list ap, size_t *bytes);
-int		print_c(va_list ap, size_t *bytes);
-int		print_s(va_list ap, size_t *bytes);
-int		print_p(va_list ap, size_t *bytes);
-char	*ltoa_base(int base, unsigned long n);
-int		print_d(va_list ap, size_t *bytes);
-int		print_u(va_list ap, size_t *bytes);
-int		print_x(va_list ap, size_t *bytes);
-int		print_large_x(va_list ap, size_t *bytes);
-int		print_percent(size_t *bytes);
-int		read_format(const char *format, va_list ap);
+//int		print_conversion(char c, va_list ap, size_t *bytes);
+//int		print_c(va_list ap, size_t *bytes);
+//int		print_s(va_list ap, size_t *bytes);
+//int		print_p(va_list ap, size_t *bytes);
+//char	*ltoa_base(int base, unsigned long n);
+//int		print_d(va_list ap, size_t *bytes);
+//int		print_u(va_list ap, size_t *bytes);
+//int		print_x(va_list ap, size_t *bytes);
+//int		print_large_x(va_list ap, size_t *bytes);
+//int		print_percent(size_t *bytes);
+//int		read_format(const char *format, va_list ap);
 size_t	ft_strlen(const char *s);
-void	ft_error(const char *err_msg, int exit_code)
+void	ft_error(const char *err_msg, int exit_code);
 double	fractol_atodb(const char *str);
 int		ft_strcmp(const char *str1, const char *str2);
+void	*ft_realloc(int org_size, void *org_ptr, int new_size);
 
 #endif
