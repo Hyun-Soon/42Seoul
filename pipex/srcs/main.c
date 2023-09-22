@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 12:22:23 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/22 20:21:12 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/22 22:16:44 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 int main(int argc, char *argv[])
 {
-	int	fd[2];
+	int	fd[2]; //fd[0] : read , fd[1] : write
 	int	pid;
 	int	idx;
 	char	*filename;
@@ -98,7 +98,7 @@ int main(int argc, char *argv[])
 			{
 				int	outfile_fd;
 
-				outfile_fd = open(argv[argc - 1], O_RDONLY);
+				outfile_fd = open(argv[argc - 1], O_WRONLY | O_CREAT, 0644);
 				if (outfile_fd == -1)
 					ft_error("Open Error ", 1014);//exit code
 				if (dup2(fd[0], STDIN_FILENO) == -1)
