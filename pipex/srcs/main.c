@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 12:22:23 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/22 22:16:44 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/25 16:52:10 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,15 @@
 // ./pipex here_doc LIMITER cmd1 cmd2 cmd3 file
 // cmd << LIMITER | cmd1 >> file
 
-int main(int argc, char *argv[])
+int main(int argc, char *argv[], char *envp[])
 {
 	int	fd[2]; //fd[0] : read , fd[1] : write
 	int	pid;
 	int	idx;
 	char	*filename;
-	int cmd_nums;
-	(void)argc;
+	int	first_cmd_idx;
 
-	cmd_nums = argc - 3;
+	first_cmd_idx = 2;
 	if (ft_strcmp(argv[1], "here_doc") == 0)
 	{
 		char	*gnl_ret;
@@ -64,15 +63,16 @@ int main(int argc, char *argv[])
 				ft_error("Write tmp file Error ", 1014);//exit code
 		}
 		close(temp_file_fd);
-		cmd_nums--;
+		first_cmd_idx++;
 	}
 	else
 		filename = argv[1];
 
 
-	idx = 0;
-	while (idx++ < cmd_nums)
+	idx = first_cmd_idx - 1;
+	while (++idx < argc - 1)
 	{
+		int	before_fd_read = fd[0];
 		if (pipe(fd) == -1)
 			ft_error("Pipe Error ", 1014);//exit_code
 		pid = fork();
@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
 		if (pid == 0)
 		{
 			// Child process
-			if (idx == 0) //first child process
+			if (idx == first_cmd_idx) //first child process
 			{
 				close(fd[0]);
 				int	infile_fd;
@@ -93,39 +93,70 @@ int main(int argc, char *argv[])
 					ft_error("Dup2 Error ", 1014);//exit code
 				if (dup2(fd[1], STDOUT_FILENO) == -1)
 					ft_error("Dup2 Error ", 1014);//exit code
+				close(fd[1]);
 			}
-			else if (idx == cmd_nums - 1) // last child process
-			{
-				int	outfile_fd;
+			//else if (idx == argc - 2) // last child process
+			//{
+			//	int	outfile_fd;
 
-				outfile_fd = open(argv[argc - 1], O_WRONLY | O_CREAT, 0644);
-				if (outfile_fd == -1)
-					ft_error("Open Error ", 1014);//exit code
-				if (dup2(fd[0], STDIN_FILENO) == -1)
-					ft_error("Dup2 Error ", 1014);//exit code
-				if (dup2(outfile_fd, STDOUT_FILENO) == -1)
-					ft_error("Dup2 Error ", 1014);//exit code
+			//	close(fd[0]);
+			//	close(fd[1]);
+			//	outfile_fd = open(argv[argc - 1], O_WRONLY | O_CREAT, 0644);
+			//	if (outfile_fd == -1)
+			//		ft_error("Open Error ", 1014);//exit code
+			//	if (dup2(before_fd_read, STDIN_FILENO) == -1)
+			//		ft_error("Dup2 Error ", 1014);//exit code
+			//	if (dup2(outfile_fd, STDOUT_FILENO) == -1)
+			//		ft_error("Dup2 Error ", 1014);//exit code
 				
-			}
+			//}
 			else //mid child process
 			{
-				
+				close(fd[0]);
+				if (dup2(before_fd_read, STDIN_FILENO) == -1)
+					ft_error("Dup2 Error ", 1014);//exit code
+				if (dup2(fd[1], STDOUT_FILENO) == -1)
+					ft_error("Dup2 Error ", 1014);//exit code
+				close(fd[1]);
 			}
-		}
-		else //Main process
-		{
-
+			char **cmd_args = ft_split(argv[idx], ' ');
+			char **envp_path;
+			char **split_path;
+			int	idx2 = -1;
+			while (envp[++idx2])
+			{
+				if (ft_strncmp("PATH=", envp[idx2], 5) == 0)
+				{
+					envp_path = ft_split(envp[idx2], '=');
+					split_path = ft_split(envp_path[2], ':');
+				}
+			}
+			int	split_path_idx = -1;
+			execve(cmd_args[0], cmd_args, envp);
+			while (split_path[++split_path_idx])
+				execve(ft_strjoin(split_path[split_path_idx], cmd_args[0]), cmd_args, envp);
+			ft_error("Cmd not found Error ", 1014);//exit code
 		}
 	}
 
+	int	outfile_fd;
 
-	//if (dup2(fd[0], STDIN_FILENO) == -1)
-	//	ft_error("Dup2 Error ", 1014);//exit_code
-	//if (dup2(fd[1], STDOUT_FILENO) == -1)
-	//	ft_error("Dup2 Error ", 1014);//exit_code
-
-
-
+	
+	int idx3 = first_cmd_idx - 1;
+	while (++idx3 < argc - 1)
+	{
+		if (wait(0) == -1)
+			ft_error("Waitpid Error ", 1014);//exit code
+	}
+	close(fd[1]);
+	outfile_fd = open(argv[argc - 1], O_WRONLY | O_CREAT , 0644);
+	if (outfile_fd == -1)
+		ft_error("Open Error ", 1014);//exit code
+	if (dup2(fd[0], STDIN_FILENO) == -1)
+		ft_error("Dup2 Error ", 1014);//exit code
+	if (dup2(outfile_fd, STDOUT_FILENO) == -1)
+		ft_error("Dup2 Error ", 1014);//exit code
+	close(fd[0]);
 	return (0);
 }
 

@@ -9,7 +9,7 @@
 			"request": "launch",
 			"name": "Debug",
 			"program": "pipex",
-			"args": ["here_doc", "abc"],
+			"args": ["infile", "cat -e", "outfile"],
 			"cwd": "${workspaceFolder}"
 		}
 	]
