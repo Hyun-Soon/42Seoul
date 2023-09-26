@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 12:22:23 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/26 17:04:15 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/26 17:11:09 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,5 +210,6 @@ int main(int argc, char *argv[], char *envp[])
 	while (++idx3 < argc - 1)
 		if (wait(0) == -1)
 			ft_error("Wait Error ", 1014);//exit code
+	//TODO :: rm tmp file
 	return (0);
 }
