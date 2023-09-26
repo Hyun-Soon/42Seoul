@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 12:22:23 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/26 22:01:58 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/26 23:04:24 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,13 @@
 void	init_bundle(t_bundle *bundle, int argc, char *argv[])
 {
 	bundle->filename = argv[1];
+	bundle->out_filename = argv[argc - 1];
 	bundle->first_cmd_idx = 2;
 	bundle->cmd_cnts = argc - 1 - bundle->first_cmd_idx;
 	bundle->outfile_flag = O_WRONLY | O_CREAT | O_TRUNC;
 	bundle->parsed_path = NULL;
 	bundle->cmd_args = NULL;
+	bundle->here_doc_flag = 0;
 }
 
 void	write_to_temp_file(int temp_file_fd, char *argv[])
@@ -66,7 +68,7 @@ void	check_here_doc(t_bundle *bundle, char *argv[])
 		int		temp_file_fd;
 
 		bundle->outfile_flag = O_WRONLY | O_CREAT | O_APPEND;
-		bundle->filename = ft_strdup("tmp");
+		bundle->filename = ft_strdup("/tmp/tmp");
 		if (!bundle->filename)
 			ft_error("Malloc Error ", 1014);//exit code
 		while (!access(bundle->filename, F_OK))
@@ -82,6 +84,7 @@ void	check_here_doc(t_bundle *bundle, char *argv[])
 		close(temp_file_fd);
 		bundle->first_cmd_idx++;
 		bundle->cmd_cnts--;
+		bundle->here_doc_flag = 1;
 	}
 }
 
@@ -133,7 +136,7 @@ void	parse_path(t_bundle *bundle, char *envp[])
 	}
 }
 
-void	exec_one_cmd(t_bundle *bundle, int argc, char *argv[], char *envp[])
+void	exec_one_cmd(t_bundle *bundle, char *envp[])
 {
 	int infile_fd;
 	int outfile_fd;
@@ -143,7 +146,7 @@ void	exec_one_cmd(t_bundle *bundle, int argc, char *argv[], char *envp[])
 	infile_fd = open(bundle->filename, O_RDONLY);
 	if (infile_fd == -1)
 		ft_error("Open Error ", 1014);//exit code
-	outfile_fd = open(argv[argc - 1], bundle->outfile_flag, 0644);
+	outfile_fd = open(bundle->out_filename, bundle->outfile_flag, 0644);
 	if (outfile_fd == -1)
 		ft_error("Open Error ", 1014);//exit code
 	if (dup2(infile_fd, STDIN_FILENO) == -1)
@@ -152,7 +155,6 @@ void	exec_one_cmd(t_bundle *bundle, int argc, char *argv[], char *envp[])
 		ft_error("Dup2 Error ", 1014);//exit code
 	close(infile_fd);
 	close(outfile_fd);
-	
 	execve(bundle->cmd_args[0][0], bundle->cmd_args[0], envp);
 	path_idx = -1;
 	while (bundle->parsed_path[++path_idx])
@@ -164,7 +166,51 @@ void	exec_one_cmd(t_bundle *bundle, int argc, char *argv[], char *envp[])
 	ft_error("Cmd not found Error ", 1014);//exit code
 }
 
-void	exec_multiple_cmds(t_bundle *bundle, int argc, char *argv[], char *envp[])
+void	redirect_first_child(t_bundle *bundle, int fd[2])
+{
+	close(fd[0]);
+	int	infile_fd;
+
+	infile_fd = open(bundle->filename, O_RDONLY);
+	if (infile_fd == -1)
+		ft_error("Open Error ", 1014);//exit code
+	if (dup2(infile_fd, STDIN_FILENO) == -1)
+		ft_error("Dup2 Error ", 1014);//exit code
+	if (dup2(fd[1], STDOUT_FILENO) == -1)
+		ft_error("Dup2 Error ", 1014);//exit code
+	close(fd[1]);
+	close(infile_fd);
+}
+
+void	redirect_last_child(t_bundle *bundle, int fd[2], int before_fd_read)
+{
+	int	outfile_fd;
+
+	close(fd[0]);
+	close(fd[1]);
+	outfile_fd = open(bundle->out_filename, bundle->outfile_flag, 0644);
+	if (outfile_fd == -1)
+		ft_error("Open Error ", 1014);//exit code
+	if (dup2(before_fd_read, STDIN_FILENO) == -1)
+		ft_error("Dup2 Error ", 1014);//exit code
+	if (dup2(outfile_fd, STDOUT_FILENO) == -1)
+		ft_error("Dup2 Error ", 1014);//exit code
+	close(before_fd_read);
+	close(outfile_fd);
+}
+
+void	redirect_mid_childs(int fd[2], int before_fd_read)
+{
+	close(fd[0]);
+	if (dup2(before_fd_read, STDIN_FILENO) == -1)
+		ft_error("Dup2 Error ", 1014);//exit code
+	if (dup2(fd[1], STDOUT_FILENO) == -1)
+		ft_error("Dup2 Error ", 1014);//exit code
+	close(before_fd_read);
+	close(fd[1]);
+}
+
+void	exec_multiple_cmds(t_bundle *bundle, char *envp[])
 {
 	int	idx;
 	int	fd[2];
@@ -187,46 +233,11 @@ void	exec_multiple_cmds(t_bundle *bundle, int argc, char *argv[], char *envp[])
 			// Child process
 
 			if (idx == 0) //first child process
-			{
-				close(fd[0]);
-				int	infile_fd;
-
-				infile_fd = open(bundle->filename, O_RDONLY);
-				if (infile_fd == -1)
-					ft_error("Open Error ", 1014);//exit code
-				if (dup2(infile_fd, STDIN_FILENO) == -1)
-					ft_error("Dup2 Error ", 1014);//exit code
-				if (dup2(fd[1], STDOUT_FILENO) == -1)
-					ft_error("Dup2 Error ", 1014);//exit code
-				close(fd[1]);
-				close(infile_fd);
-			}
+				redirect_first_child(bundle, fd);
 			else if (idx == bundle->cmd_cnts - 1) // last child process
-			{
-				int	outfile_fd;
-
-				close(fd[0]);
-				close(fd[1]);
-				outfile_fd = open(argv[argc - 1], bundle->outfile_flag, 0644);
-				if (outfile_fd == -1)
-					ft_error("Open Error ", 1014);//exit code
-				if (dup2(before_fd_read, STDIN_FILENO) == -1)
-					ft_error("Dup2 Error ", 1014);//exit code
-				if (dup2(outfile_fd, STDOUT_FILENO) == -1)
-					ft_error("Dup2 Error ", 1014);//exit code
-				close(before_fd_read);
-				close(outfile_fd);
-			}
+				redirect_last_child(bundle, fd, before_fd_read);
 			else //mid child process
-			{
-				close(fd[0]);
-				if (dup2(before_fd_read, STDIN_FILENO) == -1)
-					ft_error("Dup2 Error ", 1014);//exit code
-				if (dup2(fd[1], STDOUT_FILENO) == -1)
-					ft_error("Dup2 Error ", 1014);//exit code
-				close(before_fd_read);
-				close(fd[1]);
-			}
+				redirect_mid_childs(fd, before_fd_read);
 			execve(bundle->cmd_args[idx][0], bundle->cmd_args[idx], envp);
 			int path_idx = -1;
 			while (bundle->parsed_path[++path_idx])
@@ -256,14 +267,18 @@ int main(int argc, char *argv[], char *envp[])
 	parse_cmds(&bundle, argv);
 	parse_path(&bundle, envp);
 	if (bundle.first_cmd_idx == argc - 2)
-		exec_one_cmd(&bundle, argc, argv, envp);
+		exec_one_cmd(&bundle, envp);
 	else
-		exec_multiple_cmds(&bundle, argc, argv, envp);
+		exec_multiple_cmds(&bundle, envp);
 
 	idx = -1;
 	while (++idx < bundle.cmd_cnts)
 		if (wait(0) == -1)
 			ft_error("Wait Error ", 1014);//exit code
-	//TODO :: rm tmp file
+	//TODO :: rm tmp file only when here_doc
+	//char *rm_file = ft_strjoin("/tmp/", bundle.out_filename);
+	if (bundle.here_doc_flag)
+		unlink(bundle.filename);
 	return (0);
 }
+
