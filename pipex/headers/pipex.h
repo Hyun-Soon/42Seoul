@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 12:28:39 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/21 19:00:42 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/26 16:56:19 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,14 @@
 # include <stdio.h>
 # include "../libft/libft.h"
 
+typedef struct	s_bundle
+{
+	char	*filename;
+	int		first_cmd_idx;
+	int		outfile_flag;
+	char	**envp;
+	char	**cmd_args;
+}				t_bundle;
 
 
 #endif
