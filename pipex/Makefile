@@ -6,12 +6,15 @@
 #    By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/05 15:14:10 by hyuim             #+#    #+#              #
-#    Updated: 2023/09/26 13:06:35 by hyuim            ###   ########.fr        #
+#    Updated: 2023/09/27 13:14:27 by hyuim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS_NAME =	main.c \
-	
+			init.c \
+			parse.c \
+			exec.c \
+			redirect.c
 
 OBJS = $(SRCS:.c=.o)
 PREFIX = ./srcs/
