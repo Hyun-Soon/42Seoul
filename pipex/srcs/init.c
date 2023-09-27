@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:03:44 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/27 15:05:51 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/27 19:58:12 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ void	check_here_doc(t_bundle *bundle, char *argv[])
 			ft_error("Malloc Error ", 2, bundle, 1);
 		while (!access(bundle->filename, F_OK))
 		{
-			sz = ft_strlen(bundle->filename);
-			bundle->filename = ft_realloc(sz, bundle->filename, sz + 3 + 1);
+			sz = ft_strlen(bundle->filename) + 1;
+			bundle->filename = ft_realloc(bundle, sz,
+					bundle->filename, sz + 3 + 1);
 			ft_strlcat(bundle->filename, "tmp", sz + 3 + 1);
 		}
 		temp_file_fd = open(bundle->filename, O_RDWR | O_CREAT, 0644);

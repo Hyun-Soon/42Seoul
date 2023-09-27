@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:05:41 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/27 15:08:10 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/27 20:01:48 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	exec_one_cmd(t_bundle *bundle, char *envp[])
 {
 	int	infile_fd;
 	int	outfile_fd;
+	int	pid;
 
 	infile_fd = open(bundle->filename, O_RDONLY);
 	if (infile_fd == -1)
@@ -45,7 +46,11 @@ void	exec_one_cmd(t_bundle *bundle, char *envp[])
 		ft_error("Dup2 Error ", 12, bundle, 1);
 	close(infile_fd);
 	close(outfile_fd);
-	exec_cmd(bundle, envp, 0);
+	pid = fork();
+	if (pid < 0)
+		ft_error("Fork Error ", 13, bundle, 1);
+	if (pid == 0)
+		exec_cmd(bundle, envp, 0);
 }
 
 void	exec_multiple_cmds(t_bundle *bundle, char *envp[], int idx)

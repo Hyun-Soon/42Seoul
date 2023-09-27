@@ -6,7 +6,7 @@
 #    By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/23 14:53:08 by hyuim             #+#    #+#              #
-#    Updated: 2023/09/27 14:26:04 by hyuim            ###   ########.fr        #
+#    Updated: 2023/09/27 18:32:09 by hyuim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,8 +65,8 @@ check_char.c
 
 
 OBJS = $(SRCS:.c=.o)
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror -c -g3
+CC = cc
+CFLAGS = -Wall -Wextra -Werror -c
 NAME = libft.a
 
 all : $(NAME)

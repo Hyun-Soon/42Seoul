@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:36:28 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/27 14:22:12 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/27 19:59:38 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ void	ft_error(const char *err_msg, int exit_code,
 			t_bundle *bundle, int flag);
 double	fractol_atodb(const char *str);
 int		ft_strcmp(const char *str1, const char *str2);
-void	*ft_realloc(int org_size, void *org_ptr, int new_size);
+void	*ft_realloc(t_bundle *bundle, int org_size,
+			void *org_ptr, int new_size);
 void	free_remainder(t_bundle *bundle);
 
 #endif
