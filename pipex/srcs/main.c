@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 12:22:23 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/27 13:11:09 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/27 15:23:02 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,7 @@ int	main(int argc, char *argv[], char *envp[])
 	int			idx;
 
 	if (argc < 4)
-	{
-		ft_printf("Not Enought args\n");
-		exit (1);
-	}
+		ft_error("Not Enough args\n", 1, &bundle, 2);
 	init_bundle(&bundle, argc, argv);
 	check_here_doc(&bundle, argv);
 	parse_cmds(&bundle, argv);
@@ -45,9 +42,10 @@ int	main(int argc, char *argv[], char *envp[])
 	idx = -1;
 	while (++idx < bundle.cmd_cnts)
 		if (wait(0) == -1)
-			ft_error("Wait Error ", 24);
+			ft_error("Wait Error ", 24, &bundle, 1);
 	if (bundle.here_doc_flag)
 		if (unlink(bundle.filename) == -1)
-			ft_error("Unlink Error ", 25);
+			ft_error("Unlink Error ", 25, &bundle, 1);
+	free_remainder(&bundle);
 	return (0);
 }

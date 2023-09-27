@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 14:36:28 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/22 11:31:05 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/09/27 14:22:12 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,18 @@ typedef struct s_list
 	struct s_list	*next;
 }					t_list;
 
+typedef struct s_bundle
+{
+	char	*filename;
+	char	*out_filename;
+	int		first_cmd_idx;
+	int		cmd_cnts;
+	int		outfile_flag;
+	char	**parsed_path;
+	char	***cmd_args;
+	int		here_doc_flag;
+}				t_bundle;
+
 t_list	*ft_lstnew(void *content);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);
@@ -74,21 +86,12 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 int		ft_printf(const char *format, ...);
 int		is_percent(char c);
 int		is_back_slash(char c);
-//int		print_conversion(char c, va_list ap, size_t *bytes);
-//int		print_c(va_list ap, size_t *bytes);
-//int		print_s(va_list ap, size_t *bytes);
-//int		print_p(va_list ap, size_t *bytes);
-//char	*ltoa_base(int base, unsigned long n);
-//int		print_d(va_list ap, size_t *bytes);
-//int		print_u(va_list ap, size_t *bytes);
-//int		print_x(va_list ap, size_t *bytes);
-//int		print_large_x(va_list ap, size_t *bytes);
-//int		print_percent(size_t *bytes);
-//int		read_format(const char *format, va_list ap);
 size_t	ft_strlen(const char *s);
-void	ft_error(const char *err_msg, int exit_code);
+void	ft_error(const char *err_msg, int exit_code,
+			t_bundle *bundle, int flag);
 double	fractol_atodb(const char *str);
 int		ft_strcmp(const char *str1, const char *str2);
 void	*ft_realloc(int org_size, void *org_ptr, int new_size);
+void	free_remainder(t_bundle *bundle);
 
 #endif
