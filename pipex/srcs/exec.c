@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:05:41 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/27 20:01:48 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/10/01 20:49:33 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@ void	exec_cmd(t_bundle *bundle, char *envp[], int idx)
 {
 	int		path_idx;
 	char	*path_plus_cmd;
+	char	*temp;
 
 	execve(bundle->cmd_args[idx][0], bundle->cmd_args[idx], envp);
 	path_idx = -1;
 	while (bundle->parsed_path[++path_idx])
 	{
-		path_plus_cmd = ft_strjoin(bundle->parsed_path[path_idx], "/");
-		path_plus_cmd = ft_strjoin(path_plus_cmd, bundle->cmd_args[idx][0]);
+		temp = ft_strjoin(bundle->parsed_path[path_idx], "/");
+		path_plus_cmd = ft_strjoin(temp, bundle->cmd_args[idx][0]);
+		free(temp);
 		execve(path_plus_cmd, bundle->cmd_args[idx], envp);
 	}
 	ft_error("Cmd not found Error ", 13, bundle, 1);
@@ -77,6 +79,7 @@ void	exec_multiple_cmds(t_bundle *bundle, char *envp[], int idx)
 				redirect_mid_childs(bundle, fd, before_fd_read);
 			exec_cmd(bundle, envp, idx);
 		}
+		close(before_fd_read);
 		close(fd[1]);
 	}
 }

@@ -6,7 +6,7 @@
 #    By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/05 15:14:10 by hyuim             #+#    #+#              #
-#    Updated: 2023/09/27 20:07:33 by hyuim            ###   ########.fr        #
+#    Updated: 2023/09/30 15:28:07 by hyuim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ OBJS = $(SRCS:.c=.o)
 PREFIX = ./srcs/
 SRCS = $(addprefix $(PREFIX), $(SRCS_NAME))
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -c -g3
+CFLAGS = -Wall -Wextra -Werror -c
 HEADER = ./headers
 NAME = pipex
 
