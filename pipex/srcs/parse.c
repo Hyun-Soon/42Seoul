@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 13:04:59 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/27 13:05:25 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/10/04 22:32:07 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	parse_path(t_bundle *bundle, char *envp[])
 	idx = -1;
 	while (envp[++idx])
 	{
-		if (ft_strncmp("PATH=", envp[idx], 5) == 0)
+		if (ft_strlen(envp[idx]) >= 5 && ft_strncmp("PATH=", envp[idx], 5) == 0)
 		{
 			envp_path = ft_strchr(envp[idx], '=') + 1;
 			bundle->parsed_path = ft_split(envp_path, ':');
