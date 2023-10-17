@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 17:16:27 by hyuim             #+#    #+#             */
-/*   Updated: 2023/09/11 17:17:30 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/10/17 11:19:13 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	exec_cmd_swap(t_stacks *stks, char *cmd)
 {
 	if (!ft_strcmp("sa\n", cmd))
 	{
-		if (stks->stk_a != stks->stk_a->next)
+		if (stks->stk_a && stks->stk_a != stks->stk_a->next)
 		{
 			ft_swap(stks, SA);
 			return ;
@@ -41,7 +41,7 @@ void	exec_cmd_swap(t_stacks *stks, char *cmd)
 	}
 	else if (!ft_strcmp("sb\n", cmd))
 	{
-		if (stks->stk_b != stks->stk_b->next)
+		if (stks->stk_b && stks->stk_b != stks->stk_b->next)
 		{
 			ft_swap(stks, SB);
 			return ;
