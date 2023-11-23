@@ -6,12 +6,17 @@
 #    By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 13:47:23 by hyuim             #+#    #+#              #
-#    Updated: 2023/11/23 22:30:43 by hyuim            ###   ########.fr        #
+#    Updated: 2023/11/23 23:33:19 by hyuim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS_NAME =	main.c \
-			
+			init.c \
+			str_utils.c \
+			time_utils.c \
+			philo_fork_behavior.c \
+			philo_behavior.c \
+			free_and_destroy.c
 
 OBJS = $(SRCS:.c=.o)
 PREFIX = ./srcs/
