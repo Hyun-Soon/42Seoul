@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 23:05:22 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/23 23:26:23 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/11/24 13:24:32 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	philo_thinking(t_philo *philo)
 void	sleep_for_odd_philos(t_philo *philo)
 {
 	if (philo->id % 2 == 1)
-		while (get_time_since(philo->bundle->s_start) < philo->bundle->time_to_eat / 4)
+		while (get_time_since(philo->bundle->s_start)
+			< philo->bundle->time_to_eat / 4)
 			usleep(philo->bundle->time_to_eat / 8);
 }
 

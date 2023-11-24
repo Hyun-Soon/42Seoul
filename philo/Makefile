@@ -6,7 +6,7 @@
 #    By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 13:47:23 by hyuim             #+#    #+#              #
-#    Updated: 2023/11/23 23:33:19 by hyuim            ###   ########.fr        #
+#    Updated: 2023/11/24 13:35:19 by hyuim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ SRCS_NAME =	main.c \
 			time_utils.c \
 			philo_fork_behavior.c \
 			philo_behavior.c \
-			free_and_destroy.c
+			free_and_destroy.c \
+			thread_utils.c
 
 OBJS = $(SRCS:.c=.o)
 PREFIX = ./srcs/
@@ -35,7 +36,7 @@ all : $(NAME)
 #bonus : $(BONUS)
 
 $(NAME) : $(OBJS)
-	$(CC) $(OBJS) -o $(NAME) -I $(HEADER) #-fsanitize=thread
+	$(CC) $(OBJS) -o $(NAME) -I $(HEADER) #-fsanitize=address
 
 %.o : %.c
 	$(CC) $(CFLAGS) $< -o $@ -I $(HEADER)

@@ -16,16 +16,16 @@ long	get_mtime_diff(t_timeval time, t_timeval ref)
 int main(void)
 {
 	t_timeval start;
-	start.tv_sec = 1000; //1000000
-	start.tv_usec = 000000; //0
+	start.tv_sec = 1000;
+	start.tv_usec = 000000;
 
 	t_timeval t1;
-	t1.tv_sec = 1000; //1000000
-	t1.tv_usec = 901000; //901
+	t1.tv_sec = 1000;
+	t1.tv_usec = 901000;
 
 	t_timeval t2;
-	t2.tv_sec = 1001; //1001000
-	t2.tv_usec = 100001; //100
+	t2.tv_sec = 1001;
+	t2.tv_usec = 100001;
 
 	printf("%lu t1 timestamp \n", get_mtime_diff(t1, start));
 	if (get_mtime_diff(t2, t1) >= 200)

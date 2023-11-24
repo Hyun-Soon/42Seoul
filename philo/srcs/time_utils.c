@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 22:51:14 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/23 23:29:39 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/11/24 13:26:31 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,11 @@
 long	get_timestamp(t_philo *philo)
 {
 	struct timeval	s_now;
-	long	ret;
+	long			ret;
 
 	gettimeofday(&s_now, NULL);
-	ret = (s_now.tv_sec - philo->bundle->s_start.tv_sec) * 1000 + (s_now.tv_usec / 1000) - (philo->bundle->s_start.tv_usec / 1000);
+	ret = (s_now.tv_sec - philo->bundle->s_start.tv_sec) * 1000
+		+ (s_now.tv_usec / 1000) - (philo->bundle->s_start.tv_usec / 1000);
 	return (ret);
 }
 
@@ -28,7 +29,8 @@ long	get_time_since(struct timeval s_before_time)
 	long			ret;
 
 	gettimeofday(&s_now, NULL);
-	ret = (s_now.tv_sec - s_before_time.tv_sec) * 1000 + (s_now.tv_usec / 1000) - (s_before_time.tv_usec / 1000);
+	ret = (s_now.tv_sec - s_before_time.tv_sec) * 1000
+		+ (s_now.tv_usec / 1000) - (s_before_time.tv_usec / 1000);
 	return (ret);
 }
 
@@ -41,12 +43,13 @@ void	set_eat_time(t_philo *philo)
 
 void	optimized_sleep(struct timeval ref_time, int target_time)
 {
-	long	sleep_time;
-	long	u_constant_time;
-	int	time_threadhold;
+	long			sleep_time;
+	long			u_constant_time;
+	int				time_threadhold;
 	struct timeval	s_now;
 
-	u_constant_time = target_time * 1000 + ref_time.tv_sec * 1000000 + ref_time.tv_usec;
+	u_constant_time = target_time * 1000
+		+ ref_time.tv_sec * 1000000 + ref_time.tv_usec;
 	time_threadhold = 4 * DT;
 	gettimeofday(&s_now, NULL);
 	sleep_time = u_constant_time - s_now.tv_sec * 1000000 - s_now.tv_usec;

@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 23:01:16 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/23 23:29:08 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/11/24 13:24:15 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ int	destroy_pre_fork_mutexes(t_bundle *bundle, t_philo *philos, int idx)
 	return (-1);
 }
 
-int	destroy_pre_fork_mutexes_and_eat_time_mutexes(t_bundle *bundle, t_philo *philos, int idx)
+int	destroy_pre_fork_mutexes_and_eat_time_mutexes(t_bundle *bundle,
+	t_philo *philos, int idx)
 {
 	int	idx_for_free;
 

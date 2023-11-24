@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:43:45 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/23 23:23:51 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/11/24 13:35:03 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ void	count_eat(t_bundle *bundle, int *full_flag, int idx)
 	pthread_mutex_unlock(&bundle->eat_cnt_mutexes[idx]);
 }
 
-void	check_dead_or_full(t_bundle *bundle, t_philo *philos, int idx, int full_flag)
+void	check_dead_or_full(t_bundle *bundle,
+			t_philo *philos, int idx, int full_flag)
 {
 	while (bundle->sb_dead_or_full == 0)
 	{
@@ -55,18 +56,11 @@ void	check_dead_or_full(t_bundle *bundle, t_philo *philos, int idx, int full_fla
 	}
 }
 
-void	check() /////
-{
-	system("leaks -q philo");
-}
-
-int main(int argc, char**argv)
+int	main(int argc, char **argv)
 {
 	t_bundle	bundle;
 	t_philo		*philos;
-	int	idx;
 
-	//atexit(check);
 	philos = NULL;
 	if (argc < 5)
 	{
@@ -80,15 +74,9 @@ int main(int argc, char**argv)
 		return (3);
 	if (set_start_time(&bundle, philos) == -1)
 		return (4);
-	idx = -1;
-	while (++idx < bundle.num_of_philos)
-		pthread_create(&bundle.threads[idx], NULL, routine, (void *)&philos[idx]);
-
+	all_pthreads_create(&bundle, philos, -1);
 	check_dead_or_full(&bundle, philos, -1, 1);
-
-	idx = -1;
-	while (++idx < bundle.num_of_philos)
-		pthread_join(bundle.threads[idx], NULL);
+	all_pthreads_join(&bundle, -1);
 	destroy_all_mutexes_and_all_free(&bundle, philos);
 	return (0);
 }
