@@ -6,7 +6,7 @@
 #    By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 13:47:23 by hyuim             #+#    #+#              #
-#    Updated: 2023/11/24 14:01:59 by hyuim            ###   ########.fr        #
+#    Updated: 2023/11/27 14:45:51 by hyuim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ all : $(NAME)
 #bonus : $(BONUS)
 
 $(NAME) : $(OBJS)
-	$(CC) $(OBJS) -o $(NAME) -I $(HEADER) #-fsanitize=address
+	$(CC) $(OBJS) -o $(NAME) -I $(HEADER)
 
 %.o : %.c
 	$(CC) $(CFLAGS) $< -o $@ -I $(HEADER)
