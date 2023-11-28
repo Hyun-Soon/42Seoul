@@ -6,37 +6,36 @@
 #    By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 13:47:23 by hyuim             #+#    #+#              #
-#    Updated: 2023/11/24 14:04:18 by hyuim            ###   ########.fr        #
+#    Updated: 2023/11/28 14:26:58 by hyuim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS_NAME =	main.c \
-			
+			sem_utils.c \
+			time_utils.c \
+			libft_funcs.c \
+			handle_philo.c \
+			philo_behavior.c \
+			philo_fork_behavior.c
 
 OBJS = $(SRCS:.c=.o)
 PREFIX = ./srcs/
 SRCS = $(addprefix $(PREFIX), $(SRCS_NAME))
-CC = cc #-g3 #-g -fsanitize=thread
+CC = cc
 CFLAGS = -Wall -Wextra -Werror -c
 HEADER = ./headers
 NAME = philo_bonus
-#BONUS = checker
-#BONUS_SRCS =
+
 
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 
 all : $(NAME)
 
-#bonus : $(BONUS)
-
 $(NAME) : $(OBJS)
-	$(CC) $(OBJS) -o $(NAME) -I $(HEADER) #-fsanitize=address
+	$(CC) $(OBJS) -o $(NAME) -I $(HEADER) #-g3 #-fsanitize=address
 
 %.o : %.c
 	$(CC) $(CFLAGS) $< -o $@ -I $(HEADER)
-
-#$(BONUS) : $(BONUS_OBJS)
-#	$(CC) $(BONUS_OBJS) -Llibft -l$(LIBFT) -o $(BONUS) -I $(HEADER) -g3
 
 clean :
 	rm -f $(OBJS)
