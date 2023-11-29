@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:22:49 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/29 11:59:50 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/11/29 15:57:23 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ long	get_time_since(struct timeval s_before_time, struct timeval s_now)
 long	get_timestamp(t_bundle *bundle, struct timeval s_now)
 {
 	long			ret;
-
+	
 	ret = (s_now.tv_sec - bundle->s_start.tv_sec) * 1000
 		+ (s_now.tv_usec / 1000) - (bundle->s_start.tv_usec / 1000);
 	return (ret);
