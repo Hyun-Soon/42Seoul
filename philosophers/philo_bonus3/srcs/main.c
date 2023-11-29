@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:05:40 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/29 23:11:53 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/11/29 23:35:21 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ void	init_bundle(t_bundle *bundle, int argc, char **argv)
 // general = 0
 // starve = 1
 
-//TODO ::	free list => 1. bundle.sem_name
-//			usleep for every case after sleeping
-//			***catch exit status and kill if the dead reason is hunger
-//			even if a philo is full, until other all philos are full, the msg should be printed
+//TODO ::	배불러서 끝날 때, 포크 반환해야 함.
 
 void	check()
 {

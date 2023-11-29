@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:19:10 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/29 22:52:03 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/11/29 23:21:46 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	wait_philosophers(t_bundle *bundle)
 	while (++idx < bundle->num_of_philos)
 	{
 		waitpid(-1, &status, 0);
-		if (WIFEXITED(status) == 1) //starve
+		if (WEXITSTATUS(status) == 1) //starve
 		{
 			kill(0, SIGINT);
 			//여기서 죽이고나서 died 프린트하는게 나을 것 같은데? => 어차피 print_semaphore 있네

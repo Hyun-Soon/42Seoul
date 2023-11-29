@@ -6,28 +6,28 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:16:07 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/29 23:08:42 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/11/29 23:41:50 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers_bonus.h"
 
-void	wake_up_or_die(t_bundle *bundle, long time_left_to_die, struct timeval check_time, int target_time)
-{
-	struct timeval	s_now;
+//void	wake_up_or_die(t_bundle *bundle, long time_left_to_die, struct timeval check_time, int target_time)
+//{
+//	struct timeval	s_now;
 
-	if (time_left_to_die < target_time)
-	{
-		optimized_sleep(check_time, time_left_to_die);
-		//printf("time left to die : %ld\n", time_left_to_die);
-		sem_wait(bundle->t_print_semaphore);
-		gettimeofday(&s_now, NULL);
-		printf("%ld	%d died\n", get_timestamp(bundle, s_now), bundle->id + 1);
-		//printf("case 2\n");
-		exit(1);
-	}
-	optimized_sleep(check_time, target_time);
-}
+//	if (time_left_to_die < target_time)
+//	{
+//		optimized_sleep(check_time, time_left_to_die);
+//		//printf("time left to die : %ld\n", time_left_to_die);
+//		sem_wait(bundle->t_print_semaphore);
+//		gettimeofday(&s_now, NULL);
+//		printf("%ld	%d died\n", get_timestamp(bundle, s_now), bundle->id + 1);
+//		//printf("case 2\n");
+//		exit(1);
+//	}
+//	optimized_sleep(check_time, target_time);
+//}
 
 void	philo_eating(t_bundle *bundle)
 {
@@ -153,7 +153,21 @@ void	*monitoring(void *bd)
 		sem_wait(bundle->t_personal_eat_cnt_sem);
 		if (bundle->eat_cnt == bundle->number_of_times_for_each) //공유 변수
 		{
+			printf("%d is full | cnt : %d\n", bundle->id + 1, bundle->eat_cnt);
 			sem_post(bundle->t_eat_cnt_sem);
+
+			//---------------------------------------------
+			//TODO :: 1129
+			//여기서 포크가 4개로 복사되진 않을까?
+			//복사되지 않으려면 thinking에서 여기로 들어오면 안돼.
+
+			//sem open 할 때 3개를 만들어줬어도, sem post로 4, 5 그 이상의 값을 만들 수 있음 => 문제생김 (test/test.c 확인)
+			//내 status가 EATING일 때(semaphore lock 보장해줘야 함)만 post 2번 한다면?
+			//sem_post(bundle->t_semaphore);
+			//sem_post(bundle->t_semaphore);
+			//---------------------------------------------
+
+			
 			close_sems(bundle);
 			exit(0);
 		}
