@@ -6,85 +6,119 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:24:08 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/28 15:11:14 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/11/30 11:57:01 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers_bonus.h"
 
-void	malloc_sem(t_bundle *bundle)
+void	name_sems(t_bundle *bundle)
 {
-	bundle->sem_name = (char **)malloc(sizeof(char *) * 2);
+	bundle->sem_name = ft_strdup("sem");
 	if (!bundle->sem_name)
 		exit(11);
-	bundle->s_semaphore = (sem_t **)malloc(sizeof(sem_t *) * 2);
-	if (!bundle->s_semaphore)
+	bundle->print_sem_name = ft_strdup("print_sem");
+	if (!bundle->print_sem_name)
 		exit(12);
-	bundle->sem_name[0] = ft_strdup("a");
-	if (!bundle->sem_name[0])
-		exit(13);
-	bundle->sem_name[1] = ft_strdup("b");
-	if (!bundle->sem_name[1])
+	bundle->eat_cnt_sem_name = ft_strdup("eat_cnt_sem");
+	if (!bundle->eat_cnt_sem_name)
 		exit(14);
 }
 
-void	pre_unlink_sem(t_bundle *bundle)
+sem_t	*make_sem_until_success(char *name, int s)
 {
-	malloc_sem(bundle);
-	sem_unlink(bundle->sem_name[0]);
-	sem_unlink(bundle->sem_name[1]);
-	sem_unlink("print_sem");
+	sem_t	*ret;
+	char	*temp;
+
+	sem_unlink(name);
+	ret = sem_open(name,
+			O_CREAT | O_EXCL, 0660, s);
+	while (ret == SEM_FAILED)
+	{
+		temp = name;
+		name = ft_strjoin(name, "sem");
+		free(temp);
+		sem_unlink(name);
+		ret = sem_open(name,
+				O_CREAT | O_EXCL, 0660, s);
+	}
+	return (ret);
 }
 
-int	make_semaphore(t_bundle *bundle)
+int	make_semaphores(t_bundle *bundle)
 {
-	char	*temp;
-	int		idx;
-	int		num_of_forks;
+	int	idx;
 
-	pre_unlink_sem(bundle);
-	bundle->s_print_semaphore = \
-		sem_open("print_sem", O_CREAT | O_EXCL, 0660, 1);
 	idx = -1;
-	num_of_forks = bundle->num_of_philos / 2 + 1;
-	while (++idx < 2)
+	name_sems(bundle);
+	malloc_2d_sem_names(bundle);
+	while (++idx < bundle->num_of_philos)
 	{
-		bundle->s_semaphore[idx] = \
-		sem_open(bundle->sem_name[idx], O_CREAT | O_EXCL, 0660, num_of_forks);
-		while (bundle->s_semaphore[idx] == SEM_FAILED)
-		{
-			temp = bundle->sem_name[idx];
-			bundle->sem_name[idx] = ft_strjoin(bundle->sem_name[idx], "sem");
-			free(temp);
-			sem_unlink(bundle->sem_name[idx]);
-			bundle->s_semaphore[idx] = sem_open(bundle->sem_name[idx],
-					O_CREAT | O_EXCL, 0660, num_of_forks);
-		}
-		num_of_forks = bundle->num_of_philos / 2;
+		bundle->eat_time_sem_name[idx] = name_eat_sems(idx, 0);
+		bundle->personal_eat_cnt_name[idx] = name_eat_sems(idx, 1);
+	}
+	bundle->t_print_semaphore = \
+	make_sem_until_success(bundle->print_sem_name, 1);
+	bundle->t_semaphore = \
+	make_sem_until_success(bundle->sem_name, bundle->num_of_philos);
+	if (bundle->number_of_times_for_each != -2)
+	{
+		bundle->t_eat_cnt_sem = \
+		make_sem_until_success(bundle->eat_cnt_sem_name, bundle->num_of_philos);
+		while (++idx < bundle->num_of_philos)
+			sem_wait(bundle->t_eat_cnt_sem);
 	}
 	return (0);
 }
 
 void	free_remains(t_bundle *bundle)
 {
+	int	idx;
+
 	if (bundle->sem_name)
-	{
-		free(bundle->sem_name[0]);
-		free(bundle->sem_name[1]);
 		free(bundle->sem_name);
+	if (bundle->print_sem_name)
+		free(bundle->print_sem_name);
+	if (bundle->eat_cnt_sem_name)
+		free(bundle->eat_cnt_sem_name);
+	if (bundle->eat_time_sem_name)
+	{
+		idx = -1;
+		while (++idx < bundle->num_of_philos)
+			free(bundle->eat_time_sem_name[idx]);
+		free(bundle->eat_time_sem_name);
+	}
+	if (bundle->personal_eat_cnt_name)
+	{
+		idx = -1;
+		while (++idx < bundle->num_of_philos)
+			free(bundle->personal_eat_cnt_name[idx]);
+		free(bundle->personal_eat_cnt_name);
 	}
 }
 
 void	delete_semaphores(t_bundle *bundle)
 {
-	if (sem_close(bundle->s_semaphore[0]) == -1)
+	int	idx;
+
+	if (sem_close(bundle->t_semaphore) == -1)
 		exit(5);
-	if (sem_close(bundle->s_semaphore[1]) == -1)
+	if (sem_unlink(bundle->sem_name) == -1)
 		exit(6);
-	if (sem_unlink(bundle->sem_name[0]) == -1)
+	if (sem_close(bundle->t_print_semaphore) == -1)
 		exit(7);
-	if (sem_unlink(bundle->sem_name[1]) == -1)
+	if (sem_unlink(bundle->print_sem_name) == -1)
 		exit(8);
-	if (sem_close(bundle->s_print_semaphore) == -1)
-		exit(9);
+	if (sem_close(bundle->t_eat_cnt_sem) == -1)
+		exit(7);
+	if (sem_unlink(bundle->eat_cnt_sem_name) == -1)
+		exit(8);
+	idx = -1;
+	while (++idx < bundle->num_of_philos)
+	{
+		if (sem_unlink(bundle->eat_time_sem_name[idx]) == -1)
+			exit(9);
+		if (sem_unlink(bundle->personal_eat_cnt_name[idx]) == -1)
+			exit(10);
+	}
 }

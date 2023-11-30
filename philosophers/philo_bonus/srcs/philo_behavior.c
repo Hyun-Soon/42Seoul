@@ -6,122 +6,111 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:16:07 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/28 21:04:05 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/11/30 11:52:49 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers_bonus.h"
 
-void	wake_up_or_die(t_bundle *bundle, long time_left_to_die, struct timeval check_time, int target_time)
+void	put_down_forks(t_bundle *bundle)
 {
-	if (time_left_to_die < target_time)
-	{
-		optimized_sleep(check_time, time_left_to_die);
-		sem_wait(bundle->s_print_semaphore);
-		printf("%ld	%d is died\n", get_timestamp(bundle, check_time), bundle->id);
-		exit(1);
-	}
-	optimized_sleep(check_time, target_time);
+	sem_post(bundle->t_semaphore);
+	down_hold_forks(bundle);
+	sem_post(bundle->t_semaphore);
+	down_hold_forks(bundle);
 }
 
-void	philo_eating(t_bundle *bundle, int *dead_or_full)
+void	philo_eating(t_bundle *bundle)
 {
 	struct timeval	s_now;
 	long			time_since_last_meal;
-	long			time_left_to_die;
 
 	gettimeofday(&s_now, NULL);
+	sem_wait(bundle->t_eat_time_sem);
 	time_since_last_meal = get_time_since(bundle->s_eat_time, s_now);
+	sem_post(bundle->t_eat_time_sem);
+	sem_wait(bundle->t_personal_eat_cnt_sem);
 	if (time_since_last_meal < bundle->time_to_die
 		&& bundle->eat_cnt != bundle->number_of_times_for_each)
 	{
-		sem_wait(bundle->s_print_semaphore);
+		sem_post(bundle->t_personal_eat_cnt_sem);
+		sem_wait(bundle->t_print_semaphore);
 		printf("%ld	%d is eating\n",
 			get_timestamp(bundle, s_now), bundle->id + 1);
-		sem_post(bundle->s_print_semaphore);
+		sem_post(bundle->t_print_semaphore);
+		sem_wait(bundle->t_personal_eat_cnt_sem);
 		bundle->eat_cnt++;
-		gettimeofday(&bundle->s_eat_time, NULL);
+		sem_post(bundle->t_personal_eat_cnt_sem);
+		bundle->s_eat_time = s_now;
 	}
 	else
-		*dead_or_full = bundle->number_of_times_for_each;
-
-	//time_since_last_meal = get_time_since(bundle->s_eat_time, s_now);
-	time_left_to_die = bundle->time_to_die - time_since_last_meal;
-	wake_up_or_die(bundle, time_left_to_die, s_now, bundle->time_to_eat);
-
-	sem_post(bundle->s_semaphore[1]);
-	sem_post(bundle->s_semaphore[0]);
+		sem_post(bundle->t_personal_eat_cnt_sem);
+	optimized_sleep(s_now, bundle->time_to_eat);
+	put_down_forks(bundle);
 }
 
-void	philo_sleeping(t_bundle *bundle, int *dead_or_full)
+void	philo_sleeping(t_bundle *bundle)
 {
 	struct timeval	s_now;
 	long			time_since_last_meal;
-	long			time_left_to_die;
 
 	gettimeofday(&s_now, NULL);
+	sem_wait(bundle->t_eat_time_sem);
 	time_since_last_meal = get_time_since(bundle->s_eat_time, s_now);
+	sem_post(bundle->t_eat_time_sem);
+	sem_wait(bundle->t_personal_eat_cnt_sem);
 	if (time_since_last_meal < bundle->time_to_die
 		&& bundle->eat_cnt != bundle->number_of_times_for_each)
 	{
-		sem_wait(bundle->s_print_semaphore);
+		sem_post(bundle->t_personal_eat_cnt_sem);
+		sem_wait(bundle->t_print_semaphore);
 		printf("%ld	%d is sleeping\n",
 			get_timestamp(bundle, s_now), bundle->id + 1);
-		sem_post(bundle->s_print_semaphore);
+		sem_post(bundle->t_print_semaphore);
 	}
 	else
-		*dead_or_full = bundle->number_of_times_for_each;
-	//time_since_last_meal = get_time_since(bundle->s_eat_time, s_now);
-	time_left_to_die = bundle->time_to_die - time_since_last_meal;
-	wake_up_or_die(bundle, time_left_to_die, s_now, bundle->time_to_sleep);
-	//optimized_sleep(s_now, bundle->time_to_sleep);
+		sem_post(bundle->t_personal_eat_cnt_sem);
+	optimized_sleep(s_now, bundle->time_to_sleep);
 }
 
-void	philo_thinking(t_bundle *bundle, int *dead_or_full)
+void	philo_thinking(t_bundle *bundle)
 {
 	struct timeval	s_now;
 	long			time_since_last_meal;
 
 	gettimeofday(&s_now, NULL);
+	sem_wait(bundle->t_eat_time_sem);
 	time_since_last_meal = get_time_since(bundle->s_eat_time, s_now);
+	sem_post(bundle->t_eat_time_sem);
+	sem_wait(bundle->t_personal_eat_cnt_sem);
 	if (time_since_last_meal < bundle->time_to_die
 		&& bundle->eat_cnt != bundle->number_of_times_for_each)
 	{
-		sem_wait(bundle->s_print_semaphore);
+		sem_post(bundle->t_personal_eat_cnt_sem);
+		sem_wait(bundle->t_print_semaphore);
 		printf("%ld	%d is thinking\n",
 			get_timestamp(bundle, s_now), bundle->id + 1);
-		sem_post(bundle->s_print_semaphore);
+		sem_post(bundle->t_print_semaphore);
 	}
 	else
-		*dead_or_full = bundle->number_of_times_for_each;
+		sem_post(bundle->t_personal_eat_cnt_sem);
 	if (bundle->odd_flag)
 		usleep(DT << 1);
 }
 
-int	routine(t_bundle *bundle)
+int	survival(t_bundle *bundle)
 {
-	int				dead_or_full;
-	struct timeval	s_now;
+	pthread_t	thread;
 
-	dead_or_full = 0;
+	pthread_create(&thread, NULL, monitoring, (void *)bundle);
 	if (bundle->id % 2 == 1)
 		optimized_sleep(bundle->s_start, bundle->time_to_die / 4);
-	while (dead_or_full != bundle->number_of_times_for_each)
+	while (1)
 	{
-		get_first_fork(bundle, &dead_or_full);
-		get_second_fork(bundle, &dead_or_full);
-		philo_eating(bundle, &dead_or_full);
-		philo_sleeping(bundle, &dead_or_full);
-		philo_thinking(bundle, &dead_or_full);
+		get_forks(bundle);
+		philo_eating(bundle);
+		philo_sleeping(bundle);
+		philo_thinking(bundle);
 	}
-	if (dead_or_full == -1014)
-	{
-		printf("I'm not full %d. eat cnt : %d\n", bundle->id + 1, bundle->eat_cnt);
-		sem_wait(bundle->s_print_semaphore);
-		gettimeofday(&s_now, NULL);
-		printf("%ld	%d is died\n", get_timestamp(bundle, s_now), bundle->id);
-		exit(1);
-	}
-	printf("I'm full %d. eat cnt : %d\n", bundle->id + 1, bundle->eat_cnt);
-	exit(0);
+	exit(3);
 }

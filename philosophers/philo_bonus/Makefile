@@ -6,7 +6,7 @@
 #    By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 13:47:23 by hyuim             #+#    #+#              #
-#    Updated: 2023/11/28 14:26:58 by hyuim            ###   ########.fr        #
+#    Updated: 2023/11/30 11:53:11 by hyuim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,10 @@ SRCS_NAME =	main.c \
 			libft_funcs.c \
 			handle_philo.c \
 			philo_behavior.c \
-			philo_fork_behavior.c
+			philo_fork_behavior.c \
+			str_utils.c \
+			fork_utils.c \
+			monitoring.c
 
 OBJS = $(SRCS:.c=.o)
 PREFIX = ./srcs/
