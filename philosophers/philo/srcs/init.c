@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 22:57:49 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/24 13:23:57 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/11/30 20:32:10 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	init_bundle(t_bundle *bundle, t_philo *philos, int argc, char **argv)
 	bundle->number_of_times_for_each = -1014;
 	bundle->sb_dead_or_full = 0;
 	bundle->odd_flag = 0;
+	bundle->time_to_eat_minus_one = 0;
 	if (pthread_mutex_init(&bundle->sb_dead_or_full_mutex, NULL) != 0)
 		return (-1);
 	atoi_args_ret = atoi_args(bundle, philos, argc, argv);
@@ -90,7 +91,10 @@ int	setting_table(t_bundle *bundle, t_philo *philos)
 		return (-1);
 	idx = -1;
 	if (bundle->num_of_philos % 2 == 1)
+	{
 		bundle->odd_flag = 1;
+		bundle->time_to_eat_minus_one = bundle->time_to_eat - 1;
+	}
 	while (++idx < bundle->num_of_philos)
 	{
 		bundle->forks[idx] = 1;

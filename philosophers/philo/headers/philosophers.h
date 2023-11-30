@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:43:02 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/24 13:37:39 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/11/30 20:31:40 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ typedef struct s_philo
 typedef struct s_bundle
 {
 	int				odd_flag;
+	int				time_to_eat_minus_one;
 	int				num_of_philos;
 	int				time_to_die;
 	int				time_to_eat;

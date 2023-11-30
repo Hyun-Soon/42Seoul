@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 23:05:22 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/30 12:20:01 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/11/30 20:32:24 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,25 @@ void	philo_sleeping(t_philo *philo)
 {
 	struct timeval	s_start_sleeping;
 
+	gettimeofday(&s_start_sleeping, NULL);
 	pthread_mutex_lock(&philo->bundle->sb_dead_or_full_mutex);
 	if (philo->bundle->sb_dead_or_full == 0)
 		printf("%ld	%d is sleeping\n", get_timestamp(philo), philo->id + 1);
 	pthread_mutex_unlock(&philo->bundle->sb_dead_or_full_mutex);
-	gettimeofday(&s_start_sleeping, NULL);
 	optimized_sleep(s_start_sleeping, philo->bundle->time_to_sleep);
 }
 
 void	philo_thinking(t_philo *philo)
 {
+	struct timeval	s_start_think;
+
+	gettimeofday(&s_start_think, NULL);
 	pthread_mutex_lock(&philo->bundle->sb_dead_or_full_mutex);
 	if (philo->bundle->sb_dead_or_full == 0)
 		printf("%ld	%d is thinking\n", get_timestamp(philo), philo->id + 1);
 	pthread_mutex_unlock(&philo->bundle->sb_dead_or_full_mutex);
 	if (philo->bundle->odd_flag)
-		usleep(DT);
+		optimized_sleep(s_start_think, philo->bundle->time_to_eat_minus_one);
 }
 
 void	sleep_for_odd_philos(t_philo *philo)
