@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 23:00:14 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/23 23:00:54 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/11/30 21:02:39 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	atoi_args(t_bundle *bundle, t_philo *philos, int argc, char **argv)
 		|| bundle->number_of_times_for_each == -1
 		|| bundle->time_to_die == -1
 		|| bundle->time_to_eat == -1
-		|| bundle->time_to_sleep == -1)
+		|| bundle->time_to_sleep == -1
+		|| bundle->number_of_times_for_each == -1)
 	{
 		write(2, "arg err.\n", 9);
 		return (-1);
@@ -49,7 +50,7 @@ int	ft_atoi(const char *str)
 	if (*str == '-' || *str == '+')
 	{
 		if (*str == '-')
-			sign *= -1;
+			return (-1);
 		str++;
 	}
 	while (*str)
