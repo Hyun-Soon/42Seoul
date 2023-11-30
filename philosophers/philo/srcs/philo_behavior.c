@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 23:05:22 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/24 23:29:43 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/11/30 12:20:01 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	sleep_for_odd_philos(t_philo *philo)
 	if (philo->id % 2 == 1)
 		while (get_time_since(philo->bundle->s_start)
 			< philo->bundle->time_to_eat / 4)
-			usleep(1000 * philo->bundle->time_to_eat / 8); //여기 micro, milli 개념 다시 확인하자. usleep에 milli/8을 줘도 되나? 200이면 25인데? => 1000 * 으로 수정 완료
+			usleep(1000 * philo->bundle->time_to_eat / 8);
 }
 
 void	*routine(void *ph)
