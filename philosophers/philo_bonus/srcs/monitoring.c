@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:51:13 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/30 11:53:25 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/11/30 12:04:53 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,10 @@ void	exit_full(t_bundle *bundle)
 	exit(0);
 }
 
-void	exit_starve(t_bundle *bundle)
+void	exit_starve(t_bundle *bundle, struct timeval s_now)
 {
-	struct timeval	s_now;
 
 	sem_wait(bundle->t_print_semaphore);
-	gettimeofday(&s_now, NULL);
 	printf("%ld	%d died\n",
 		get_timestamp(bundle, s_now), bundle->id + 1);
 	close_sems(bundle);
@@ -44,7 +42,7 @@ void	*monitoring(void *bd)
 		sem_wait(bundle->t_eat_time_sem);
 		if (get_time_since(bundle->s_eat_time, s_now)
 			>= bundle->time_to_die)
-			exit_starve(bundle);
+			exit_starve(bundle, s_now);
 		sem_post(bundle->t_eat_time_sem);
 		sem_wait(bundle->t_personal_eat_cnt_sem);
 		if (bundle->eat_cnt == bundle->number_of_times_for_each)

@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:05:27 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/30 11:56:35 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/11/30 12:05:38 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ sem_t	*make_sem_until_success(char *name, int s);
 void	up_hold_forks(t_bundle *bundle);
 void	down_hold_forks(t_bundle *bundle);
 void	exit_full(t_bundle *bundle);
-void	exit_starve(t_bundle *bundle);
+void	exit_starve(t_bundle *bundle, struct timeval s_now);
 void	return_forks(t_bundle *bundle);
 void	*monitoring(void *bd);
 void	close_sems(t_bundle *bundle);
