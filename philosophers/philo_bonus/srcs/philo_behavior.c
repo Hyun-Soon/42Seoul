@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:16:07 by hyuim             #+#    #+#             */
-/*   Updated: 2023/12/01 17:41:33 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/12/01 17:59:52 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,16 @@ void	philo_eating(t_bundle *bundle)
 		printf("%ld	%d is eating\n",
 			get_timestamp(bundle, s_now), bundle->id + 1);
 		sem_post(bundle->t_print_semaphore);
-		sem_wait(bundle->t_personal_eat_cnt_sem);
-		bundle->eat_cnt++;
-		sem_post(bundle->t_personal_eat_cnt_sem);
+		sem_wait(bundle->t_eat_time_sem);
 		bundle->s_eat_time = s_now;
+		sem_post(bundle->t_eat_time_sem);
 	}
 	else
 		sem_post(bundle->t_personal_eat_cnt_sem);
 	optimized_sleep(s_now, bundle->time_to_eat);
+	sem_wait(bundle->t_personal_eat_cnt_sem);
+	bundle->eat_cnt++;
+	sem_post(bundle->t_personal_eat_cnt_sem);
 	put_down_forks(bundle);
 }
 
