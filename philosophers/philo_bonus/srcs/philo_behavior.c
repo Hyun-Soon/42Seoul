@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:16:07 by hyuim             #+#    #+#             */
-/*   Updated: 2023/12/01 12:50:39 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/12/01 17:41:33 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void	philo_thinking(t_bundle *bundle)
 	else
 		sem_post(bundle->t_personal_eat_cnt_sem);
 	if (bundle->odd_flag)
-		usleep(DT << 1);
+		optimized_sleep(s_now, bundle->time_to_eat_minus_one);
 }
 
 int	survival(t_bundle *bundle)

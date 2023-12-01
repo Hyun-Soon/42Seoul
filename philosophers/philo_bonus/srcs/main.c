@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:05:40 by hyuim             #+#    #+#             */
-/*   Updated: 2023/12/01 13:16:27 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/12/01 17:18:33 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	init_bundle(t_bundle *bundle, int argc, char **argv)
 	bundle->time_to_sleep = ft_atoi(argv[4]);
 	bundle->number_of_times_for_each = -2;
 	bundle->odd_flag = bundle->num_of_philos & 1;
+	bundle->time_to_eat_minus_one = bundle->time_to_eat - 1;
 	if (argc == 6)
 		bundle->number_of_times_for_each = ft_atoi(argv[5]);
 	if (bundle->num_of_philos == -1

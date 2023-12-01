@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:05:27 by hyuim             #+#    #+#             */
-/*   Updated: 2023/12/01 11:20:46 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/12/01 17:08:06 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_bundle
 	int				time_to_sleep;
 	int				number_of_times_for_each;
 	int				eat_cnt;
+	int				time_to_eat_minus_one;
 	char			*sem_name;
 	sem_t			*t_semaphore;
 	char			*print_sem_name;

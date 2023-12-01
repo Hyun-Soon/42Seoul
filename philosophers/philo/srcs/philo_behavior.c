@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 23:05:22 by hyuim             #+#    #+#             */
-/*   Updated: 2023/12/01 12:45:14 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/12/01 16:46:39 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	philo_eating(t_philo *philo)
 		printf("%ld	%d is eating\n", get_timestamp(philo), philo->id + 1);
 	pthread_mutex_unlock(&philo->bundle->sb_dead_or_full_mutex);
 	set_eat_time(philo);
-	optimized_sleep(philo->s_eat_time, philo->bundle->time_to_eat);
+	optimized_sleep(philo, philo->s_eat_time, philo->bundle->time_to_eat);
 	pthread_mutex_lock(&philo->bundle->eat_cnt_mutexes[philo->id]);
 	philo->bundle->eating_count[philo->id]++;
 	pthread_mutex_unlock(&philo->bundle->eat_cnt_mutexes[philo->id]);
@@ -35,7 +35,7 @@ void	philo_sleeping(t_philo *philo)
 	if (philo->bundle->sb_dead_or_full == 0)
 		printf("%ld	%d is sleeping\n", get_timestamp(philo), philo->id + 1);
 	pthread_mutex_unlock(&philo->bundle->sb_dead_or_full_mutex);
-	optimized_sleep(s_start_sleeping, philo->bundle->time_to_sleep);
+	optimized_sleep(philo, s_start_sleeping, philo->bundle->time_to_sleep);
 }
 
 void	philo_thinking(t_philo *philo)
@@ -48,7 +48,8 @@ void	philo_thinking(t_philo *philo)
 		printf("%ld	%d is thinking\n", get_timestamp(philo), philo->id + 1);
 	pthread_mutex_unlock(&philo->bundle->sb_dead_or_full_mutex);
 	if (philo->bundle->odd_flag)
-		optimized_sleep(s_start_think, philo->bundle->time_to_eat_minus_one);
+		optimized_sleep(philo,
+			s_start_think, philo->bundle->time_to_eat_minus_one);
 }
 
 void	sleep_for_odd_philos(t_philo *philo)

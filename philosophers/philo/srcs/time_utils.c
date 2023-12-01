@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 22:51:14 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/24 13:26:31 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/12/01 16:33:29 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,30 @@ void	set_eat_time(t_philo *philo)
 	pthread_mutex_unlock(&philo->bundle->eat_time_mutexes[philo->id]);
 }
 
-void	optimized_sleep(struct timeval ref_time, int target_time)
+void	optimized_sleep(t_philo *philo,
+	struct timeval ref_time, int target_time)
 {
 	long			sleep_time;
 	long			u_constant_time;
-	int				time_threadhold;
 	struct timeval	s_now;
 
 	u_constant_time = target_time * 1000
 		+ ref_time.tv_sec * 1000000 + ref_time.tv_usec;
-	time_threadhold = 4 * DT;
 	gettimeofday(&s_now, NULL);
 	sleep_time = u_constant_time - s_now.tv_sec * 1000000 - s_now.tv_usec;
-	while (sleep_time > 0)
+	pthread_mutex_lock(&philo->bundle->sb_dead_or_full_mutex);
+	while (sleep_time > 0 && philo->bundle->sb_dead_or_full == 0)
 	{
-		if (sleep_time > time_threadhold)
+		pthread_mutex_unlock(&philo->bundle->sb_dead_or_full_mutex);
+		if (sleep_time > FDT)
 			usleep(sleep_time / 2);
 		else
 			usleep(DT);
 		gettimeofday(&s_now, NULL);
 		sleep_time = u_constant_time - s_now.tv_sec * 1000000 - s_now.tv_usec;
+		pthread_mutex_lock(&philo->bundle->sb_dead_or_full_mutex);
 	}
+	pthread_mutex_unlock(&philo->bundle->sb_dead_or_full_mutex);
 }
 
 int	set_start_time(t_bundle *bundle, t_philo *philos)

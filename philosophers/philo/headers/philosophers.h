@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:43:02 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/30 20:31:40 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/12/01 16:33:44 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 
 # define DT 200
+# define FDT 800
 
 typedef struct s_philo
 {
@@ -53,7 +54,6 @@ int		atoi_args(t_bundle *bundle, t_philo *philos, int argc, char **argv);
 void	free_remains(t_bundle *bundle, t_philo *philos);
 int		init_bundle(t_bundle *bundle, t_philo *philos, int argc, char **argv);
 int		setting_table(t_bundle *bundle, t_philo *philos);
-int		ft_atoi(const char *str);
 void	print_die_msg(t_bundle *bundle, int dead);
 void	philo_put_down_forks(t_philo *philo);
 int		destroy_all_mutexes_and_all_free(t_bundle *bundle, t_philo *philos);
@@ -81,7 +81,8 @@ void	philo_put_down_forks(t_philo *philo);
 long	get_timestamp(t_philo *philo);
 long	get_time_since(struct timeval s_before_time);
 void	set_eat_time(t_philo *philo);
-void	optimized_sleep(struct timeval ref_time, int target_time);
+void	optimized_sleep(t_philo *philo,
+			struct timeval ref_time, int target_time);
 int		set_start_time(t_bundle *bundle, t_philo *philos);
 void	all_pthreads_create(t_bundle *bundle, t_philo *philos, int idx);
 void	all_pthreads_join(t_bundle *bundle, int idx);
