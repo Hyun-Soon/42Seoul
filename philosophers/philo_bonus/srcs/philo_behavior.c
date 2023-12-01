@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:16:07 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/30 11:52:49 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/12/01 12:50:39 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	survival(t_bundle *bundle)
 	pthread_t	thread;
 
 	pthread_create(&thread, NULL, monitoring, (void *)bundle);
-	if (bundle->id % 2 == 1)
+	if (bundle->id & 1)
 		optimized_sleep(bundle->s_start, bundle->time_to_die / 4);
 	while (1)
 	{

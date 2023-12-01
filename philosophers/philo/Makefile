@@ -6,7 +6,7 @@
 #    By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 13:47:23 by hyuim             #+#    #+#              #
-#    Updated: 2023/11/27 14:45:51 by hyuim            ###   ########.fr        #
+#    Updated: 2023/12/01 13:13:05 by hyuim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRCS_NAME =	main.c \
 OBJS = $(SRCS:.c=.o)
 PREFIX = ./srcs/
 SRCS = $(addprefix $(PREFIX), $(SRCS_NAME))
-CC = cc #-g3 #-g -fsanitize=thread
+CC = cc #-fsanitize=thread#-g3 #-g
 CFLAGS = -Wall -Wextra -Werror -c
 HEADER = ./headers
 NAME = philo

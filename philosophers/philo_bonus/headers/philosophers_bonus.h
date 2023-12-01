@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:05:27 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/30 12:05:38 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/12/01 11:20:46 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		survival(t_bundle *bundle);
 long	get_time_since(struct timeval s_before_time, struct timeval s_now);
 long	get_timestamp(t_bundle *bundle, struct timeval s_now);
 void	optimized_sleep(struct timeval ref_time, int target_time);
-void	print_get_forks(t_bundle *bundle);
+void	print_get_fork(t_bundle *bundle);
 void	get_forks(t_bundle *bundle);
 void	exit_routine(t_bundle *bundle);
 char	*ft_chardup(int c);

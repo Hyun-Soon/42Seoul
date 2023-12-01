@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 22:57:49 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/30 20:32:10 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/12/01 12:42:13 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	setting_table(t_bundle *bundle, t_philo *philos)
 	if (malloc_bundle_members(bundle) == -1)
 		return (-1);
 	idx = -1;
-	if (bundle->num_of_philos % 2 == 1)
+	if (bundle->num_of_philos & 1)
 	{
 		bundle->odd_flag = 1;
 		bundle->time_to_eat_minus_one = bundle->time_to_eat - 1;

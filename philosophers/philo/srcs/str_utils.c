@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 23:00:14 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/30 21:02:39 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/12/01 13:57:46 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	ft_atoi(const char *str)
 			return (-1);
 		str++;
 	}
-	ret = sign * ret;
+	if (!ret)
+		return (-1);
 	return (ret);
 }

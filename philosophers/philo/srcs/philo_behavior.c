@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 23:05:22 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/30 20:32:24 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/12/01 12:45:14 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	philo_thinking(t_philo *philo)
 
 void	sleep_for_odd_philos(t_philo *philo)
 {
-	if (philo->id % 2 == 1)
+	if (philo->id & 1)
 		while (get_time_since(philo->bundle->s_start)
 			< philo->bundle->time_to_eat / 4)
 			usleep(1000 * philo->bundle->time_to_eat / 8);
@@ -69,15 +69,15 @@ void	*routine(void *ph)
 	while (philo->bundle->sb_dead_or_full == 0)
 	{
 		pthread_mutex_unlock(&philo->bundle->sb_dead_or_full_mutex);
-		if (philo->id % 2 == 0)
+		if (philo->id & 1)
 		{
-			get_left_fork(philo);
 			get_right_fork(philo);
+			get_left_fork(philo);
 		}
 		else
 		{
-			get_right_fork(philo);
 			get_left_fork(philo);
+			get_right_fork(philo);
 		}
 		philo_eating(philo);
 		philo_sleeping(philo);

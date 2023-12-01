@@ -6,7 +6,7 @@
 #    By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/03 13:47:23 by hyuim             #+#    #+#              #
-#    Updated: 2023/11/30 11:53:11 by hyuim            ###   ########.fr        #
+#    Updated: 2023/12/01 13:59:14 by hyuim            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	$(CC) $(OBJS) -o $(NAME) -I $(HEADER) #-g3 #-fsanitize=address
+	$(CC) $(OBJS) -o $(NAME) -I $(HEADER) #-fsanitize=thread #-g3
 
 %.o : %.c
 	$(CC) $(CFLAGS) $< -o $@ -I $(HEADER)
