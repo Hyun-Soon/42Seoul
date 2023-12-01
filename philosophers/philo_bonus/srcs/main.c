@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:05:40 by hyuim             #+#    #+#             */
-/*   Updated: 2023/12/01 17:18:33 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/12/01 20:01:36 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,11 @@ int	main(int argc, char **argv)
 	if (bundle.number_of_times_for_each != -2)
 		while (++idx < bundle.num_of_philos)
 			sem_wait(bundle.t_eat_cnt_sem);
+	//printf("before wait\n");
+	//printf("wtf1\n");
 	wait_philosophers(&bundle);
+	//printf("wtf2\n");
+	//printf("after wait\n");
 	delete_semaphores(&bundle);
 	free_remains(&bundle);
 	return (0);

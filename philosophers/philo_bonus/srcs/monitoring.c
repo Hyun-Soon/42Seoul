@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:51:13 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/30 12:20:27 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/12/01 20:02:25 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	exit_full(t_bundle *bundle)
 {
 	sem_post(bundle->t_eat_cnt_sem);
+	//printf("here full id : %d\n", bundle->id + 1);
 	return_forks(bundle);
 	close_sems(bundle);
 	exit(0);
@@ -23,6 +24,7 @@ void	exit_full(t_bundle *bundle)
 void	exit_starve(t_bundle *bundle, struct timeval s_now)
 {
 	sem_wait(bundle->t_print_semaphore);
+	//printf("here starve id : %d\n", bundle->id + 1);
 	printf("%ld	%d died\n",
 		get_timestamp(bundle, s_now), bundle->id + 1);
 	close_sems(bundle);
