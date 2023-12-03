@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/30 11:20:53 by hyuim             #+#    #+#             */
-/*   Updated: 2023/11/30 11:56:37 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/12/03 13:10:42 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,12 @@ void	malloc_2d_sem_names(t_bundle *bundle)
 		exit(34);
 	bundle->eat_time_sem_name[bundle->num_of_philos] = NULL;
 	bundle->personal_eat_cnt_name[bundle->num_of_philos] = NULL;
+}
+
+void	print_eating(t_bundle *bundle, struct timeval s_now)
+{
+	sem_wait(bundle->t_print_semaphore);
+	printf("%ld	%d is eating\n",
+		get_timestamp(bundle, s_now), bundle->id + 1);
+	sem_post(bundle->t_print_semaphore);
 }

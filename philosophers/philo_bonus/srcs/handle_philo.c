@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:19:10 by hyuim             #+#    #+#             */
-/*   Updated: 2023/12/01 20:08:21 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/12/03 13:05:28 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	wait_philosophers(t_bundle *bundle)
 	while (++idx < bundle->num_of_philos)
 	{
 		waitpid(-1, &status, 0);
-		//printf("%d dead!\n", idx + 1);
 		if (WEXITSTATUS(status) == 1)
 		{
 			kill(0, SIGINT);

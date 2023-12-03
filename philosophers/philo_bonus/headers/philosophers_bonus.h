@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:05:27 by hyuim             #+#    #+#             */
-/*   Updated: 2023/12/01 17:08:06 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/12/03 13:10:50 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ void	*monitoring(void *bd);
 void	close_sems(t_bundle *bundle);
 char	*name_eat_sems(int idx, int noise);
 void	malloc_2d_sem_names(t_bundle *bundle);
+void	print_eating(t_bundle *bundle, struct timeval s_now);
 
 #endif

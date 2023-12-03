@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 14:16:07 by hyuim             #+#    #+#             */
-/*   Updated: 2023/12/01 20:31:30 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/12/03 13:10:37 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ void	philo_eating(t_bundle *bundle)
 		&& bundle->eat_cnt != bundle->number_of_times_for_each)
 	{
 		sem_post(bundle->t_personal_eat_cnt_sem);
-		sem_wait(bundle->t_print_semaphore);
-		printf("%ld	%d is eating\n",
-			get_timestamp(bundle, s_now), bundle->id + 1);
-		sem_post(bundle->t_print_semaphore);
+		print_eating(bundle, s_now);
 		sem_wait(bundle->t_personal_eat_cnt_sem);
 		bundle->eat_cnt++;
 		sem_post(bundle->t_personal_eat_cnt_sem);
