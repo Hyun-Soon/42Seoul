@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 23:05:22 by hyuim             #+#    #+#             */
-/*   Updated: 2023/12/01 16:46:39 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/12/04 19:25:28 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,21 +65,14 @@ void	*routine(void *ph)
 	t_philo	*philo;
 
 	philo = (t_philo *)ph;
+	if (philo->bundle->num_of_philos == 1)
+		return (one_philo_starve(philo));
 	sleep_for_odd_philos(philo);
 	pthread_mutex_lock(&philo->bundle->sb_dead_or_full_mutex);
 	while (philo->bundle->sb_dead_or_full == 0)
 	{
 		pthread_mutex_unlock(&philo->bundle->sb_dead_or_full_mutex);
-		if (philo->id & 1)
-		{
-			get_right_fork(philo);
-			get_left_fork(philo);
-		}
-		else
-		{
-			get_left_fork(philo);
-			get_right_fork(philo);
-		}
+		philo_get_forks(philo);
 		philo_eating(philo);
 		philo_sleeping(philo);
 		philo_thinking(philo);

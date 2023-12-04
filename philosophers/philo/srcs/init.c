@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 22:57:49 by hyuim             #+#    #+#             */
-/*   Updated: 2023/12/01 12:42:13 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/12/04 19:09:00 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ t_philo	*init_philos(t_bundle *bundle)
 	while (++idx < bundle->num_of_philos)
 	{
 		ret[idx].id = idx;
+		ret[idx].right = (idx + 1) % bundle->num_of_philos;
 		ret[idx].bundle = bundle;
 	}
 	return (ret);

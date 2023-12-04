@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 15:43:02 by hyuim             #+#    #+#             */
-/*   Updated: 2023/12/01 16:33:44 by hyuim            ###   ########.fr       */
+/*   Updated: 2023/12/04 19:25:46 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 typedef struct s_philo
 {
 	int				id;
+	int				right;
 	struct timeval	s_eat_time;
 	struct s_bundle	*bundle;
 }				t_philo;
@@ -86,5 +87,7 @@ void	optimized_sleep(t_philo *philo,
 int		set_start_time(t_bundle *bundle, t_philo *philos);
 void	all_pthreads_create(t_bundle *bundle, t_philo *philos, int idx);
 void	all_pthreads_join(t_bundle *bundle, int idx);
+void	*one_philo_starve(t_philo *philo);
+void	philo_get_forks(t_philo *philo);
 
 #endif
