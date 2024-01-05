@@ -6,7 +6,7 @@
 /*   By: hyuim <hyuim@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 14:05:40 by hyuim             #+#    #+#             */
-/*   Updated: 2023/12/03 13:19:43 by hyuim            ###   ########.fr       */
+/*   Updated: 2024/01/05 15:55:33 by hyuim            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,3 +68,21 @@ int	main(int argc, char **argv)
 	free_remains(&bundle);
 	return (0);
 }
+
+
+
+mutex
+
+semaphore
+
+
+sem_open(philo = 5)
+
+5->0
+
+-> 1
+
+wait()
+
+
+
