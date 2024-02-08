@@ -25,11 +25,13 @@ Fixed::~Fixed()
 
 Fixed::Fixed(const int val)
 {
+	std::cout << "Int constructor called" << std::endl;
 	_value = val << _point;
 }
 
 Fixed::Fixed(const float val)
 {
+	std::cout << "Float constructor called" << std::endl;
 	_value = roundf(val * (1 << _point));
 }
 
@@ -53,4 +55,10 @@ int	Fixed::getRawBits( void ) const
 {
 	std::cout << "getRawBits member function called" << std::endl;
 	return (_value);
+}
+
+std::ostream& operator<< (std::ostream& out, const Fixed& fixed)
+{
+	out << fixed.toFloat();
+	return (out);
 }

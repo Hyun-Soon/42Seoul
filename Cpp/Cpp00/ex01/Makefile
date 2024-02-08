@@ -13,12 +13,16 @@ LINE_CLEAR  =   "\x1b[1A\x1b[M"
 
 #-------------------------------------------
 
-SRCS = megaphone.cpp
-OBJS = $(SRCS:.c=.o)
+SRCS_NAME =	main.cpp \
+			Phonebook.cpp \
+			Contact.cpp
+PREFIX = ./srcs/
+SRCS = $(addprefix $(PREFIX), $(SRCS_NAME))
+OBJS = $(SRCS:.cpp=.o)
 CC = g++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -c
 HEADER = ./headers
-NAME = megaphone
+NAME = Phonebook
 
 all : $(NAME)
 
@@ -28,8 +32,8 @@ $(NAME) : $(OBJS)
 	@echo $(YELLOW)"                    Cpp is ready"$(EOC)
 	@echo $(GREEN)"\n==========================================================\n"$(EOC)
 	
-%.o : %.c
-	$(CC) $(CXXFLAGS) $< -o $@ -I $(HEADER)
+%.o : %.cpp
+	@$(CC) $(CXXFLAGS) $< -o $@ -I $(HEADER)
 
 clean :
 	rm -f $(OBJS)
