@@ -14,14 +14,15 @@ LINE_CLEAR  =   "\x1b[1A\x1b[M"
 #-------------------------------------------
 
 SRCS_NAME =	main.cpp \
-			Bureaucrat.cpp
+			Bureaucrat.cpp \
+			Form.cpp
 PREFIX = ./srcs/
 SRCS = $(addprefix $(PREFIX), $(SRCS_NAME))
 OBJS = $(SRCS:.cpp=.o)
 CC = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -c
 HEADER = ./includes
-NAME = Bureaucrat
+NAME = Form
 
 all : $(NAME)
 
