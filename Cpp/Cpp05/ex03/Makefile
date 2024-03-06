@@ -18,14 +18,15 @@ SRCS_NAME =	main.cpp \
 			AForm.cpp \
 			ShrubberyCreationForm.cpp \
 			RobotomyRequestForm.cpp \
-			PresidentialPardonForm.cpp
+			PresidentialPardonForm.cpp \
+			Intern.cpp
 PREFIX = ./srcs/
 SRCS = $(addprefix $(PREFIX), $(SRCS_NAME))
 OBJS = $(SRCS:.cpp=.o)
 CC = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -c
 HEADER = ./includes
-NAME = AForm
+NAME = Intern
 
 all : $(NAME)
 
