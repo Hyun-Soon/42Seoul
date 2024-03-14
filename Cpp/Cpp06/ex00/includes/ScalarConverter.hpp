@@ -13,15 +13,15 @@ private:
 	};
 
 	ScalarConverter();
+	ScalarConverter(ScalarConverter& other);
+	ScalarConverter& operator= (ScalarConverter& other);
 	~ScalarConverter();
-	static std::string& ltrim(std::string& s);
 	static int checkType(std::string& inp);
 	static void printError(std::string& inp);
-	static void printPseudoLiteral(std::string& inp);
-	static void printDouble(std::string& inp);
-	static void printFloat(std::string& inp);
-	static void printInt(std::string& inp);
-	static void printChar(std::string& inp);
+	static void printDouble(double& inp);
+	static void printFloat(double& inp);
+	static void printInt(double& inp);
+	static void printChar(char& inp);
 
 public:
 	static void convert(std::string inp);
