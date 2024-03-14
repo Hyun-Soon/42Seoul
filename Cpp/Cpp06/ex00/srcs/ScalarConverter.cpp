@@ -20,7 +20,8 @@ int ScalarConverter::checkType(std::string& inp)
 			return ERROR;
 		
 		int cnt = 0;
-		for (size_t i = 0; i < inp.length(); i++)
+		size_t i = (inp[0] == '+' || inp[0] == '-') ? 1 : 0;
+		for (; i < inp.length(); i++)
 		{
 			if (inp[i] == '.' && cnt == 0)
 				++cnt;
@@ -69,18 +70,9 @@ void ScalarConverter::printDouble(double& doubleVal)
 	else
 		ss << "int : " << intVal << "\n";
 	
-	if (doubleVal < std::numeric_limits<float>::min() || doubleVal > std::numeric_limits<float>::max())
-		ss << "float : impossible\n";
-	else
-		ss << "float : " << floatVal;
-	
-	if (intFlag)
-		ss << ".0";
-	ss << "f\n";
-	
-	ss << "double : " << doubleVal;
-	if (intFlag)
-		ss << ".0";
+	ss	<< "float : " << floatVal << ((intFlag) ? ".0f\n" : "f\n")
+		<< "double : " << doubleVal << ((intFlag) ? ".0" : "");
+
 	std::cout << ss.str() << std::endl;
 }
 
@@ -107,14 +99,8 @@ void ScalarConverter::printFloat(double& inp)
 	else
 		ss << "int : " << intVal << "\n";
 	
-	ss << "float : " << floatVal;
-	if (intFlag)
-		ss << ".0";
-	ss << "f\n";
-
-	ss << "double : " << doubleVal;
-	if (intFlag)
-		ss << ".0";
+	ss	<< "float : " << floatVal << ((intFlag) ? ".0f\n" : "f\n")
+		<< "double : " << doubleVal << ((intFlag) ? ".0" : "");
 
 	std::cout << ss.str() << std::endl;
 }
