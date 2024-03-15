@@ -16,16 +16,16 @@ int ScalarConverter::checkType(std::string& inp)
 			return DOUBLE;
 		else if (inp == "inff" || inp == "-inff" || inp == "+inff" || inp == "nanf")
 			return FLOAT;
-		else if (inp == ".f")
+		else if (inp == ".f" || inp == "-.f")
 			return ERROR;
-		
+
 		int cnt = 0;
 		size_t i = (inp[0] == '+' || inp[0] == '-') ? 1 : 0;
 		for (; i < inp.length(); i++)
 		{
 			if (inp[i] == '.' && cnt == 0)
 				++cnt;
-			else if (inp[i] == 'f' && i == inp.length() - 1)
+			else if (inp[i] == 'f' && i == inp.length() - 1 && cnt == 1)
 				return FLOAT;
 			else if (inp[i] < '0' || inp[i] > '9')
 				return ERROR;
