@@ -65,7 +65,7 @@ void ScalarConverter::printDouble(double& doubleVal)
 	else
 		ss << "char : '" << charVal << "'\n";
 
-	if (doubleVal < INT32_MIN || doubleVal > INT32_MAX)
+	if (doubleVal < INT32_MIN || doubleVal > INT32_MAX || doubleVal != doubleVal)
 		ss << "int : impossible\n";
 	else
 		ss << "int : " << intVal << "\n";
@@ -94,7 +94,7 @@ void ScalarConverter::printFloat(double& inp)
 	else
 		ss << "char : '" << charVal << "'\n";
 
-	if (floatVal < INT32_MIN || floatVal > INT32_MAX)
+	if (floatVal < INT32_MIN || floatVal > INT32_MAX || floatVal != floatVal)
 		ss << "int : impossible\n";
 	else
 		ss << "int : " << intVal << "\n";
