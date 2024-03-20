@@ -1,0 +1,7 @@
+{
+	"files.associations": {
+		"*.tpp": "c",
+		"algorithm": "c",
+		"ostream": "c"
+	}
+}
