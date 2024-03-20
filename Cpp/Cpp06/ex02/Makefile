@@ -14,9 +14,6 @@ LINE_CLEAR  =   "\x1b[1A\x1b[M"
 #-------------------------------------------
 
 SRCS_NAME =	main.cpp \
-			A.cpp \
-			B.cpp \
-			C.cpp \
 			Base.cpp \
 			funcs.cpp
 PREFIX = ./srcs/

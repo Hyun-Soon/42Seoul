@@ -8,12 +8,13 @@
 int main()
 {
 	srand(time(NULL));
-	for (int i = 0; i < 100; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		Base* basePtr = generate();
 		Base& baseRef = *basePtr;
 		identify(basePtr);
 		identify(baseRef);
+		delete basePtr;
 		sleep(1);
 	}
 	return 0;
