@@ -4,33 +4,54 @@
 #define unsigned long int size_t
 
 template<typename T>
-void printPlusOne(T* addr)
+void printPlusOne(T& ref)
 {
-	std::cout << ++(*addr) << std::endl;
+	std::cout << ++ref << std::endl;
 }
 
 template<typename T>
-void printVal(T* addr)
+void printVal(const T& ref)
 {
-	std::cout << *addr << std::endl;
+	std::cout << ref << std::endl;
 }
 
 template<typename T>
-void printMinusOne(T* addr)
+void printMinusOne(T& ref)
 {
-	std::cout << --(*addr) << std::endl;
+	std::cout << --ref << std::endl;
 }
 
 template<typename T>
-void iter(T* addr, size_t len, void func(T*))
+void iter(T* addr, size_t len, void (*func)(T&))
+{
+	for (size_t i = 0; i < len; i++)
+		func(addr[i]);
+}
+
+template<typename T>
+void iter(T* addr, size_t len, void (*func)(const T&))
+{
+	for (size_t i = 0; i < len; i++)
+		func(addr[i]);
+}
+
+template<typename T>
+void iter(T* addr, size_t len, void (*func)(T*))
+{
+	for (size_t i = 0; i < len; i++)
+		func(addr + i);
+}
+
+template<typename T>
+void iter(T* addr, size_t len, void (*func)(const T*))
 {
 	for (size_t i = 0; i < len; i++)
 		func(addr + i);
 }
 
 template<>
-void printMinusOne(float* addr)
+void printMinusOne(float& ref)
 {
 	std::cout << "function template<float> specialization" << std::endl;
-	std::cout << --(*addr) << std::endl;
+	std::cout << --ref << std::endl;
 }

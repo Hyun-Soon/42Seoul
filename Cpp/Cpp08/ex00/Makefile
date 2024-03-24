@@ -20,7 +20,7 @@ OBJS = $(SRCS:.cpp=.o)
 CC = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -c
 HEADER = ./includes
-NAME = Array
+NAME = Easyfind
 
 all : $(NAME)
 
