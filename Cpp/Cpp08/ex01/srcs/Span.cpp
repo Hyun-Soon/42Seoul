@@ -35,11 +35,12 @@ unsigned int Span::shortestSpan()
 	if (_v.size() < 2)
 		throw std::exception();
 
-	std::sort(_v.begin(), _v.end());
-	int minRet = _v.back() - _v.front();
-	for (size_t i = 0; i < _v.size() - 2; i++)
-		if (_v[i + 1] - _v[i] < minRet)
-			minRet = _v[i + 1] - _v[i];
+	std::vector<int> temp = _v;
+	std::sort(temp.begin(), temp.end());
+	int minRet = temp.back() - temp.front();
+	for (size_t i = 0; i < temp.size() - 2; i++)
+		if (temp[i + 1] - temp[i] < minRet)
+			minRet = temp[i + 1] - temp[i];
 	
 	return minRet;
 }
@@ -49,6 +50,7 @@ unsigned int Span::longestSpan()
 	if (_v.size() < 2)
 		throw std::exception();
 
-	std::sort(_v.begin(), _v.end());
-	return _v.back() - _v.front();
+	std::vector<int> temp = _v;
+	std::sort(temp.begin(), temp.end());
+	return temp.back() - temp.front();
 }

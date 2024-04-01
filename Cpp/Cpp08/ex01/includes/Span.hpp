@@ -23,6 +23,8 @@ class Span
 		template<typename T>
 		void addManyNumbers(T& t)
 		{
+			if (t.size() + _v.size() > _maxSize)
+				throw std::exception();
 			for (typename T::iterator it = t.begin(); it != t.end(); ++it)
 				_v.push_back(*it);
 		}

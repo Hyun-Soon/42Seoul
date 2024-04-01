@@ -10,7 +10,7 @@ int main()
 	v.push_back(2);
 	v.push_back(3);
 
-	std::vector<int>::iterator it1 = easyfind(v, 2);
+	std::vector<int>::iterator it1 = easyfind(v, 0);
 	if (it1 != v.end())
 		std::cout << *it1 << std::endl;
 	else
