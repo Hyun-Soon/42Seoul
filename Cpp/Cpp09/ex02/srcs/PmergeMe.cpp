@@ -29,35 +29,49 @@ int PmergeMe::parseElements(char** elements, size_t elemSize)
 		temp = strtod(elements[i], NULL);
 		if (temp <= 0.0 || temp != temp || temp > INT_MAX)
 			return 1;
-		_elements.push_back(temp);
+		_unsorted.push_back(temp);
 	}
 	return 0;
 }
 
-void PmergeMe::makeChains(size_t elemSize)
+void PmergeMe::makeChains(const chain_t& orgChain, chain_t& mainChain, chain_t& pendingChain)
 {
-	for (size_t i = 0; i < elemSize / 2; i++)
+	for (size_t i = 0; i < orgChain.size() / 2; i++)
 	{
-		_mainChain.push_back(_elements[i]);
-		_pendingChain.push_back(_elements[i + elemSize / 2]);
+		mainChain.push_back(orgChain[i]);
+		pendingChain.push_back(orgChain[i + orgChain.size() / 2]);
 	}
-	if (elemSize % 2 == 1)
-		_pendingChain.push_back(_elements.back());
+	if (orgChain.size() % 2 == 1)
+		pendingChain.push_back(orgChain.back());
 }
 
-void PmergeMe::mergeInsertion(char** elements, size_t elemSize)
+int PmergeMe::sort(char** elements, size_t elemSize)
 {
 	if (parseElements(elements, elemSize) == 1)
 	{
 		std::cerr << "Error: Wrong input." << std::endl;
-		return ;
+		return 1;
 	}
 
-	makeChains(elemSize);
+	_sorted = _unsorted;
+	mergeInsertion(_sorted);
 
-	//debug
-	//printVector("mainChain", _mainChain);
-	//printVector("pendingChain", _pendingChain);
-
+	return 0;
 }
 
+
+void PmergeMe::mergeInsertion(chain_t& orgChain)
+{
+	chain_t mainChain;
+	chain_t pendingChain;
+
+	if (orgChain.size() == 1)
+		return ;
+	makeChains(orgChain, mainChain, pendingChain);
+	mergeInsertion(mainChain);
+
+
+	//debug
+	printVector("mainChain", mainChain);
+	printVector("pendingChain", pendingChain);
+}

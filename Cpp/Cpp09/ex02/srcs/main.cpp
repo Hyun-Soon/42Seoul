@@ -10,6 +10,8 @@ int main(int argc, char** argv)
 
 	PmergeMe test;
 
-	test.mergeInsertion(argv + 1, argc - 1);
+	if (test.sort(argv + 1, argc - 1) == 1)
+		return 1;
+
 	return 0;
 }
