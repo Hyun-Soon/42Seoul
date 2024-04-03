@@ -14,11 +14,11 @@ LINE_CLEAR  =   "\x1b[1A\x1b[M"
 #-------------------------------------------
 
 SRCS_NAME =	main.cpp \
-			PmergeMe.cpp
+			PmergeMe2.cpp
 PREFIX = ./srcs/
 SRCS = $(addprefix $(PREFIX), $(SRCS_NAME))
 OBJS = $(SRCS:.cpp=.o)
-CC = c++
+CC = c++ -g3
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -c
 HEADER = ./includes
 NAME = PmergeMe

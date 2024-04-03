@@ -1,4 +1,4 @@
-#include "PmergeMe.hpp"
+#include "PmergeMe2.hpp"
 
 int main(int argc, char** argv)
 {
@@ -11,7 +11,10 @@ int main(int argc, char** argv)
 	PmergeMe test;
 
 	if (test.sort(argv + 1, argc - 1) == 1)
+	{
+		std::cerr << "Error: Wrong input." << std::endl;
 		return 1;
+	}
 
 	return 0;
 }

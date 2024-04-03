@@ -21,7 +21,11 @@ class PmergeMe
 		~PmergeMe();
 
 		int sort(char** elements, size_t elemSize);
+		void splitByValue();
 		int parseElements(char** elements, size_t elemSize);
 		void makeChains(const chain_t& orgChain, chain_t& mainChain, chain_t& pendingChain);
-		void mergeInsertion(chain_t& chain);
+		void mergeInsertion(chain_t& orgMainChain, chain_t& orgPendingChain);
+		size_t getInsertSize(const size_t& mainSize, const size_t& pendingSize);
+		void binaryInsertion(chain_t& mainChain, const unsigned int& value);
+		int binarySearch(chain_t& mainChain, const unsigned int& value);
 };
