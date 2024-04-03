@@ -14,7 +14,7 @@ LINE_CLEAR  =   "\x1b[1A\x1b[M"
 #-------------------------------------------
 
 SRCS_NAME =	main.cpp \
-			PmergeMe2.cpp
+			PmergeMe3.cpp
 PREFIX = ./srcs/
 SRCS = $(addprefix $(PREFIX), $(SRCS_NAME))
 OBJS = $(SRCS:.cpp=.o)
