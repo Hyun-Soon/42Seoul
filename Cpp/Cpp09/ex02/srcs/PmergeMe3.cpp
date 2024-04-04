@@ -28,11 +28,11 @@ PmergeMe::PmergeMe() {}
 
 PmergeMe::~PmergeMe() {}
 
-void PmergeMe::swapChain(chain_t& orgChain, size_t idx, size_t cmpOffset, size_t halfSize)
+void PmergeMe::swapChain(chain_t& orgChain, size_t idx, size_t cmpOffset)
 {
     unsigned int temp;
 
-    for (size_t i = 0; i < halfSize; i++)
+    for (size_t i = 0; i < cmpOffset; i++)
     {
         temp = orgChain[idx];
         orgChain[idx] = orgChain[idx + cmpOffset];
@@ -41,13 +41,95 @@ void PmergeMe::swapChain(chain_t& orgChain, size_t idx, size_t cmpOffset, size_t
     }
 }
 
-void PmergeMe::binaryInsertion(chain_t& orgChain, size_t chainSize)
-{
-    (void)orgChain;
-    (void)chainSize;
-    //TODO :: implement here
-    // 팬딩체인 정렬될 때까지 야콥스탈 수 얻어다가 하기
+ int PmergeMe::binarySearch(chain_t& orgChain, const unsigned int value, int rightLimit, int pendingSize)
+ {
+ 	int left = 0;
+ 	int right = rightLimit;
+ 	int mid;
 
+ 	//std::cout << "rightlimit : " << rightLimit << std::endl;
+ 	while (left <= right)
+ 	{
+ 		mid = (left + right) / 2;
+ 		if (value > orgChain[mid])
+ 			left = mid + pendingSize;
+ 		else
+ 			right = mid - pendingSize;
+ 	}
+ 	//std::cout << "ret : " << left << std::endl;
+ 	return left;
+ }
+
+void PmergeMe::insertChain(chain_t& mainChain, chain_t& orgChain, int insertPos, int pendingSize, int presentPendingIdx)
+{
+	//for (int i = 0; i < pendingSize; i++)
+	//{
+	mainChain.insert(mainChain.begin() + insertPos, orgChain.begin() + presentPendingIdx, orgChain.begin() + presentPendingIdx + pendingSize);
+	//}
+}
+
+chain_t PmergeMe::binaryInsertion(chain_t& orgChain, int pairedPendingCnt, int remainPendingCnt, size_t pendingSize)
+{
+    // 팬딩체인 정렬될 때까지 야콥스탈 수 얻어다가 하기
+	//(void)orgChain;
+	//(void)chainSize;
+	int n = 1;
+	//int pendingCnt = orgChain.size() / chainSize;
+	int jacobsthal = -1;
+	int beforeJacobsthal = 0;
+	int totalpendingCnt = pairedPendingCnt + remainPendingCnt;
+	chain_t mainChain;
+	for (int i = 0; i < pairedPendingCnt; i++)
+		for (size_t j = 0; j < pendingSize; j++)
+			mainChain.push_back(orgChain[i * pendingSize * 2 + j]);
+
+	//std::cout << "------binary Insertion ------" << std::endl;
+
+	int rightLimitCnt = 1;
+	int insertRemainCnt = 0;
+	while (jacobsthal != totalpendingCnt)
+	{
+		printChain_t("mainChain", mainChain);
+		jacobsthal = getJacobsthal(++n, totalpendingCnt);
+		//std::cout << "jacobsthal : " << jacobsthal << std::endl;
+
+		for (int i = jacobsthal; i > beforeJacobsthal; i--)
+		{
+			//std::cout << "idx : " << i << std::endl;
+			int presentPendingIdx;
+			if (i <= pairedPendingCnt)
+				presentPendingIdx = (i - 1) * pendingSize * 2 + pendingSize; // == 2i * pendingSize - pendingSize; == pendingSize * (2i - 1);
+			else
+			{
+				presentPendingIdx = pairedPendingCnt * 2 * pendingSize + (i - pairedPendingCnt - 1) * pendingSize;
+				++insertRemainCnt;
+			}
+			std::cout << "presentPendingIdx : " << presentPendingIdx << std::endl;
+			std::cout << "present pending head : " << orgChain[presentPendingIdx] << std::endl;
+			int insertPos = binarySearch(mainChain, orgChain[presentPendingIdx], pendingSize * (i - 1) + pendingSize * insertRemainCnt, pendingSize); // TODO :: find proper rightLimit
+			//int insertPos = binarySearch(mainChain, orgChain[presentPendingIdx], insertCnt + i - 1, pendingSize);
+			//std::cout << "insertPos : " << insertPos << std::endl;
+			insertChain(mainChain, orgChain, insertPos, pendingSize, presentPendingIdx);
+			//printChain_t("inserted mainChain", mainChain);
+		}
+		beforeJacobsthal = jacobsthal;
+		++rightLimitCnt;
+		//++insertCnt;
+		//std::cout << "new Jacobsthal " << std::endl; 2 1 4 3 8 7
+	}
+
+	//printChain_t("after mainChain", mainChain);
+	//std::cout << "=====end=====" << std::endl;
+
+	return mainChain;
+}
+
+int PmergeMe::getJacobsthal(int n, int pendingCnt)
+{	
+	int jacobsthal = (pow(2, n) - pow(-1, n)) / 3;
+	//debug
+	//std::cout << "inside jacob : " << jacobsthal << std::endl;
+	return (jacobsthal <= pendingCnt ? jacobsthal : pendingCnt);
 }
 
 void PmergeMe::mergeInsertion(chain_t& orgChain, int level)
@@ -59,23 +141,45 @@ void PmergeMe::mergeInsertion(chain_t& orgChain, int level)
 
     if (level == _maxLevel)
         return ;
-    // std::cout << "정렬" << std::endl;
+
     size_t cmpOffset = pow(2, level - 1);
     size_t chainSize = cmpOffset * 2; //만들려는 체인의 사이즈
-    size_t iter = orgChain.size() / chainSize;
-    // std::cout << "iter : " << iter << std::endl;
-    for (size_t i = 0; i < iter; i++)
+    size_t iteration = orgChain.size() / chainSize;
+	//int remainder = ((orgChain.size() / chainSize) % 2) * chainSize + orgChain.size() % chainSize;
+	int remainder = orgChain.size() % chainSize;
+
+
+
+    for (size_t i = 0; i < iteration; i++)
     {
         size_t idx = i * chainSize;
         if (orgChain[idx] < orgChain[idx + cmpOffset])
-            swapChain(orgChain, idx, cmpOffset, chainSize / 2);
+            swapChain(orgChain, idx, cmpOffset);
     }
-    printChain_t("merge", orgChain);
-    mergeInsertion(orgChain, level + 1);
 
-    std::cout << "cmpOffset : " << cmpOffset << std::endl;
-    std::cout << "chainSize : " << chainSize << std::endl;
-    // binaryInsertion(orgChain, chainSize);
+	std::cout << "level : " << level << std::endl;
+    printChain_t("merge", orgChain);
+	std::cout << std::endl;
+	//std::cout << "remainder : " << remainder << std::endl;
+    //std::cout << "cmpOffset : " << cmpOffset << std::endl;
+    //std::cout << "chainSize : " << chainSize << std::endl;
+
+	chain_t nextChain;
+	size_t nextChainSize = orgChain.size() - remainder;
+	for (size_t i = 0; i < nextChainSize; i++)
+		nextChain.push_back(orgChain[i]);
+
+	mergeInsertion(nextChain, level + 1);
+
+	std::cout << std::endl;
+	std::cout << "level : " << level << std::endl;
+	for (size_t idx = nextChainSize; idx < orgChain.size(); idx++)
+		nextChain.push_back(orgChain[idx]);
+	printChain_t("before insertion", nextChain);
+	nextChain = binaryInsertion(orgChain, orgChain.size() / chainSize, remainder / cmpOffset, cmpOffset);
+	//std::cout << "Warning!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
+	printChain_t("after insertion", nextChain);
+	orgChain = nextChain;
 }
 
 int PmergeMe::getMaxLevel()
@@ -95,27 +199,10 @@ int PmergeMe::sort(char** elements, size_t elemSize)
 	if (parseElements(elements, elemSize) == 1)
 		return 1;
 
-    _maxLevel = getMaxLevel();
+	_maxLevel = getMaxLevel();
 	mergeInsertion(_unsorted, 1);
 
 
-
-
-
-
-
-	// if (_remainder)
-	// 	_sorted.push_back(std::pair<unsigned int, unsigned int>(0, _remainder));
-	// //printPChain_t("first sort result", _sorted);	
-	// binaryInsertionPendings(_sorted);
-
-	// std::cout << std::endl;
-	// std::cout << "Sort Result : ";
-	// size_t end = (_remainder ? _sorted.size() - 1 : _sorted.size());
-	// for (size_t i = 0; i < end; i++)
-	// 	if (_sorted[i].first != 0)
-	// 		std::cout << _sorted[i].first << " ";
-	// std::cout << std::endl;
 	return 0;
 }
 
@@ -133,142 +220,22 @@ int PmergeMe::parseElements(char** elements, size_t elemSize)
 	return 0;
 }
 
-// void PmergeMe::splitByValue()
-// {
-// 	size_t halfSize = _unsorted.size() / 2;
-// 	for (size_t i = 0; i < halfSize; i++)
-// 	{
-// 		unsigned int large = std::max(_unsorted[i], _unsorted[i + halfSize]);
-// 		unsigned int small = std::min(_unsorted[i], _unsorted[i + halfSize]);
 
-// 		_sorted.push_back(std::pair<unsigned int, unsigned int>(large, small));
-// 	}
-// 	if (_unsorted.size() % 2 == 1)
-// 		_remainder = _unsorted.back();
-// }
 
-// void PmergeMe::makeChains(const pChain_t& orgChain, pChain_t& mainChain, pChain_t& pendingChain)
-// {
-// 	size_t halfSize = orgChain.size() / 2;
-// 	for (size_t i = 0; i < halfSize; i++)
-// 	{
-// 		pUintUint_t large = (orgChain[i].first >= orgChain[i + halfSize].first ? orgChain[i] : orgChain[i + halfSize]);
-// 		pUintUint_t small = (orgChain[i].first >= orgChain[i + halfSize].first ? orgChain[i + halfSize] : orgChain[i]);
-
-// 		mainChain.push_back(large);
-// 		pendingChain.push_back(small);
-// 	}
-// 	if (orgChain.size() % 2 == 1)
-// 		pendingChain.push_back(orgChain.back());
-// }
+//(0 ,2^n -1)
 
 
 
-// size_t PmergeMe::getInsertSize(const size_t& mainSize, const size_t& pendingSize)
-// {
-// 	size_t jacobsthal = 0;
-// 	size_t ret;
-// 	int n = 1;
 
-// 	while (jacobsthal <= mainSize)
-// 	{
-// 		jacobsthal = (pow(2, n) - pow(-1, n)) / 3;
-// 		++n;
-// 	}
-// 	//debug
-// 	//std::cout << "inside jacob : " << jacobsthal << std::endl;
-// 	ret = jacobsthal - mainSize;
-// 	return (ret <= pendingSize ? ret : pendingSize);
-// }
+//5 1 4 3 10 9 8 7 18 17
+//4 3 5 1 10 9      8 7 18 17
 
-// int PmergeMe::binarySearch(pChain_t& mainChain, const unsigned int& value, const int& rightLimit)
-// {
-// 	int left = 0;
-// 	int right = rightLimit;
-// 	int mid;
 
-// 	//std::cout << "rightlimit : " << rightLimit << std::endl;
-// 	while (left <= right)
-// 	{
-// 		mid = (left + right) / 2;
-// 		if (value > mainChain[mid].first)
-// 			left = mid + 1;
-// 		else
-// 			right = mid - 1;
-// 	}
-// 	//std::cout << "ret : " << left << std::endl;
-// 	return left;
-// }
+//1 3 2 5 4 11 10 9 8 7 6
 
-// void PmergeMe::binaryInsertion(pChain_t& mainChain, pChain_t& pendingChain, const int& offset, const int& rightLimit)
-// {
-// 	int insertPos = binarySearch(mainChain, pendingChain[offset].first, rightLimit);
-// 	mainChain.insert(mainChain.begin() + insertPos, pendingChain[offset]);
-// 	//printPChain_t("insertionING : ", mainChain);
-// }
+//실제 삽입한 원소 수 + 자기 인덱스 - 1= 탐색 범위의 끝
 
-// void PmergeMe::binaryInsertionPendings(pChain_t& orgChain)
-// {
-// 	//TODO :: apply Jacobsthal
-// 	pChain_t temp = orgChain;
-// 	int repeat = orgChain.size() - 1;
-// 	for (; repeat >= 0; repeat--)
-// 	{
-// 		int right = (_remainder ? temp.size() - 2 : temp.size() - 1);
-// 		//std::cout << "repeat : " << repeat << std::endl;
-// 		int left = 0;
-// 		int mid;
+//1 - >0 / 3 -> 1 + 2 = 3 / 2 -> 2 + 2 - 1 = 3
 
-// 		//std::cout << "rightlimit : " << rightLimit << std::endl;
-// 		while (left <= right)
-// 		{
-// 			mid = (left + right) / 2;
-// 			//std::cout << "temp[repeat] : " << temp[repeat].second << std::endl;
-// 			if (temp[repeat].second > orgChain[mid].first)
-// 				left = mid + 1;
-// 			else
-// 				right = mid - 1;
-// 		}
-// 		orgChain.insert(orgChain.begin() + left, std::pair<unsigned int, unsigned int>(temp[repeat].second, 0));
-// 		//printPChain_t("ret : ", orgChain);
-// 	}
-// }
 
-// void PmergeMe::mergeInsertion(chain_t& orgChain)
-// {
-// 	//TODO :: 1. swap pendingChain too
-// 	//TODO :: 2. modify getInsertSize
-// 	// remain pendings = present size - half size;
-// 	pChain_t mainChain;
-// 	pChain_t pendingChain;
-
-// 	if (orgChain.size() == 1)
-// 		return ;
-// 	makeChains(orgChain, mainChain, pendingChain);
-// 	mergeInsertion(mainChain);
-
-// 	//debug
-// 	//std::cout << std::endl;
-// 	//printPChain_t("orgChain", orgChain);
-// 	//printPChain_t("mainChain", mainChain);
-// 	//printPChain_t("pendingChain", pendingChain);
-
-// 	while (pendingChain.size())
-// 	{
-// 		const int rightLimit = mainChain.size() - 1; //TODO::is it correct??? ㅇㅑ코ㅂ스탈 수열이 필요없다고 한 이유가 혹시 자기 메인체인 앞에값까지만 비교하면 어차피 비교횟수 최대 n이 보장되기 때문인가?
-// 		int insertSize = getInsertSize(mainChain.size(), pendingChain.size());
-// 		int offset = insertSize - 1;
-
-// 		//deubg
-// 		//std::cout << "insertSize : " << insertSize << std::endl;
-// 		for (; offset >= 0; offset--)
-// 			binaryInsertion(mainChain, pendingChain, offset, rightLimit);
-
-// 		pendingChain.erase(pendingChain.begin(), pendingChain.begin() + insertSize);
-
-// 		//printPChain_t("mainChain here", mainChain);
-// 		//printPChain_t("pendingChain here", pendingChain);
-// 	}
-
-// 	orgChain = mainChain;
-// }
+//9

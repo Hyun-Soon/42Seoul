@@ -10,8 +10,8 @@ class PmergeMe
 {
 	private:
 		chain_t _unsorted;
-        chain_t _sorted;
-        int _maxLevel;
+		chain_t _sorted;
+		int _maxLevel;
 
 	public:
 		PmergeMe();
@@ -21,15 +21,11 @@ class PmergeMe
 
 		int sort(char** elements, size_t elemSize);
 		int parseElements(char** elements, size_t elemSize);
-        int getMaxLevel();
-        void swapChain(chain_t& orgChain, size_t idx, size_t cmpOffset, size_t halfSize);
+		int getMaxLevel();
+		void swapChain(chain_t& orgChain, size_t idx, size_t cmpOffset);
 		void mergeInsertion(chain_t& orgChain, int level);
-        void binaryInsertion(chain_t& orgChain, size_t chainSize);
-
-		// void splitByValue();
-		// void makeChains(const pChain_t& orgChain, pChain_t& mainChain, pChain_t& pendingChain);
-		// size_t getInsertSize(const size_t& mainSize, const size_t& pendingSize);
-		// void binaryInsertion(pChain_t& mainChain, pChain_t& pendingChain, const int& offset, const int& rightLimit);
-		// int binarySearch(pChain_t& mainChain, const unsigned int& value, const int& rightLimit);
-		// void binaryInsertionPendings(pChain_t& orgChain);
+		void insertChain(chain_t& mainChain, chain_t& orgChain, int insertPos, int pendingSize, int presentPendingIdx);
+		int binarySearch(chain_t& orgChain, const unsigned int value, int rightLimit, int pendingSize);
+		chain_t binaryInsertion(chain_t& orgChain, int pairedPendingCnt, int remainPendingCnt, size_t pendingSize);
+		int getJacobsthal(int n, int pendingCnt);
 };
