@@ -30,7 +30,10 @@ void RPN::calculate(std::string expression)
 		if (expression[i] >= '0' && expression[i] <= '9')
 			temp += expression[i];
 		else if (_stk.size() >= 2 && (expression[i] == '+' || expression[i] == '-' || expression[i] == '*' || expression[i] == '/'))
-			arithmetic(expression[i]);
+		{
+			if (arithmetic(expression[i]))
+				return ;
+		}
 		else if (expression[i] == ' ')
 		{
 			if (temp.length())
@@ -56,7 +59,7 @@ void RPN::calculate(std::string expression)
 		_stk.pop();
 }
 
-void RPN::arithmetic(char oper)
+int RPN::arithmetic(char oper)
 {
 	int operand1;
 	int operand2;
@@ -75,7 +78,15 @@ void RPN::arithmetic(char oper)
 	else if (oper == '*')
 		ret = operand1 * operand2;
 	else
+	{
+		if (operand2 == 0)
+		{
+			std::cout << "Error: divided by zero" << std::endl;
+			return 1;
+		}
 		ret = operand1 / operand2;
+	}
 	
 	_stk.push(ret);
+	return 0;
 }

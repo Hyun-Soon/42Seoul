@@ -14,5 +14,5 @@ class RPN
 		RPN operator=(const RPN& other);
 		~RPN();
 		void calculate(std::string expression);
-		void arithmetic(char oper);
+		int arithmetic(char oper);
 };
