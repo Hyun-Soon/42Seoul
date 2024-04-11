@@ -1,8 +1,8 @@
-#include "PmergeMeFinal.hpp"
+#include "PmergeMe.hpp"
 
 void printUintVec_t(std::string msg, uintVec_t v)
 {
-	std::cout << msg << " : ";
+	std::cout << msg << "	: ";
 	for (size_t i = 0; i < v.size(); i++)
 		std::cout << v[i] << " ";
 	std::cout << std::endl;	
@@ -52,7 +52,12 @@ int PmergeMe::getMaxLevel()
 	return cnt;
 }
 
-int PmergeMe::sort(char** elements, size_t elemSize)
+int PmergeMe::getSize()
+{
+	return _sorted.size();
+}
+
+int PmergeMe::sort(char **elements, size_t elemSize)
 {
 	if (parseElements(elements, elemSize) == 1)
 		return 1;
@@ -62,8 +67,8 @@ int PmergeMe::sort(char** elements, size_t elemSize)
 	mergeInsertion(_sorted, _sorted.size(), 1);
 
 	std::cout << std::endl << std::endl;
-	printUintVec_t("before", _unsorted);
-	printUintVec_t("after", _sorted);
+	printUintVec_t("Before", _unsorted);
+	printUintVec_t("After", _sorted);
 	return 0;
 }
 
@@ -99,8 +104,8 @@ chains_t PmergeMe::binaryInsertion(uintVec_t& orgChain, size_t truncatedChainSiz
 			mainChain.push_back(temp);
 	}
 	
-	printChainsHead("mainChain", mainChain);
-	printChainsHead("pendingChain", pendingChain);
+	//printChainsHead("mainChain", mainChain);
+	//printChainsHead("pendingChain", pendingChain);
 
 	int remainIdx = pendingChain.size() - 1;
 
@@ -113,10 +118,10 @@ chains_t PmergeMe::binaryInsertion(uintVec_t& orgChain, size_t truncatedChainSiz
 		for (int idx = jacobsthalIdx; idx > beforeJacobsthalIdx; idx--)
 		{
 			int rightLimit;
-			if (remainFlag && jacobsthalIdx == remainIdx)
+			if (remainFlag && idx == remainIdx)
 				rightLimit = mainChain.size() - 1;
 			else
-				rightLimit = jacobsthalIdx;
+				rightLimit = beforeJacobsthalIdx + jacobsthalIdx;
 			int pos = binarySearch(mainChain, pendingChain[idx][0], rightLimit);
 			mainChain.insert(mainChain.begin() + pos, pendingChain[idx]);
 
@@ -124,6 +129,8 @@ chains_t PmergeMe::binaryInsertion(uintVec_t& orgChain, size_t truncatedChainSiz
 			//if (chainSize == 1)
 			//{
 			//	std::cout << std::endl;
+			//	std::cout << "rightLimit : " << rightLimit << std::endl;
+			//	std::cout << "pos : " << pos << std::endl;
 			//	printChainsHead("insertion ING", mainChain);
 			//}
 		}
@@ -133,8 +140,8 @@ chains_t PmergeMe::binaryInsertion(uintVec_t& orgChain, size_t truncatedChainSiz
 
 
 
-	printChainsHead("insertion result", mainChain);
-	return mainChain;//
+	//printChainsHead("insertion result", mainChain);
+	return mainChain;
 }
 
  int PmergeMe::binarySearch(chains_t& mainChain, const unsigned int value, int rightLimit)
@@ -146,7 +153,9 @@ chains_t PmergeMe::binaryInsertion(uintVec_t& orgChain, size_t truncatedChainSiz
  	while (left <= right)
  	{
  		mid = (left + right) / 2;
- 		if (value > mainChain[mid][0])
+		if (value == mainChain[mid][0])
+			return mid;
+ 		else if (value > mainChain[mid][0])
  			left = mid + 1;
  		else
  			right = mid - 1;
@@ -173,16 +182,16 @@ void PmergeMe::mergeInsertion(uintVec_t& orgChain, size_t truncatedChainSize, in
 			swapChain(orgChain, idx, chainSize);
 	}
 
-	std::cout << "\033[1;31m" << "level : " << level << "\033[0;0m" << std::endl;
-	std::cout << "chainSize : " << chainSize << std::endl;
-	std::cout << "chainSizeToMake : " << chainSizeToMake << std::endl;
-	printUintVec_t("merge", orgChain);
-	std::cout << std::endl;
+	//std::cout << "\033[1;31m" << "level : " << level << "\033[0;0m" << std::endl;
+	//std::cout << "chainSize : " << chainSize << std::endl;
+	//std::cout << "chainSizeToMake : " << chainSizeToMake << std::endl;
+	//printUintVec_t("merge", orgChain);
+	//std::cout << std::endl;
 
 	mergeInsertion(orgChain, truncatedChainSize - (truncatedChainSize % chainSizeToMake), level + 1);
 
-	std::cout << std::endl;
-	std::cout << "\033[1;33m" << "level : " << level << "\033[0;0m" << std::endl;
+	//std::cout << std::endl;
+	//std::cout << "\033[1;33m" << "level : " << level << "\033[0;0m" << std::endl;
 
 	chains_t ret = binaryInsertion(orgChain, truncatedChainSize, chainSize);
 
@@ -191,17 +200,11 @@ void PmergeMe::mergeInsertion(uintVec_t& orgChain, size_t truncatedChainSize, in
 			orgChain[i * chainSize + j] = ret[i][j];
 
 	//printUintVec_t("orgChain", orgChain);
-
-
-
-
-
-
 	return ;
 }
 
 int PmergeMe::getJacobsthal(int n, int pendingCnt)
-{	// n = 0 -> 0 | n = 1 -> 1
+{
 	int jacobsthal = (pow(2, n) - pow(-1, n)) / 3;
 	return (jacobsthal <= pendingCnt ? jacobsthal : pendingCnt);
 }

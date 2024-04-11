@@ -1,4 +1,4 @@
-#include "PmergeMeFinal.hpp"
+#include "PmergeMe.hpp"
 
 int main(int argc, char** argv)
 {
@@ -8,25 +8,19 @@ int main(int argc, char** argv)
 		return 1;
 	}
 
+
+
 	PmergeMe test;
 
-	//chain_t v;
-	//v.push_back(2);
-	//v.push_back(1);
-	//chain_t f;
-	//f.push_back(2);
-
-	//if (v > f)
-	//	std::cout << "1" << std::endl;
-	//else
-	//	std::cout << "2" << std::endl;
-
-
+	clock_t start = clock();
 	if (test.sort(argv + 1, argc - 1) == 1)
 	{
 		std::cerr << "Error: Wrong input." << std::endl;
 		return 1;
 	}
 
+	clock_t end = clock();
+	double time = (static_cast<double>(end - start)) / 1000.0;
+	std::cout << "Time to process a range of " << test.getSize() << " elements with std::vector : " << time << " us" << std::endl;
 	return 0;
 }
