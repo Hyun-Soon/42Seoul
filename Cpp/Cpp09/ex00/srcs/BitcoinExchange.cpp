@@ -38,7 +38,17 @@ bool BitcoinExchange::isValidDate(std::string inputKey) const
 		{
 			if (month == 2)
 			{
-				if (month % 4 == 0 && month % 100 != 0 && month % 400 == 0)
+				if (year % 4 == 0 && year % 100 == 0 && year % 400 == 0)
+				{
+					if (day > 29)
+						return false;
+				}
+				else if (year % 4 == 0 && year % 100 == 0)
+				{
+					if (day > 28)
+						return false;
+				}
+				else if (year % 4 == 0)
 				{
 					if (day > 29)
 						return false;
@@ -116,7 +126,7 @@ float BitcoinExchange::findExchangeRate(std::string inputKey)
 			return (--it)->second;
 		}
 	}
-	return -1.f;
+	return (_mp.rbegin()->second);
 }
 
 void BitcoinExchange::printResult(std::string inputFilename)
@@ -142,10 +152,10 @@ void BitcoinExchange::printResult(std::string inputFilename)
 
 				if (isValidDate(inputDate) == false)
 					ss << "Error: invalid date\n";
-				else if (exchangeRate == -1.f || isValidCnt(strCnt) == false)
-					ss << "Error: bad input => " << line << '\n';
 				else if (inputCnt < 0)
 					ss << "Error: not a positive number.\n";
+				else if (isValidCnt(strCnt) == false)
+					ss << "Error: bad input => " << line << '\n';
 				else if (inputCnt > 1000.f)
 					ss << "Error: too large a number.\n";
 				else

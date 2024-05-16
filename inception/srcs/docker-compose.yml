@@ -1,0 +1,75 @@
+version: "3" #version of docker compose
+
+services: #regarding -d and --rm option by default
+  mariadb:
+    init: true
+    pull_policy: never
+    image: "mariadb:mymariadb"
+    build: ./requirements/mariadb
+    volumes:
+      - db_volume:/var/lib/mysql/
+    env_file:
+      - ./.env
+    container_name: mariadb
+    networks: #docker compose insert all services in one network by default
+      - inception
+    restart: always
+
+  wordpress:
+    init: true
+    pull_policy: never
+    image: "wordpress:mywordpress"
+    build: ./requirements/wordpress
+    volumes:
+      - web_volume:/var/www/wordpress
+    env_file:
+      - ./.env
+    depends_on:
+      - mariadb
+    container_name: wordpress
+    networks:
+      - inception
+    restart: always
+    #build:
+    #  context: ./backend
+    #  dockerfile: Dockerfile
+
+  nginx:
+    init: true
+    pull_policy: never
+    image: "nginx:mynginx"
+    build:
+      ./requirements/nginx
+    ports:
+      - "443:443"
+    volumes:
+      - web_volume:/var/www/wordpress
+    stdin_open: true #for interactive
+    tty: true #for interactive
+    depends_on:
+      - wordpress
+    container_name: nginx
+    networks:
+      - inception
+    restart: always
+    
+volumes:
+  web_volume:
+    driver: "local"
+    driver_opts:
+      type: none
+      o: bind
+      device: "/home/hyuim/data/phps"
+    name: web_volume
+  db_volume:
+    driver: "local"
+    driver_opts:
+      type: none
+      o: bind
+      device: "/home/hyuim/data/DB"
+    name: db_volume
+
+networks:
+  inception:
+    driver: bridge
+    name: inception
